@@ -10,7 +10,8 @@
     <div class="container mx-auto p-5">
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Devinez le personnage historique</h2>
 
-        <div class="bg-white shadow-md rounded-lg p-6">
+        <!-- Formulaire de recherche-->
+        <div class="bg-white p shadow-md rounded-lg p-6">
             <form action="#" th:action="@{/verifierReponse}" method="post">
                 <div class="relative mb-4">
                     <input type="text" id="searchInput" name="reponse" class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tapez pour rechercher un personnage..." autocomplete="off" required>
@@ -19,6 +20,22 @@
                 <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 rounded-lg hover:bg-blue-600 transition duration-200">Valider</button>
             </form>
         </div>
+
+         <!-- Tableau des réponses-->
+        <div class="mt-6 bg-blue-200 shadow-md rounded-lg p-6">
+            <h3 class="text-xl font-semibold text-gray-700 mb-4">Vos pronos</h3>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr id="headerRow">
+                        <th class="p-3 border-b-2">Nom</th>
+                        <th class="p-3 border-b-2">Domaine</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsTable">
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
     <script>
