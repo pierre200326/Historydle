@@ -10,9 +10,11 @@ public class DataInitializer implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(DataInitializer.class);
     private final PersonnageRepository personnageRepository;
+    private final ReponseController reponseController;
 
-    public DataInitializer(PersonnageRepository personnageRepository) {
+    public DataInitializer(PersonnageRepository personnageRepository, ReponseController reponseController) {
         this.personnageRepository = personnageRepository;
+        this.reponseController = reponseController;
     }
 
     @Override
@@ -29,6 +31,11 @@ public class DataInitializer implements CommandLineRunner {
         } else {
             logger.info("La base de données contient déjà des personnages.");
         }
+
         personnageRepository.findAll().forEach(p -> System.out.println("Personnage : " + p.getNom()));
+        
+        // Appelle la méthode pour obtenir une réponse aléatoire et l'affiche dans la console
+        Personnage reponseDuJour = reponseController.getReponseDuJour();
+        System.out.println("La réponse du jour est : " + reponseDuJour.getNom() + ", Domaine: " + reponseDuJour.getDomaine());
     }
 }

@@ -10,8 +10,8 @@
     <div class="container mx-auto p-5">
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Devinez le personnage historique</h2>
 
-        <!-- Formulaire de recherche-->
-        <div class="bg-white p shadow-md rounded-lg p-6">
+        <!-- Formulaire de recherche -->
+        <div class="bg-white shadow-md rounded-lg p-6">
             <form action="#" th:action="@{/verifierReponse}" method="post">
                 <div class="relative mb-4">
                     <input type="text" id="searchInput" name="reponse" class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tapez pour rechercher un personnage..." autocomplete="off" required>
@@ -21,21 +21,24 @@
             </form>
         </div>
 
-         <!-- Tableau des réponses-->
+        <!-- Tableau des réponses -->
         <div class="mt-6 bg-blue-200 shadow-md rounded-lg p-6">
             <h3 class="text-xl font-semibold text-gray-700 mb-4">Vos pronos</h3>
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr id="headerRow">
+                    <tr>
                         <th class="p-3 border-b-2">Nom</th>
                         <th class="p-3 border-b-2">Domaine</th>
                     </tr>
                 </thead>
                 <tbody id="resultsTable">
+                    <tr th:each="result : ${resultats}">
+                        <td th:text="${result.nom}" th:class="${result.nomCorrect ? 'text-green-500' : 'text-red-500'}"></td>
+                        <td th:text="${result.domaine}" th:class="${result.domaineCorrect ? 'text-green-500' : 'text-red-500'}"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-
     </div>
 
     <script>
@@ -44,10 +47,8 @@
 
         searchInput.addEventListener('input', function() {
             const query = this.value;
-
-            // Vider les suggestions précédentes
             suggestionsBox.innerHTML = '';
-            suggestionsBox.classList.add('hidden'); // Cacher la boîte de suggestions si aucune suggestion
+            suggestionsBox.classList.add('hidden');
 
             if (query.length > 0) {
                 fetch(`/autocomplete?query=${query}`)
@@ -59,14 +60,13 @@
                             suggestionItem.textContent = suggestion;
                             suggestionsBox.appendChild(suggestionItem);
 
-                            // Remplir la barre de recherche en cliquant sur une suggestion
                             suggestionItem.addEventListener('click', function() {
                                 searchInput.value = suggestion;
-                                suggestionsBox.innerHTML = ''; // Vider les suggestions
-                                suggestionsBox.classList.add('hidden'); // Cacher la boîte de suggestions
+                                suggestionsBox.innerHTML = '';
+                                suggestionsBox.classList.add('hidden');
                             });
                         });
-                        suggestionsBox.classList.remove('hidden'); // Afficher la boîte de suggestions
+                        suggestionsBox.classList.remove('hidden');
                     })
                     .catch(error => console.error('Erreur:', error));
             }
