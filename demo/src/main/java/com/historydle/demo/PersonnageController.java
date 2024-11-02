@@ -24,11 +24,6 @@ public class PersonnageController {
 
     private final List<Map<String, Object>> resultats = new ArrayList<>();
 
-    @GetMapping("/")
-    public String accueil() {
-        return "index";
-    }
-
     @GetMapping("/jouer")
     public String jouer(Model model) {
         model.addAttribute("resultats", resultats);
@@ -47,7 +42,7 @@ public class PersonnageController {
     }
 
     @PostMapping("/verifierReponse")
-public String verifierReponse(@RequestParam("reponse") String reponseUtilisateur, Model model) {
+    public String verifierReponse(@RequestParam("reponse") String reponseUtilisateur, Model model) {
     // Récupérer le personnage correspondant au nom saisi par l'utilisateur
     Personnage personnageUtilisateur = personnageRepository.findByNomIgnoreCase(reponseUtilisateur);
 
