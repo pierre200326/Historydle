@@ -19,23 +19,23 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Ajoute des personnages en base de données si la base est vide
+        // Add characters to the database if empty
         if (personnageRepository.count() == 0) {
-            personnageRepository.save(new Personnage("Napoléon Bonaparte", "Politicien"));
-            personnageRepository.save(new Personnage("Leonardo da Vinci", "Artiste"));
-            personnageRepository.save(new Personnage("Cléopâtre", "Reine"));
-            personnageRepository.save(new Personnage("Galilée", "Scientifique"));
-            personnageRepository.save(new Personnage("Mozart", "Musicien"));
-            personnageRepository.save(new Personnage("Einstein", "Scientifique"));
+            personnageRepository.save(new Personnage("Napoléon Bonaparte", "Homme", "France", "Europe", "Politicien", "18e-19e siècle"));
+            personnageRepository.save(new Personnage("Leonardo da Vinci", "Homme", "Italie", "Europe", "Artiste", "15e-16e siècle"));
+            personnageRepository.save(new Personnage("Cléopâtre", "Femme", "Égypte", "Afrique", "Reine", "1er siècle av. J.-C."));
+            personnageRepository.save(new Personnage("Galilée", "Homme", "Italie", "Europe", "Scientifique", "16e-17e siècle"));
+            personnageRepository.save(new Personnage("Mozart", "Homme", "Autriche", "Europe", "Musicien", "18e siècle"));
+            personnageRepository.save(new Personnage("Einstein", "Homme", "Allemagne", "Europe", "Scientifique", "19e-20e siècle"));
             logger.info("Les personnages ont été ajoutés à la base de données.");
         } else {
             logger.info("La base de données contient déjà des personnages.");
         }
 
         personnageRepository.findAll().forEach(p -> System.out.println("Personnage : " + p.getNom()));
-        
-        // Appelle la méthode pour obtenir une réponse aléatoire et l'affiche dans la console
+
+        // Display today's answer in the console
         Personnage reponseDuJour = reponseController.getReponseDuJour();
-        System.out.println("La réponse du jour est : " + reponseDuJour.getNom() + ", Domaine: " + reponseDuJour.getDomaine());
+        System.out.println("La réponse du jour est : " + reponseDuJour.getNom() + ", Domaine: " + reponseDuJour.getDomaine() + ", Genre: " + reponseDuJour.getGenre());
     }
 }

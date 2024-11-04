@@ -30,6 +30,7 @@ public class PersonnageController {
         return "jouer";
     }
 
+
     @GetMapping("/autocomplete")
     @ResponseBody
     public List<String> autocomplete(@RequestParam("query") String query) {
@@ -56,22 +57,47 @@ public class PersonnageController {
         // Récupérer les attributs du personnage de l'utilisateur
         String nomUtilisateur = personnageUtilisateur.getNom();
         String domaineUtilisateur = personnageUtilisateur.getDomaine();
+        String genreUtilisateur = personnageUtilisateur.getGenre();
+        String paysUtilisateur=personnageUtilisateur.getPays();
+        String continentUtilisateur = personnageUtilisateur.getContinent();
+        String periodeUtilisateur = personnageUtilisateur.getPeriode();
+
 
         // Comparer avec la réponse du jour
         boolean nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
         boolean domaineCorrect = reponseDuJour.getDomaine().equalsIgnoreCase(domaineUtilisateur);
+        boolean genreCorrect = reponseDuJour.getGenre().equalsIgnoreCase(genreUtilisateur);
+        boolean paysCorrect = reponseDuJour.getPays().equalsIgnoreCase(paysUtilisateur);
+        boolean continentCorrect = reponseDuJour.getContinent().equalsIgnoreCase(continentUtilisateur);
+        boolean periodeCorrect = reponseDuJour.getPeriode().equalsIgnoreCase(periodeUtilisateur);
+
+
 
         // Ajouter les résultats à la carte
         resultat.put("nom", nomUtilisateur);
         resultat.put("domaine", domaineUtilisateur);
+        resultat.put("pays", paysUtilisateur);
+        resultat.put("continent", continentUtilisateur);
+        resultat.put("genre", genreUtilisateur);
+        resultat.put("periode", periodeUtilisateur);
+
         resultat.put("nomCorrect", nomCorrect);
         resultat.put("domaineCorrect", domaineCorrect);
+        resultat.put("paysCorrect",paysCorrect);
+        resultat.put("continentCorrect",continentCorrect);
+        resultat.put("genreCorrect",genreCorrect);
+        resultat.put("periodeCorrect",periodeCorrect);
+
     } else {
         // Si le personnage n'est pas trouvé, gérer ce cas
         resultat.put("nom", reponseUtilisateur);
         resultat.put("domaine", "Personnage non trouvé");
         resultat.put("nomCorrect", false);
         resultat.put("domaineCorrect", false);
+        resultat.put("paysCorrect", false);
+        resultat.put("continentCorrect", false);
+        resultat.put("genreCorrect", false);
+        resultat.put("periodeCorrect", false);
     }
 
     // Ajouter le résultat à la liste
