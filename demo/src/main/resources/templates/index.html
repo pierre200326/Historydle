@@ -4,14 +4,25 @@
     <title>Jeu Historique</title>
     <!-- Inclusion de Bootstrap pour un design moderne et réactif -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <!-- Inclusion de Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100" style="background-image: url('/bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
+<body class="bg-fixed" style="background-image: url('/civ6.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
     <div class="container text-center mt-5" >
         <!-- Titre principal de la page d'accueil -->
-        <h1 class="display-4">Jeu Historique</h1>
-        <p class="lead">Chaque jour, devinez le personnage historique en utilisant des indices !</p>
+        <h1 class="text-6xl font-extrabold text-center text-gray-900 mb-4">
+            History<span class="text-blue-600">dle</span>
+        </h1>
+        <div class="mt-4 flex justify-center">
+            <p class="text-lg text-white max-w-md text-center">
+                Chaque jour, devinez le personnage historique en utilisant des indices !
+            </p>
+        </div>
 
         <!-- Bouton pour démarrer une nouvelle partie (route /jouer) -->
+        <div class="mt-4 flex justify-center">
+            <img th:src="@{/images/bouttonquote.png}" alt="Bouton-citation" />
+        </div>
         <div class="mt-4">
             <a th:href="@{/jouer}" class="btn btn-primary btn-lg">Démarrer une nouvelle partie</a>
         </div>
