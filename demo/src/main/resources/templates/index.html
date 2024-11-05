@@ -2,36 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Jeu Historique</title>
-    <!-- Inclusion de Bootstrap pour un design moderne et réactif -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <!-- Inclusion de Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-fixed" style="background-image: url('/civ6.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
-    <div class="container text-center mt-5" >
+<body class="bg-fixed bg-cover bg-center min-h-screen" style="background-image: url('/civ6.jpg');">
+    <div class="container mx-auto text-center mt-16">
         <!-- Titre principal de la page d'accueil -->
-        <h1 class="text-6xl font-extrabold text-center text-gray-900 mb-4">
+        <h1 class="text-6xl font-extrabold text-gray-900 mb-6">
             History<span class="text-blue-600">dle</span>
         </h1>
         <div class="mt-4 flex justify-center">
-            <p class="text-lg text-white max-w-md text-center">
+            <p class="text-lg text-white max-w-md">
                 Chaque jour, devinez le personnage historique en utilisant des indices !
             </p>
         </div>
 
         <!-- Bouton pour démarrer une nouvelle partie (route /jouer) -->
-        <div class="mt-4 flex justify-center">
-            <img th:src="@{/images/bouttonquote.png}" alt="Bouton-citation" />
+        <div class="mt-10 flex justify-center">
+            <img th:src="@{/images/bouttonquote.png}" alt="Bouton-citation" class="h-12 w-auto" />
         </div>
-        <div class="mt-4">
-            <a th:href="@{/jouer}" class="btn btn-primary btn-lg">Démarrer une nouvelle partie</a>
+        <div class="mt-8">
+            <a th:href="@{/jouer}" class="bg-blue-600 text-white text-lg font-semibold py-3 px-6 rounded-lg hover:bg-blue-700">
+                Démarrer une nouvelle partie
+            </a>
         </div>
-        <div class="mt-4">
-            <a th:href="@{/citation}" class="btn btn-primary btn-lg">Démarrer une nouvelle partie</a>
+        <div class="mt-8">
+            <a th:href="@{/citation}" class="bg-blue-600 text-white text-lg font-semibold py-3 px-6 rounded-lg hover:bg-blue-700">
+                Démarrer une nouvelle partie
+            </a>
         </div>
+        
         <!-- Bouton pour voir la liste des personnages historiques (route /personnages) -->
-        <div class="mt-2">
-            <a th:href="@{/personnages}" class="btn btn-secondary">Voir la liste des personnages</a>
+        <div class="mt-12">
+            <a th:href="@{/personnages}" class="bg-gray-500 text-white py-2 px-5 rounded-lg text-base font-medium hover:bg-gray-600">
+                Voir la liste des personnages
+            </a>
         </div>
     </div>
 </body>
