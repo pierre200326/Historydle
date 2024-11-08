@@ -25,7 +25,7 @@ public class DataInitializer implements CommandLineRunner {
             personnageRepository.save(new Personnage("Leonardo da Vinci", "Homme", "Italie", "Europe", "Artiste", "15e-16e siècle","test2"));
             personnageRepository.save(new Personnage("Cléopâtre", "Femme", "Égypte", "Afrique", "Reine", "1er siècle av. J.-C.","test3"));
             personnageRepository.save(new Personnage("Galilée", "Homme", "Italie", "Europe", "Scientifique", "16e-17e siècle","test4"));
-            personnageRepository.save(new Personnage("Einstein", "Homme", "Allemagne", "Europe", "Scientifique", "19e-20e siècle","test6"));
+            personnageRepository.save(new Personnage("Einstein", "Homme", "Allemagne", "Europe", "Scientifique", "19e-20e siècle","test5"));
             logger.info("Les personnages ont été ajoutés à la base de données.");
         } else {
             logger.info("La base de données contient déjà des personnages.");
