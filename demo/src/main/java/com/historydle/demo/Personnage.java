@@ -24,7 +24,7 @@ public class Personnage {
 
     public Personnage() {}
 
-        public Personnage(String nom, String genre, String pays, String continent, String domaine, String periode) {
+        public Personnage(String nom, String genre, String pays, String continent, String domaine, String periode, String citation) {
             this.nom = nom;
             this.genre = genre;
             this.pays = pays;
@@ -59,4 +59,4 @@ public class Personnage {
     public String getCitation() { return citation;}
     public void setCitation(String citation) {this.citation=citation;}
 }
-}
+
