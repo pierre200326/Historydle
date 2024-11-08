@@ -25,18 +25,20 @@ public class Personnage {
     private String continent;
     private String domaine;
     private String periode;
+    public String citation;
 
     // Constructeur par défaut requis par JPA.
     public Personnage() {}
 
     // Constructeur pour initialiser un personnage avec nom et domaine.
-    public Personnage(String nom,String genre, String pays, String continent, String domaine,String periode) {
+    public Personnage(String nom,String genre, String pays, String continent, String domaine,String periode, String citation) {
         this.nom = nom;
         this.genre=genre;
         this.pays=pays;
         this.continent=continent;
         this.domaine =domaine;
         this.periode=periode;
+        this.citation=citation;
     }
 
     // Getters et setters pour chaque attribut.
@@ -60,4 +62,7 @@ public class Personnage {
 
     public String getPeriode() { return periode;}
     public void setPeriode(String periode) {this.periode=periode;}
+
+    public String getCitation() { return citation;}
+    public void setCitation(String citation) {this.citation=citation;}
 }

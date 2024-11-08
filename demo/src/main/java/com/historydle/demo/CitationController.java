@@ -27,6 +27,13 @@ public class CitationController {
     @GetMapping("/citation")
     public String citation(Model model) {
         model.addAttribute("resultats", resultats);
+        // Obtenir la citation du personnage à deviner
+        Personnage reponseDuJour = reponseController.getReponseDuJour();
+        if (reponseDuJour != null) {
+            model.addAttribute("citation", reponseDuJour.getCitation());
+        } else {
+            model.addAttribute("citation", "Pas de citation disponible pour aujourd'hui.");
+        }
         return "citation";
     }
 
@@ -41,36 +48,37 @@ public class CitationController {
         return suggestions;
     }
 
+
     @PostMapping("/verifierReponseCitation")
-public String verifierReponseCitation(@RequestParam("reponse") String reponseUtilisateur, Model model) {
-    Personnage personnageUtilisateur = personnageRepository.findByNomIgnoreCase(reponseUtilisateur);
+    public String verifierReponseCitation(@RequestParam("reponse") String reponseUtilisateur, Model model) {
+        Personnage personnageUtilisateur = personnageRepository.findByNomIgnoreCase(reponseUtilisateur);
 
-    // Récupérer la réponse du jour
-    Personnage reponseDuJour = reponseController.getReponseDuJour();
+        // Récupérer la réponse du jour
+        Personnage reponseDuJour = reponseController.getReponseDuJour();
 
-    // Créer une carte pour stocker les résultats
-    Map<String, Object> resultat = new HashMap<>();
+        // Créer une carte pour stocker les résultats
+        Map<String, Object> resultat = new HashMap<>();
 
-    if (personnageUtilisateur != null) {
-        // Récupérer les attributs du personnage de l'utilisateur
-        String nomUtilisateur = personnageUtilisateur.getNom();
+        if (personnageUtilisateur != null) {
+            // Récupérer les attributs du personnage de l'utilisateur
+            String nomUtilisateur = personnageUtilisateur.getNom();
 
-        // Comparer avec la réponse du jour
-        boolean nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
+            // Comparer avec la réponse du jour
+            boolean nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
 
-        resultat.put("nom", nomUtilisateur);
-        resultat.put("nomCorrect", nomCorrect);
-    } else {
-        // Si le personnage n'est pas trouvé, gérer ce cas
-        resultat.put("nom", reponseUtilisateur);
-        resultat.put("nomCorrect", false);  // par défaut faux si pas trouvé
+            resultat.put("nom", nomUtilisateur);
+            resultat.put("nomCorrect", nomCorrect);
+        } else {
+            // Si le personnage n'est pas trouvé, gérer ce cas
+            resultat.put("nom", reponseUtilisateur);
+            resultat.put("nomCorrect", false);  // par défaut faux si pas trouvé
+        }
+
+        // Ajouter le résultat à la liste
+        resultats.add(resultat);
+        model.addAttribute("resultats", resultats);
+
+        return "redirect:/citation";
     }
-
-    // Ajouter le résultat à la liste
-    resultats.add(resultat);
-    model.addAttribute("resultats", resultats);
-
-    return "redirect:/citation";
-}
 
 }
