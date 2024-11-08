@@ -21,11 +21,11 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // Add characters to the database if empty
         if (personnageRepository.count() == 0) {
-            personnageRepository.save(new Personnage("Napoléon Bonaparte", "Homme", "France", "Europe", "Politicien", "18e-19e siècle"));
-            personnageRepository.save(new Personnage("Leonardo da Vinci", "Homme", "Italie", "Europe", "Artiste", "15e-16e siècle"));
-            personnageRepository.save(new Personnage("Cléopâtre", "Femme", "Égypte", "Afrique", "Reine", "1er siècle av. J.-C."));
+            personnageRepository.save(new Personnage("bonaparte", "Homme", "France", "Europe", "Politicien", "18e-19e siècle"));
+            personnageRepository.save(new Personnage("Devinci", "Homme", "Italie", "Europe", "Artiste", "15e-16e siècle"));
+            personnageRepository.save(new Personnage("cleopatre", "Femme", "Égypte", "Afrique", "Reine", "1er siècle av. J.-C."));
             personnageRepository.save(new Personnage("Galilée", "Homme", "Italie", "Europe", "Scientifique", "16e-17e siècle"));
-            personnageRepository.save(new Personnage("Mozart", "Homme", "Autriche", "Europe", "Musicien", "18e siècle"));
+            personnageRepository.save(new Personnage("Moctezuma", "Homme", "Autriche", "Europe", "Musicien", "18e siècle"));
             personnageRepository.save(new Personnage("Einstein", "Homme", "Allemagne", "Europe", "Scientifique", "19e-20e siècle"));
             logger.info("Les personnages ont été ajoutés à la base de données.");
         } else {
