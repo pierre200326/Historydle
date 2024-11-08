@@ -17,6 +17,7 @@ public class Personnage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
 
     // Attributs de base : nom et domaine (ex: artiste, politicien).
     private String nom;
