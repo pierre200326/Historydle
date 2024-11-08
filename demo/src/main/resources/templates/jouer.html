@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100" style="background-image: url('/bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
-    <div class="max-w-3xl mx-auto p-6">
+    <div class="max-w-5xl mx-auto p-6">
         <!-- Title -->
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Devinez le personnage historique</h2>
 
@@ -36,6 +36,7 @@
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr>
+                            <th class="p-3 border-b border-gray-300">Portrait</th>
                             <th class="p-3 border-b border-gray-300">Nom</th>
                             <th class="p-3 border-b border-gray-300">Genre</th>
                             <th class="p-3 border-b border-gray-300">Pays</th>
@@ -45,27 +46,31 @@
                         </tr>
                     </thead>
                     <tbody id="resultsTable">
-                        <tr th:each="result : ${resultats}">
-                            <td th:text="${result.nom}" 
-                                th:classappend="${result.nomCorrect ? 'text-green-500' : 'text-red-500'}" 
-                                class="p-3 border-b border-gray-300"></td>
-                            <td th:text="${result.genre}" 
-                                th:classappend="${result.genreCorrect ? 'text-green-500' : 'text-red-500'}" 
-                                class="p-3 border-b border-gray-300"></td>
-                            <td th:text="${result.pays}" 
-                                th:classappend="${result.paysCorrect ? 'text-green-500' : 'text-red-500'}" 
-                                class="p-3 border-b border-gray-300"></td>
-                            <td th:text="${result.continent}" 
-                                th:classappend="${result.continentCorrect ? 'text-green-500' : 'text-red-500'}" 
-                                class="p-3 border-b border-gray-300"></td>
-                            <td th:text="${result.domaine}" 
-                                th:classappend="${result.domaineCorrect ? 'text-green-500' : 'text-red-500'}" 
-                                class="p-3 border-b border-gray-300"></td>
-                            <td th:text="${result.periode}" 
-                                th:classappend="${result.periodeCorrect ? 'text-green-500' : 'text-red-500'}" 
-                                class="p-3 border-b border-gray-300"></td>
+                        <tr th:each="result : ${resultats}" class="space-y-10">
+                            <td class="w-24 h-24 border border-gray-300 text-center">
+                                <img th:src="${result.nom != 'Personnage non trouvé' ? '/Historydle/' + result.nom + '.webp' : ''}"
+                                     alt="Image of ${result.nom}" class="w-full h-full object-cover mx-auto" />
+                            </td>
+                            <td th:text="${result.nom}"
+                                th:classappend="${result.nomCorrect ? 'bg-green-500' : 'bg-red-500'}"
+                                class="w-24 h-24 p-2 border border-gray-300 text-center text-white"></td>
+                            <td th:text="${result.genre}"
+                                th:classappend="${result.genreCorrect ? 'bg-green-500' : 'bg-red-500'}"
+                                class="w-24 h-24 p-2 border border-gray-300 text-center text-white"></td>
+                            <td th:text="${result.pays}"
+                                th:classappend="${result.paysCorrect ? 'bg-green-500' : 'bg-red-500'}"
+                                class="w-24 h-24 p-2 border border-gray-300 text-center text-white"></td>
+                            <td th:text="${result.continent}"
+                                th:classappend="${result.continentCorrect ? 'bg-green-500' : 'bg-red-500'}"
+                                class="w-24 h-24 p-2 border border-gray-300 text-center text-white"></td>
+                            <td th:text="${result.domaine}"
+                                th:classappend="${result.domaineCorrect ? 'bg-green-500' : 'bg-red-500'}"
+                                class="w-24 h-24 p-2 border border-gray-300 text-center text-white"></td>
+                            <td th:text="${result.periode}"
+                                th:classappend="${result.periodeCorrect ? 'bg-green-500' : 'bg-red-500'}"
+                                class="w-24 h-24 p-2 border border-gray-300 text-center text-white"></td>
                         </tr>
-                    </tbody>
+                    </tbody>                                      
                 </table>
             </div>
         </div>
