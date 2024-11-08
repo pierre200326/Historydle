@@ -27,3 +27,7 @@ const searchInput = document.getElementById('searchInput');
                     .catch(error => console.error('Erreur:', error));
             }
         });
+
+
+
+        
