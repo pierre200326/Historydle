@@ -13,7 +13,6 @@ public class Personnage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nom;
     private String genre;
     private String pays;
@@ -21,6 +20,7 @@ public class Personnage {
     private String domaine;
     private String periode;
     private String imageUrl; // New attribute for storing image URL
+    public String citation;
 
     public Personnage() {}
 
@@ -32,6 +32,7 @@ public class Personnage {
             this.domaine = domaine;
             this.periode = periode;
             this.imageUrl = "/Historydle/" + nom + ".webp"; // Remplacer les espaces par des underscores
+            this.citation=citation;
         }
 
     public Long getId() { return id; }
@@ -52,9 +53,10 @@ public class Personnage {
     public String getContinent() { return continent; }
     public void setContinent(String continent) { this.continent = continent; }
 
-    public String getPeriode() { return periode; }
-    public void setPeriode(String periode) { this.periode = periode; }
+    public String getPeriode() { return periode;}
+    public void setPeriode(String periode) {this.periode=periode;}
 
-    
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public String getCitation() { return citation;}
+    public void setCitation(String citation) {this.citation=citation;}
+}
 }
