@@ -58,10 +58,9 @@ public class PersonnageController {
         String nomUtilisateur = personnageUtilisateur.getNom();
         String domaineUtilisateur = personnageUtilisateur.getDomaine();
         String genreUtilisateur = personnageUtilisateur.getGenre();
-        String paysUtilisateur=personnageUtilisateur.getPays();
+        String paysUtilisateur = personnageUtilisateur.getPays();
         String continentUtilisateur = personnageUtilisateur.getContinent();
         String periodeUtilisateur = personnageUtilisateur.getPeriode();
-
 
         // Comparer avec la réponse du jour
         boolean nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
@@ -70,8 +69,6 @@ public class PersonnageController {
         boolean paysCorrect = reponseDuJour.getPays().equalsIgnoreCase(paysUtilisateur);
         boolean continentCorrect = reponseDuJour.getContinent().equalsIgnoreCase(continentUtilisateur);
         boolean periodeCorrect = reponseDuJour.getPeriode().equalsIgnoreCase(periodeUtilisateur);
-
-
 
         // Ajouter les résultats à la carte
         resultat.put("nom", nomUtilisateur);
@@ -83,10 +80,10 @@ public class PersonnageController {
 
         resultat.put("nomCorrect", nomCorrect);
         resultat.put("domaineCorrect", domaineCorrect);
-        resultat.put("paysCorrect",paysCorrect);
-        resultat.put("continentCorrect",continentCorrect);
-        resultat.put("genreCorrect",genreCorrect);
-        resultat.put("periodeCorrect",periodeCorrect);
+        resultat.put("paysCorrect", paysCorrect);
+        resultat.put("continentCorrect", continentCorrect);
+        resultat.put("genreCorrect", genreCorrect);
+        resultat.put("periodeCorrect", periodeCorrect);
 
     } else {
         // Si le personnage n'est pas trouvé, gérer ce cas
@@ -100,11 +97,14 @@ public class PersonnageController {
         resultat.put("periodeCorrect", false);
     }
 
-    // Ajouter le résultat à la liste
-    resultats.add(resultat);
+    // Ajouter le résultat a la fin de la liste pour avoir un affichage inversé
+    resultats.add(0, resultat); 
+    
+    // Ajouter la liste des résultats au modèle
     model.addAttribute("resultats", resultats);
 
     return "redirect:/jouer";
 }
+
 
 }

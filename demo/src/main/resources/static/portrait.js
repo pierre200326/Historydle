@@ -7,7 +7,7 @@ const searchInput = document.getElementById('searchInput');
             suggestionsBox.classList.add('hidden');
 
             if (query.length > 0) {
-                fetch(`/autocomplete?query=${query}`)
+                fetch('/autocompletePortrait?query=${query}')
                     .then(response => response.json())
                     .then(data => {
                         data.forEach(suggestion => {
@@ -27,7 +27,3 @@ const searchInput = document.getElementById('searchInput');
                     .catch(error => console.error('Erreur:', error));
             }
         });
-
-
-
-        
