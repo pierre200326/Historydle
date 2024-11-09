@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Collections;
 
 @Controller
 public class CitationController {
@@ -76,6 +77,7 @@ public class CitationController {
 
         // Ajouter le résultat à la liste
         resultats.add(resultat);
+        Collections.reverse(resultats);
         model.addAttribute("resultats", resultats);
 
         return "redirect:/citation";
