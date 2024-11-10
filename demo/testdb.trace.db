@@ -986,7 +986,11 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: /workspaces/Hist
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 58 more
+<<<<<<< HEAD
+2024-11-08 13:11:25.690438Z database: flush
+=======
 2024-11-08 14:14:58.264341Z database: flush
+>>>>>>> Baptiste
 org.h2.message.DbException: General error: "org.h2.mvstore.MVStoreException: The file is locked: /workspaces/Historydle/demo/testdb.mv.db [2.2.224/7]" [50000-224]
 	at org.h2.message.DbException.get(DbException.java:212)
 	at org.h2.message.DbException.convert(DbException.java:407)
@@ -1097,7 +1101,11 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: /workspaces/Hist
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 92 more
+<<<<<<< HEAD
+2024-11-08 13:11:27.015770Z database: flush
+=======
 2024-11-08 14:14:59.599841Z database: flush
+>>>>>>> Baptiste
 org.h2.message.DbException: General error: "org.h2.mvstore.MVStoreException: The file is locked: /workspaces/Historydle/demo/testdb.mv.db [2.2.224/7]" [50000-224]
 	at org.h2.message.DbException.get(DbException.java:212)
 	at org.h2.message.DbException.convert(DbException.java:407)
@@ -1170,6 +1178,9 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: /workspaces/Hist
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 54 more
+<<<<<<< HEAD
+2024-11-08 13:11:28.577204Z database: flush
+=======
 2024-11-08 14:15:01.183238Z database: flush
 org.h2.message.DbException: General error: "org.h2.mvstore.MVStoreException: The file is locked: /workspaces/Historydle/demo/testdb.mv.db [2.2.224/7]" [50000-224]
 	at org.h2.message.DbException.get(DbException.java:212)
@@ -1435,6 +1446,7 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: /workspaces/Hist
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 54 more
 2024-11-08 14:16:00.666069Z database: flush
+>>>>>>> Baptiste
 org.h2.message.DbException: General error: "org.h2.mvstore.MVStoreException: The file is locked: /workspaces/Historydle/demo/testdb.mv.db [2.2.224/7]" [50000-224]
 	at org.h2.message.DbException.get(DbException.java:212)
 	at org.h2.message.DbException.convert(DbException.java:407)
