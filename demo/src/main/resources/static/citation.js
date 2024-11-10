@@ -27,3 +27,17 @@ const searchInput = document.getElementById('searchInput');
                     .catch(error => console.error('Erreur:', error));
             }
         });
+
+        function lancerConfettis() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Vérifier si l'URL contient le paramètre 'correct=true'
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('correct') === 'true') {
+            lancerConfettis();
+        }

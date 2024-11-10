@@ -59,13 +59,14 @@ public class CitationController {
 
         // Créer une carte pour stocker les résultats
         Map<String, Object> resultat = new HashMap<>();
+        boolean nomCorrect = false;
 
         if (personnageUtilisateur != null) {
             // Récupérer les attributs du personnage de l'utilisateur
             String nomUtilisateur = personnageUtilisateur.getNom();
 
             // Comparer avec la réponse du jour
-            boolean nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
+            nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
 
             resultat.put("nom", nomUtilisateur);
             resultat.put("nomCorrect", nomCorrect);
@@ -79,7 +80,7 @@ public class CitationController {
         resultats.add(0, resultat); 
         model.addAttribute("resultats", resultats);
 
-        return "redirect:/citation";
+        return "redirect:/citation?correct=" + nomCorrect;
     }
 
 }
