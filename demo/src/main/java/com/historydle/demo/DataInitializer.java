@@ -83,7 +83,6 @@ public class DataInitializer implements CommandLineRunner {
             personnageRepository.save(new Personnage("Angela Merkel", "Femme", "Allemagne", "Europe", "Dirigeante", "XXIème", "“Nous réussirons.”"));
             personnageRepository.save(new Personnage("Frida Kahlo", "Femme", "Mexique", "Amérique", "Artiste", "XXème", "“Je peins des fleurs pour qu'elles ne meurent pas.”"));
 
-
             
             logger.info("Les personnages ont été ajoutés à la base de données.");
         } else {
