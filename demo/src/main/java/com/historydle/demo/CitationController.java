@@ -76,8 +76,7 @@ public class CitationController {
         }
 
         // Ajouter le résultat à la liste
-        resultats.add(resultat);
-        Collections.reverse(resultats);
+        resultats.add(0, resultat); 
         model.addAttribute("resultats", resultats);
 
         return "redirect:/citation";

@@ -26,7 +26,7 @@ public class PortraitController {
 
      @GetMapping("/portrait")
     public String portrait(Model model) {
-        
+        model.addAttribute("resultats",resultats);
         Personnage reponseDuJour = reponseController.getReponseDuJour();
         if (reponseDuJour!= null){
             model.addAttribute("portrait", reponseDuJour.getNom());
@@ -81,7 +81,7 @@ public class PortraitController {
     }
 
     // Ajouter le résultat à la liste
-    resultats.add(resultat);
+    resultats.add(0, resultat); 
     model.addAttribute("resultats", resultats);
 
     return "redirect:/portrait";
