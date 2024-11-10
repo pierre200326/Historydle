@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class Reponse {
+public class ReponsePortrait{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +18,9 @@ public class Reponse {
     private LocalDate dateDuJour;
 
     // Constructeur par défaut requis par JPA
-    public Reponse() {}
+    public ReponsePortrait() {}
 
-    public Reponse(Personnage personnage, LocalDate dateDuJour) {
+    public ReponsePortrait(Personnage personnage, LocalDate dateDuJour) {
         this.personnage = personnage;
         this.dateDuJour = dateDuJour;
     }

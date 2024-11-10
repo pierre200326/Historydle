@@ -21,7 +21,7 @@ public class CitationController {
     private PersonnageRepository personnageRepository;
 
     @Autowired
-    private ReponseController reponseController;
+    private ReponseCitationController reponseCitationController;
 
     private final List<Map<String, Object>> resultats = new ArrayList<>();
 
@@ -29,7 +29,7 @@ public class CitationController {
     public String citation(Model model) {
         model.addAttribute("resultats", resultats);
         // Obtenir la citation du personnage à deviner
-        Personnage reponseDuJour = reponseController.getReponseDuJour();
+        Personnage reponseDuJour = reponseCitationController.getReponseDuJour();
         if (reponseDuJour != null) {
             model.addAttribute("citation", reponseDuJour.getCitation());
         } else {
@@ -55,7 +55,7 @@ public class CitationController {
         Personnage personnageUtilisateur = personnageRepository.findByNomIgnoreCase(reponseUtilisateur);
 
         // Récupérer la réponse du jour
-        Personnage reponseDuJour = reponseController.getReponseDuJour();
+        Personnage reponseDuJour = reponseCitationController.getReponseDuJour();
 
         // Créer une carte pour stocker les résultats
         Map<String, Object> resultat = new HashMap<>();

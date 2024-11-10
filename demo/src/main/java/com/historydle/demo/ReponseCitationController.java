@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 @Controller
-public class ReponseController {
+public class ReponseCitationController {
 
     @Autowired
     private PersonnageRepository personnageRepository;
@@ -27,7 +27,7 @@ public class ReponseController {
         List<Personnage> personnages = personnageRepository.findAll();
         if (!personnages.isEmpty()) {
             reponseDuJour = personnages.get(new Random().nextInt(personnages.size()));
-            System.out.println("La réponse du jour est : " + reponseDuJour.getNom() + ", Domaine: " + reponseDuJour.getDomaine());
+            System.out.println("La réponse du jour pour Citation est : " + reponseDuJour.getNom() + ", Domaine: " + reponseDuJour.getDomaine());
         }
     }
 }

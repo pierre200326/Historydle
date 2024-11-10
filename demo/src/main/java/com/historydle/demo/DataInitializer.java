@@ -10,11 +10,15 @@ public class DataInitializer implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(DataInitializer.class);
     private final PersonnageRepository personnageRepository;
-    private final ReponseController reponseController;
+    private final ReponseDevinetteController reponseDevinetteController;
+    private final ReponseCitationController reponseCitationController;
+    private final ReponsePortraitController reponsePortraitController;
 
-    public DataInitializer(PersonnageRepository personnageRepository, ReponseController reponseController) {
+    public DataInitializer(PersonnageRepository personnageRepository, ReponseDevinetteController reponseDevinetteController, ReponseCitationController reponseCitationController,ReponsePortraitController reponsePortraitController) {
         this.personnageRepository = personnageRepository;
-        this.reponseController = reponseController;
+        this.reponseDevinetteController = reponseDevinetteController;
+        this.reponseCitationController=reponseCitationController;
+        this.reponsePortraitController=reponsePortraitController;
     }
 
     @Override
@@ -89,7 +93,11 @@ public class DataInitializer implements CommandLineRunner {
         personnageRepository.findAll().forEach(p -> System.out.println("Personnage : " + p.getNom()));
 
         // Display today's answer in the console
-        Personnage reponseDuJour = reponseController.getReponseDuJour();
-        System.out.println("La réponse du jour est : " + reponseDuJour.getNom() + ", Domaine: " + reponseDuJour.getDomaine() + ", Genre: " + reponseDuJour.getGenre());
+        Personnage reponseDevinette = reponseDevinetteController.getReponseDuJour();
+        System.out.println("La réponse du jour est : " + reponseDevinette.getNom() + ", Domaine: " + reponseDevinette.getDomaine() + ", Genre: " + reponseDevinette.getGenre());
+        Personnage reponseCitation = reponseCitationController.getReponseDuJour();
+        System.out.println("La réponse du jour est : " + reponseCitation.getNom() + ", Domaine: " + reponseCitation.getDomaine() + ", Genre: " + reponseCitation.getGenre());
+        Personnage reponsePortrait = reponsePortraitController.getReponseDuJour();
+        System.out.println("La réponse du jour est : " + reponsePortrait.getNom() + ", Domaine: " + reponsePortrait.getDomaine() + ", Genre: " + reponsePortrait.getGenre());
     }
 }

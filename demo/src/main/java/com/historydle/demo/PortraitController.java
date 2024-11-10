@@ -20,14 +20,14 @@ public class PortraitController {
     private PersonnageRepository personnageRepository;
 
     @Autowired
-    private ReponseController reponseController;
+    private ReponsePortraitController reponsePortraitController;
 
     private final List<Map<String, Object>> resultats = new ArrayList<>();
 
      @GetMapping("/portrait")
     public String portrait(Model model) {
         model.addAttribute("resultats",resultats);
-        Personnage reponseDuJour = reponseController.getReponseDuJour();
+        Personnage reponseDuJour = reponsePortraitController.getReponseDuJour();
         if (reponseDuJour!= null){
             model.addAttribute("portrait", reponseDuJour.getNom());
         }
@@ -56,7 +56,7 @@ public class PortraitController {
     Personnage personnageUtilisateur = personnageRepository.findByNomIgnoreCase(reponseUtilisateur);
 
     // Récupérer la réponse du jour
-    Personnage reponseDuJour = reponseController.getReponseDuJour();
+    Personnage reponseDuJour = reponsePortraitController.getReponseDuJour();
 
     // Créer une carte pour stocker les résultats
     Map<String, Object> resultat = new HashMap<>();

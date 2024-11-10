@@ -20,7 +20,7 @@ public class PersonnageController {
     private PersonnageRepository personnageRepository;
 
     @Autowired
-    private ReponseController reponseController;
+    private ReponseDevinetteController reponseDevinetteController;
 
     private final List<Map<String, Object>> resultats = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class PersonnageController {
     Personnage personnageUtilisateur = personnageRepository.findByNomIgnoreCase(reponseUtilisateur);
 
     // Récupérer la réponse du jour
-    Personnage reponseDuJour = reponseController.getReponseDuJour();
+    Personnage reponseDuJour = reponseDevinetteController.getReponseDuJour();
 
     // Créer une carte pour stocker les résultats
     Map<String, Object> resultat = new HashMap<>();
