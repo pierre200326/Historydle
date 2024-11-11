@@ -21,7 +21,7 @@ searchInput.addEventListener('input', function() {
     currentSuggestions = []; // Réinitialise les suggestions
 
     if (query.length > 0) {
-        fetch(`/autocomplete?query=${query}`)
+        fetch(`/autocompleteCitation?query=${query}`)
             .then(response => response.json())
             .then(data => {
                 currentSuggestions = data; // Mémorise les suggestions actuelles
