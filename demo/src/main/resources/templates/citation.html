@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
-<body class="bd-fixed-bg-gray-100 bg-cover bg-center min-h-screen"style="background-image: url('/bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
+<body class="bg-fixed bg-gray-100 bg-cover bg-center min-h-screen"style="background-image: url('/bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
     <div class="max-w-3xl mx-auto p-6">
         <!-- Title -->
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Devinez le personnage historique</h2>
@@ -51,14 +51,13 @@
                     </thead>
                     <tbody id="resultsTable">
                         <tr th:each="result : ${resultats}">
-                            <td class="w-24 h-24 border border-gray-300 text-center">
+                            <td class="w-24 h-26 border border-gray-300 text-center">
                                 <img th:src="${result.nom != 'Personnage non trouvé' ? '/Historydle/' + result.nom + '.webp' : ''}"
                                 alt="Image of ${result.nom}" class="w-full h-full object-cover mx-auto" />
                             </td>
                             <td th:text="${result.nom}" 
-                                th:classappend="${result.nomCorrect ? 'text-green-500' : 'text-red-500'}" 
+                                th:classappend="${result.nomCorrect ? 'bg-green-500' : 'bg-red-500'}"
                                 class="p-3 border-b border-gray-300"></td>
-                            
                         </tr>
                     </tbody>
                 </table>
