@@ -1,10 +1,18 @@
 const searchInput = document.getElementById('searchInput');
 const suggestionsBox = document.getElementById('suggestions');
 const validateButton = document.querySelector('button[type="submit"]');
+const searchForm = document.getElementById('searchForm');
 let currentSuggestions = [];
 
 // Désactive le bouton "Valider" par défaut
 validateButton.disabled = true;
+
+// Vérifie si l'URL contient le paramètre 'correct=true'
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('correct') === 'true') {
+    searchForm.style.display = 'none'; // Cache la div entière contenant le formulaire
+    lancerConfettis();
+}
 
 searchInput.addEventListener('input', function() {
     const query = this.value;
@@ -43,3 +51,11 @@ searchInput.addEventListener('input', function() {
 searchInput.addEventListener('input', function() {
     validateButton.disabled = !currentSuggestions.includes(searchInput.value);
 });
+
+function lancerConfettis() {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+}

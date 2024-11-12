@@ -49,6 +49,7 @@ public class PersonnageController {
 
     // Récupérer la réponse du jour
     Personnage reponseDuJour = reponseDevinetteController.getReponseDuJour();
+    boolean nomCorrect = false;
 
     // Créer une carte pour stocker les résultats
     Map<String, Object> resultat = new HashMap<>();
@@ -63,7 +64,7 @@ public class PersonnageController {
         String periodeUtilisateur = personnageUtilisateur.getPeriode();
 
         // Comparer avec la réponse du jour
-        boolean nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
+        nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
         boolean domaineCorrect = reponseDuJour.getDomaine().equalsIgnoreCase(domaineUtilisateur);
         boolean genreCorrect = reponseDuJour.getGenre().equalsIgnoreCase(genreUtilisateur);
         boolean paysCorrect = reponseDuJour.getPays().equalsIgnoreCase(paysUtilisateur);
@@ -84,7 +85,7 @@ public class PersonnageController {
         resultat.put("continentCorrect", continentCorrect);
         resultat.put("genreCorrect", genreCorrect);
         resultat.put("periodeCorrect", periodeCorrect);
-
+       
     } else {
         // Si le personnage n'est pas trouvé, gérer ce cas
         resultat.put("nom", reponseUtilisateur);
@@ -103,7 +104,7 @@ public class PersonnageController {
     // Ajouter la liste des résultats au modèle
     model.addAttribute("resultats", resultats);
 
-    return "redirect:/jouer";
+    return "redirect:/jouer?correct=" + nomCorrect;
 }
 
 
