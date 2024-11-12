@@ -66,9 +66,12 @@ public class PersonnageController {
         // Comparer avec la réponse du jour
         nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
         boolean domaineCorrect = reponseDuJour.getDomaine().equalsIgnoreCase(domaineUtilisateur);
+        boolean domainePartiellementVrai= reponseDuJour.getDomaine().contains(domaineUtilisateur) || domaineUtilisateur.contains(reponseDuJour.getDomaine());
         boolean genreCorrect = reponseDuJour.getGenre().equalsIgnoreCase(genreUtilisateur);
         boolean paysCorrect = reponseDuJour.getPays().equalsIgnoreCase(paysUtilisateur);
+        boolean paysPartiellementVrai= reponseDuJour.getPays().contains(paysUtilisateur) || paysUtilisateur.contains(reponseDuJour.getPays()) ;
         boolean continentCorrect = reponseDuJour.getContinent().equalsIgnoreCase(continentUtilisateur);
+        boolean continentPartiellementVrai= reponseDuJour.getContinent().contains(continentUtilisateur)|| continentUtilisateur.contains(reponseDuJour.getContinent());
         boolean periodeCorrect = reponseDuJour.getPeriode().equalsIgnoreCase(periodeUtilisateur);
 
         // Ajouter les résultats à la carte
@@ -81,8 +84,11 @@ public class PersonnageController {
 
         resultat.put("nomCorrect", nomCorrect);
         resultat.put("domaineCorrect", domaineCorrect);
+        resultat.put("domainePartiellementVrai", domainePartiellementVrai);
         resultat.put("paysCorrect", paysCorrect);
+        resultat.put("paysPartiellementVrai", paysPartiellementVrai);
         resultat.put("continentCorrect", continentCorrect);
+        resultat.put("continentPartiellementVrai",continentPartiellementVrai);
         resultat.put("genreCorrect", genreCorrect);
         resultat.put("periodeCorrect", periodeCorrect);
        
