@@ -5,7 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.io.UnsupportedEncodingException;
+import jakarta.persistence.OneToMany;
 import java.net.URLEncoder;
+import java.util.*;
 
 @Entity
 public class Personnage {
@@ -21,6 +23,9 @@ public class Personnage {
     private String periode;
     private String imageUrl; // New attribute for storing image URL
     public String citation;
+
+    @OneToMany(mappedBy = "personnage")
+    private List<Indice> indices = new ArrayList<>();
 
     public Personnage() {}
 
@@ -58,5 +63,13 @@ public class Personnage {
 
     public String getCitation() { return citation;}
     public void setCitation(String citation) {this.citation=citation;}
+
+    // Getters and setters for indices
+    public List<Indice> getIndices() { return indices; }
+    public void setIndices(List<Indice> indices) { this.indices = indices; }
+        public void addIndice(Indice indice) {
+        this.indices.add(indice);
+        indice.setPersonnage(this);  // Assurez-vous que l'indice fait référence à ce personnage
+        }
 }
 
