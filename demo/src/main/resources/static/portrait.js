@@ -32,7 +32,7 @@ searchInput.addEventListener('input', function() {
                     const text = document.createElement('span');
                     text.textContent = suggestion;
 
-                    // Ajouter l'image et le texte à l'élément de suggestion
+                    // Ajouter l'image et le texte à l'élément de suggestion d
                     suggestionItem.appendChild(img);
                     suggestionItem.appendChild(text);
                     suggestionsBox.appendChild(suggestionItem);
