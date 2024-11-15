@@ -53,6 +53,7 @@ searchInput.addEventListener('input', function() {
     }
 });
 
+
 // Vérifie l'input lors de chaque modification pour activer/désactiver le bouton
 searchInput.addEventListener('input', function() {
     validateButton.disabled = !currentSuggestions.includes(searchInput.value);
