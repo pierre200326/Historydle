@@ -26,11 +26,11 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        createPersonnage("Napoléon Bonaparte", "Homme", "France", "Europe", "Politicien", "18e-19e siècle","“Les hommes de génie sont des météores destinés à brûler pour éclairer leur siècle”","Empereur des Français");
-        createPersonnage("Leonard de Vinci", "Homme", "Italie", "Europe", "Artiste", "15e-16e siècle","“Nul conseil n'est plus loyal que celui qui se donne sur un navire en péril”","Maître de la Renaissance");
-        createPersonnage("Cléopâtre", "Femme", "Égypte", "Afrique", "Dirigeant", "1er siècle av. J.-C.","Je suis une personne qui ne possède pas citation connue","Reine d'Égypte");
-        createPersonnage("Galilée", "Homme", "Italie", "Europe", "Scientifique", "16e-17e siècle","“On ne peut rien apprendre aux gens. On peut seulement les aider à découvrir qu’ils possèdent déjà en eux tout ce qui est à apprendre”","Père de la science Moderne");
-        createPersonnage("Einstein", "Homme", "Allemagne", "Europe", "Scientifique", "19e-20e siècle","“Que chacun raisonne en son âme et conscience, qu'il se fasse une idée fondée sur ses propres lectures et non d'après les racontars des autres”","xFondateur de la relativité");
+        createPersonnage("Napoléon Bonaparte", "Homme", "France", "Europe", "Politicien", 19,"“Les hommes de génie sont des météores destinés à brûler pour éclairer leur siècle”","Empereur des Français");
+        createPersonnage("Leonard de Vinci", "Homme", "Italie", "Europe", "Artiste", 16,"“Nul conseil n'est plus loyal que celui qui se donne sur un navire en péril”","Maître de la Renaissance");
+        createPersonnage("Cléopâtre", "Femme", "Égypte", "Afrique", "Dirigeant", -1,"Je suis une personne qui ne possède pas citation connue","Reine d'Égypte");
+        createPersonnage("Galilée", "Homme", "Italie", "Europe", "Scientifique", 17,"“On ne peut rien apprendre aux gens. On peut seulement les aider à découvrir qu’ils possèdent déjà en eux tout ce qui est à apprendre”","Père de la science Moderne");
+        createPersonnage("Einstein", "Homme", "Allemagne", "Europe", "Scientifique", 20,"“Que chacun raisonne en son âme et conscience, qu'il se fasse une idée fondée sur ses propres lectures et non d'après les racontars des autres”","xFondateur de la relativité");
 
         // Add characters to the database if empty
         // if (personnageRepository.count() == 0) {
@@ -109,7 +109,7 @@ public class DataInitializer implements CommandLineRunner {
         System.out.println("La réponse du jour est : " + reponsePortrait.getNom() + ", Domaine: " + reponsePortrait.getDomaine() + ", Genre: " + reponsePortrait.getGenre());
     }
 
-    private void createPersonnage(String nom, String genre, String pays, String continent, String domaine, String periode, String citation, String indiceDescription) {
+    private void createPersonnage(String nom, String genre, String pays, String continent, String domaine, int periode, String citation, String indiceDescription) {
     Personnage personnage = new Personnage(nom, genre, pays, continent, domaine, periode, citation);
     Indice indice = new Indice(personnage, indiceDescription);
     personnage.addIndice(indice);

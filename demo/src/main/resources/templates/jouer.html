@@ -67,9 +67,16 @@
                             <td th:text="${result.domaine}"
                                 th:classappend="${result.domaineCorrect ? 'bg-green-500' :(result.domainePartiellementVrai? 'bg-yellow-500': 'bg-red-500')}"
                                 class="w-24 h-26 p-2 border border-gray-300 text-center text-white"></td>
-                            <td th:text="${result.periode}"
-                                th:classappend="${result.periodeCorrect ? 'bg-green-500' : 'bg-red-500'}"
-                                class="w-24 h-26 p-2 border border-gray-300 text-center text-white"></td>
+                                <td th:classappend="${result.periodeCorrect ? 'bg-green-500' : (result.periodePlusVieux ? 'bg-red-500' : (result.periodePlusJeune ? 'bg-red-500' : ''))}" 
+                                class="w-24 h-26 p-2 border border-gray-300 text-center text-white">
+                                
+                                <span th:text="${result.periode}" class="text-2xl"></span>
+                                <span th:if="${result.periodePlusJeune}" class="text-blue-500 ml-2 text-2xl">↓</span>
+                                <span th:if="${result.periodePlusVieux}" class="text-blue-500 ml-2 text-2xl">↑</span>
+                                
+                            </td>
+                            
+                                      
                         </tr>
                     </tbody>                                      
                 </table>
