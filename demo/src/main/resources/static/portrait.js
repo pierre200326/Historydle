@@ -35,7 +35,7 @@ searchInput.addEventListener('input', function() {
             })
             .catch(error => console.error('Erreur:', error));
     } else {
-        validateButton.disabled = true; // Désactive le bouton si l'input est vide
+        validateButton.disabled = true; // Désactive le bouton si l'input est vide  d
     }
 });
 
