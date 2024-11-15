@@ -1,18 +1,12 @@
 const searchInput = document.getElementById('searchInput');
 const suggestionsBox = document.getElementById('suggestions');
 const validateButton = document.querySelector('button[type="submit"]');
-const searchForm = document.getElementById('searchForm');
+const searchForm = document.getElementById('searchFormCitation');
 let currentSuggestions = [];
 
 // Désactive le bouton "Valider" par défaut
 validateButton.disabled = true;
 
-// Vérifie si l'URL contient le paramètre 'correct=true'
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get('correct') === 'true') {
-    lancerConfettis();
-    searchForm.style.display = 'none'; // Cache la div entière contenant le formulaire
-}
 
 searchInput.addEventListener('input', function() {
     const query = this.value;
@@ -26,12 +20,25 @@ searchInput.addEventListener('input', function() {
             .then(data => {
                 currentSuggestions = data; // Mémorise les suggestions actuelles
                 data.forEach(suggestion => {
-                    const suggestionItem = document.createElement('a');
-                    suggestionItem.classList.add('list-group-item', 'list-group-item-action', 'hover:bg-blue-200', 'px-4', 'py-2', 'block');
-                    suggestionItem.textContent = suggestion;
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.classList.add('flex', 'items-center', 'space-x-2', 'list-group-item', 'list-group-item-action', 'hover:bg-blue-200', 'px-4', 'py-2', 'block');
+
+                    // Créer une image en utilisant le nom du personnage
+                    const img = document.createElement('img');
+                    img.src = `/Historydle/${suggestion}.webp`;
+                    img.alt = `Image of ${suggestion}`;
+                    img.classList.add('w-12', 'h-12');
+
+                    // Ajouter le texte de suggestion
+                    const text = document.createElement('span');
+                    text.textContent = suggestion;
+
+                    // Ajouter l'image et le texte à l'élément de suggestion d
+                    suggestionItem.appendChild(img);
+                    suggestionItem.appendChild(text);
                     suggestionsBox.appendChild(suggestionItem);
 
-                    // Lorsqu'un élément est cliqué, remplit l'input avec la suggestion et cache la liste
+                    // Lorsqu'une suggestion est cliquée, remplit l'input et cache les suggestions
                     suggestionItem.addEventListener('click', function() {
                         searchInput.value = suggestion;
                         validateButton.disabled = false; // Active le bouton après sélection d'une suggestion
