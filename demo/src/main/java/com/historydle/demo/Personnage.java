@@ -1,6 +1,8 @@
 package com.historydle.demo;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,7 +26,7 @@ public class Personnage {
     private String imageUrl; // New attribute for storing image URL
     public String citation;
 
-    @OneToMany(mappedBy = "personnage")
+    @OneToMany(mappedBy = "personnage",fetch = FetchType.EAGER)
     private List<Indice> indices = new ArrayList<>();
 
     public Personnage() {}
@@ -66,6 +68,7 @@ public class Personnage {
 
     // Getters and setters for indices
     public List<Indice> getIndices() { return indices; }
+
     public void setIndices(List<Indice> indices) { this.indices = indices; }
         public void addIndice(Indice indice) {
         this.indices.add(indice);

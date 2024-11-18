@@ -10,17 +10,24 @@
 <body class="bg-gray-100 bg-fixed bg-cover bg-center min-h-screen" style="background-image: url('/bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
     <div class="max-w-5xl mx-auto p-6">
         <!-- Title -->
-        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Devinez le personnage historique</h2>
-
+      
         <!-- Search Form -->
         <div id="searchForm" class="bg-white shadow-md rounded-lg p-6 mb-6">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Devinez le personnage historique du jour</h2>
+            <p>
+                <span>Age de mort :</span>
+                <span th:text="${ageDisponibleDans == 0 ? resultats[0].indiceAge : 'Dans ' + ageDisponibleDans + ' tentatives'}"></span>            </p>
+            <p>
+                <span>Titre Honorifique :</span>
+                <span th:text="${titreDisponibleDans == 0 ? resultats[0].indiceTitre : 'Dans ' + titreDisponibleDans + ' tentatives'}"></span>
+            </p>
             <form action="#" th:action="@{/verifierReponse}" method="post">
                 <div class="relative mb-4">
                     <input type="text" id="searchInput" name="reponse" 
-                           class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                           placeholder="Tapez le nom d'un personnage..." autocomplete="off" required>
+                        class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        placeholder="Tapez le nom d'un personnage..." autocomplete="off" required>
                     <div id="suggestions" 
-                         class="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 hidden">
+                        class="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 hidden">
                     </div>
                 </div>
                 <button type="submit" 
