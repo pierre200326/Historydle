@@ -1,12 +1,18 @@
 const searchInput = document.getElementById('searchInput');
 const suggestionsBox = document.getElementById('suggestions');
 const validateButton = document.querySelector('button[type="submit"]');
-const searchForm = document.getElementById('searchFormCitation');
+const searchForm = document.getElementById('searchForm');
 let currentSuggestions = [];
 
 // Désactive le bouton "Valider" par défaut
 validateButton.disabled = true;
 
+// Vérifie si l'URL contient le paramètre 'correct=true'
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('correct') === 'true') {
+    searchForm.style.display = 'none'; // Cache la div entière contenant le formulaire
+    lancerConfettis();
+}
 
 searchInput.addEventListener('input', function() {
     const query = this.value;
@@ -15,7 +21,7 @@ searchInput.addEventListener('input', function() {
     currentSuggestions = []; // Réinitialise les suggestions
 
     if (query.length > 0) {
-        fetch(`/autocompleteCitation?query=${query}`)
+        fetch(`/autocompletePortrait?query=${query}`)
             .then(response => response.json())
             .then(data => {
                 currentSuggestions = data; // Mémorise les suggestions actuelles
@@ -53,6 +59,7 @@ searchInput.addEventListener('input', function() {
         validateButton.disabled = true; // Désactive le bouton si l'input est vide
     }
 });
+
 
 // Vérifie l'input lors de chaque modification pour activer/désactiver le bouton
 searchInput.addEventListener('input', function() {
