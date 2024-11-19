@@ -68,7 +68,7 @@ public String jouer(Model model) {
         String genreUtilisateur = personnageUtilisateur.getGenre();
         String paysUtilisateur = personnageUtilisateur.getPays();
         String continentUtilisateur = personnageUtilisateur.getContinent();
-        String periodeUtilisateur = personnageUtilisateur.getPeriode();
+        int periodeUtilisateur = personnageUtilisateur.getPeriode();
 
         // Comparer avec la réponse du jour
         nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
@@ -82,7 +82,8 @@ public String jouer(Model model) {
         boolean periodeCorrect = reponseDuJour.getPeriode() == periodeUtilisateur;
         boolean periodePlusVieux = periodeUtilisateur < reponseDuJour.getPeriode();
         boolean periodePlusJeune = periodeUtilisateur > reponseDuJour.getPeriode();
-
+        String indiceAge=indices.get(0).getIndice();
+        String indiceTitre=indices.get(1).getIndice();
 
 
         // Ajouter les résultats à la carte
@@ -102,6 +103,10 @@ public String jouer(Model model) {
         resultat.put("continentPartiellementVrai",continentPartiellementVrai);
         resultat.put("genreCorrect", genreCorrect);
         resultat.put("periodeCorrect", periodeCorrect);
+        resultat.put("periodePlusVieux", periodePlusVieux);
+        resultat.put("periodePlusJeune", periodePlusJeune);
+        resultat.put("indiceAge", indiceAge);
+        resultat.put("indiceTitre", indiceTitre);
        
     } else {
         // Si le personnage n'est pas trouvé, gérer ce cas
