@@ -9,25 +9,8 @@
 </head>
 <body class="bg-gray-100 bg-fixed bg-cover bg-center min-h-screen" style="background-image: url('/bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
     <div class="max-w-5xl mx-auto p-6">
+        <div th:insert="fragments/menu :: menu"></div>
 
-            <!-- Selection -->
-            <div class="flex justify-center gap-4 z-10 relative">
-                <div class="game-wrapper relative group">
-                    <img th:src="@{/images/Historydle.png}" alt="Historydle" class="main-image w-24 h-24 object-cover rounded-lg transition-transform transform group-hover:scale-110">
-                    <!-- Si Historydle complété-->
-                    <img th:src="@{/images/Historydle-complete.png}" alt="Historydle" class="main-image w-24 h-24 object-cover rounded-lg hidden group-hover:block">
-                </div>
-                <div class="game-wrapper relative group">
-                    <img th:src="@{/images/Citation.png}" alt="Citation" class="main-image w-24 h-24 object-cover rounded-lg transition-transform transform group-hover:scale-110">
-                    <!-- Si citation complété-->
-                    <img th:src="@{/images/Citation-complete.png}" alt="Citation" class="main-image w-24 h-24 object-cover rounded-lg hidden group-hover:block">
-                </div>
-                <div class="game-wrapper relative group">
-                    <img th:src="@{/images/Portrait.png}" alt="Portrait" class="main-image w-24 h-24 object-cover rounded-lg transition-transform transform group-hover:scale-110">
-                    <!-- Si portrait complété-->
-                    <img th:src="@{/images/Portrait-complete.png}" alt="Portrait" class="main-image w-24 h-24 object-cover rounded-lg hidden group-hover:block">
-                </div>
-            </div>
         <!-- Title -->
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Devinez le personnage historique</h2>
 

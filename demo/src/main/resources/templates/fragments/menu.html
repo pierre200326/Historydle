@@ -1,0 +1,26 @@
+<!-- fragments/menu.html -->
+<div th:fragment="menu">
+    <div class="flex justify-center gap-4 z-10 relative">
+        <!-- Game 1: Historydle -->
+        <div class="game-wrapper relative group">
+            <a th:href="@{/jouer}">
+                <img th:src="@{/images/Historydle.png}" alt="Historydle" class="main-image w-24 h-24 object-cover rounded-lg transform transition duration-300 ease-in-out hover:scale-110">
+                <img th:src="@{/images/Historydle-complete.png}" alt="Historydle-complete" class="main-image w-24 h-24 object-cover rounded-lg hidden group-hover:block">
+            </a>
+        </div>
+        <!-- Game 2: Citation -->
+        <div class="game-wrapper relative group">
+            <a th:href="@{/citation}">
+                <img th:src="@{/images/Citation.png}" alt="Citation" class="main-image w-24 h-24 object-cover rounded-lg transform transition duration-300 ease-in-out hover:scale-110">
+                <img th:src="@{/images/Citation-complete.png}" alt="Citation-complete" class="main-image w-24 h-24 object-cover rounded-lg hidden group-hover:block">
+            </a>
+        </div>
+        <!-- Game 3: Portrait -->
+        <div class="game-wrapper relative group">
+            <a th:href="@{/portrait}">
+                <img th:src="@{/images/Portrait.png}" alt="Portrait" class="main-image w-24 h-24 object-cover rounded-lg transform transition duration-300 ease-in-out hover:scale-110">
+                <img th:src="@{/images/Portrait-complete.png}" alt="Portrait-complete" class="main-image w-24 h-24 object-cover rounded-lg hidden group-hover:block">
+            </a>
+        </div>
+    </div>
+</div>
