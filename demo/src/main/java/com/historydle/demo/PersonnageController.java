@@ -61,7 +61,7 @@ public class PersonnageController {
         String genreUtilisateur = personnageUtilisateur.getGenre();
         String paysUtilisateur = personnageUtilisateur.getPays();
         String continentUtilisateur = personnageUtilisateur.getContinent();
-        String periodeUtilisateur = personnageUtilisateur.getPeriode();
+        int periodeUtilisateur = personnageUtilisateur.getPeriode();
 
         // Comparer avec la réponse du jour
         nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
@@ -72,7 +72,11 @@ public class PersonnageController {
         boolean paysPartiellementVrai= reponseDuJour.getPays().contains(paysUtilisateur) || paysUtilisateur.contains(reponseDuJour.getPays()) ;
         boolean continentCorrect = reponseDuJour.getContinent().equalsIgnoreCase(continentUtilisateur);
         boolean continentPartiellementVrai= reponseDuJour.getContinent().contains(continentUtilisateur)|| continentUtilisateur.contains(reponseDuJour.getContinent());
-        boolean periodeCorrect = reponseDuJour.getPeriode().equalsIgnoreCase(periodeUtilisateur);
+        boolean periodeCorrect = reponseDuJour.getPeriode() == periodeUtilisateur;
+        boolean periodePlusVieux = periodeUtilisateur < reponseDuJour.getPeriode();
+        boolean periodePlusJeune = periodeUtilisateur > reponseDuJour.getPeriode();
+
+
 
         // Ajouter les résultats à la carte
         resultat.put("nom", nomUtilisateur);
@@ -91,6 +95,8 @@ public class PersonnageController {
         resultat.put("continentPartiellementVrai",continentPartiellementVrai);
         resultat.put("genreCorrect", genreCorrect);
         resultat.put("periodeCorrect", periodeCorrect);
+        resultat.put("periodePlusVieux", periodePlusVieux);
+        resultat.put("periodePlusJeune", periodePlusJeune);
        
     } else {
         // Si le personnage n'est pas trouvé, gérer ce cas
@@ -102,6 +108,8 @@ public class PersonnageController {
         resultat.put("continentCorrect", false);
         resultat.put("genreCorrect", false);
         resultat.put("periodeCorrect", false);
+        resultat.put("periodePlusVieux", false);
+        resultat.put("periodePlusJeune", false);
     }
 
     // Ajouter le résultat a la fin de la liste pour avoir un affichage inversé
