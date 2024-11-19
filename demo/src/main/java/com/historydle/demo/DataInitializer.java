@@ -95,6 +95,7 @@ public class DataInitializer implements CommandLineRunner {
         System.out.println("La réponse du jour est : " + reponsePortrait.getNom() + ", Domaine: " + reponsePortrait.getDomaine() + ", Genre: " + reponsePortrait.getGenre());
     }
 
+    
     private void createPersonnage(String nom, String genre, String pays, String continent, String domaine, int periode, String citation, String indiceDescription) {
     Personnage personnage = new Personnage(nom, genre, pays, continent, domaine, periode, citation);
     Indice indice = new Indice(personnage, indiceDescription);
