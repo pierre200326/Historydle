@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +24,17 @@ public class PersonnageController {
     private ReponseDevinetteController reponseDevinetteController;
 
     private final List<Map<String, Object>> resultats = new ArrayList<>();
-
+    private int tourDeJeu = 0; // Initialiser le compteur de tours
+    
     @GetMapping("/jouer")
-    public String jouer(Model model) {
-        model.addAttribute("resultats", resultats);
-        return "jouer";
-    }
+public String jouer(Model model) {
+    model.addAttribute("resultats", resultats);
+    model.addAttribute("tourDeJeu", tourDeJeu);
+    model.addAttribute("ageDisponibleDans", Math.max(0, 3 - tourDeJeu)); // Limiter à 0 minimum
+    model.addAttribute("titreDisponibleDans", Math.max(0, 6 - tourDeJeu)); // Limiter à 0 minimum
+    return "jouer";
+}
+
 
 
     @GetMapping("/autocomplete")
@@ -46,11 +52,12 @@ public class PersonnageController {
     public String verifierReponse(@RequestParam("reponse") String reponseUtilisateur, Model model) {
     // Récupérer le personnage correspondant au nom saisi par l'utilisateur
     Personnage personnageUtilisateur = personnageRepository.findByNomIgnoreCase(reponseUtilisateur);
-
+    tourDeJeu++;
     // Récupérer la réponse du jour
     Personnage reponseDuJour = reponseDevinetteController.getReponseDuJour();
     boolean nomCorrect = false;
-
+    List<Indice> indices = reponseDuJour.getIndices(); // Récupérer les indices du personnage
+    System.out.println("TaiTailleTailleTailleTailleTailleTailleTailleTailleTailleTailleTaillelle"+indices.size());
     // Créer une carte pour stocker les résultats
     Map<String, Object> resultat = new HashMap<>();
 
@@ -61,7 +68,7 @@ public class PersonnageController {
         String genreUtilisateur = personnageUtilisateur.getGenre();
         String paysUtilisateur = personnageUtilisateur.getPays();
         String continentUtilisateur = personnageUtilisateur.getContinent();
-        int periodeUtilisateur = personnageUtilisateur.getPeriode();
+        String periodeUtilisateur = personnageUtilisateur.getPeriode();
 
         // Comparer avec la réponse du jour
         nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
@@ -95,8 +102,6 @@ public class PersonnageController {
         resultat.put("continentPartiellementVrai",continentPartiellementVrai);
         resultat.put("genreCorrect", genreCorrect);
         resultat.put("periodeCorrect", periodeCorrect);
-        resultat.put("periodePlusVieux", periodePlusVieux);
-        resultat.put("periodePlusJeune", periodePlusJeune);
        
     } else {
         // Si le personnage n'est pas trouvé, gérer ce cas
@@ -120,6 +125,5 @@ public class PersonnageController {
 
     return "redirect:/jouer?correct=" + nomCorrect;
 }
-
 
 }
