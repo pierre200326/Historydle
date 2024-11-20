@@ -7,6 +7,6 @@ import java.util.List;
 
 @Repository
 public interface PersonnageRepository extends JpaRepository<Personnage, Long> {
-    List<Personnage> findByNomStartingWithIgnoreCase(String nom);
+    List<Personnage> findByNomContainingIgnoreCase(String nom);
     Personnage findByNomIgnoreCase(String nom);
 }

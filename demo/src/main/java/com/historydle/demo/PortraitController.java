@@ -42,7 +42,7 @@ public class PortraitController {
     @GetMapping("/autocompletePortrait")
     @ResponseBody
     public List<String> autocompletePortrait(@RequestParam("query") String query) {
-        List<Personnage> personnages = personnageRepository.findByNomStartingWithIgnoreCase(query);
+        List<Personnage> personnages = personnageRepository.findByNomContainingIgnoreCase(query);
         List<String> suggestions = new ArrayList<>();
         for (Personnage personnage : personnages) {
             suggestions.add(personnage.getNom());

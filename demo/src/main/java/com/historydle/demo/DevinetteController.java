@@ -26,7 +26,7 @@ public class DevinetteController {
     private int tourDeJeu = 0; // Initialiser le compteur de tours
     
     @GetMapping("/jouer")
-public String jouer(Model model) {
+    public String jouer(Model model) {
     model.addAttribute("resultats", resultats);
     model.addAttribute("tourDeJeu", tourDeJeu);
     model.addAttribute("ageDisponibleDans", Math.max(0, 3 - tourDeJeu)); // Limiter à 0 minimum
@@ -39,7 +39,7 @@ public String jouer(Model model) {
     @GetMapping("/autocomplete")
     @ResponseBody
     public List<String> autocomplete(@RequestParam("query") String query) {
-        List<Personnage> personnages = personnageRepository.findByNomStartingWithIgnoreCase(query);
+        List<Personnage> personnages = personnageRepository.findByNomContainingIgnoreCase(query);
         List<String> suggestions = new ArrayList<>();
         for (Personnage personnage : personnages) {
             suggestions.add(personnage.getNom());
@@ -56,7 +56,6 @@ public String jouer(Model model) {
     Personnage reponseDuJour = reponseDevinetteController.getReponseDuJour();
     boolean nomCorrect = false;
     List<Indice> indices = reponseDuJour.getIndices(); // Récupérer les indices du personnage
-    System.out.println("TaiTailleTailleTailleTailleTailleTailleTailleTailleTailleTailleTaillelle"+indices.size());
     // Créer une carte pour stocker les résultats
     Map<String, Object> resultat = new HashMap<>();
 

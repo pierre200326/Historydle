@@ -35,7 +35,7 @@ public class DataInitializer implements CommandLineRunner {
         createPersonnage("Alexandre Le Grand", "Homme", "Macédoine", "Europe", "Dirigeant Militaire", -6, "“Il n'y a rien d'impossible à celui qui essaie.”", "32 ans", "Conquérant");
         createPersonnage("Vercingétorix", "Homme", "Gaule", "Europe", "Dirigeant/Militaire", -1, "“Je suis ici pour défendre la liberté de la Gaule.”", "Inconnu", "Chef de la Gaule");
         createPersonnage("Hô Chi Minh", "Homme", "Vietnam", "Asie", "Dirigeant", 20, "“Rien n'est plus précieux que l'indépendance et la liberté.”", "79 ans", "Père de l'indépendance vietnamienne");
-        createPersonnage("Catherine De Medicis", "Femme", "France/Italie", "Europe", "Dirigeant", 16, "“Il vaut mieux manquer de dignité que de manquer de sagesse.”", "69 ans", "Reine de France");
+        createPersonnage("Catherine De Medicis", "Femme", "France/Italie", "Europe", "Dirigeant", 16, "“Divise, afin de régner”", "69 ans", "Reine de France");
         createPersonnage("Cyrus Le Grand", "Homme", "Perse", "Asie", "Dirigeant", 6, "“Je ne crains qu'une seule chose, perdre mon honneur.”", "Inconnu", "Roi de Perse");
         createPersonnage("Didon", "Femme", "Phénicie", "Afrique", "Dirigeant", 9, "“Un homme sans foi ne mérite pas mon amour.”", "Inconnu", "Reine de Carthages");
         createPersonnage("Alienor d'Aquitaine", "Femme", "France/Angleterre", "Europe", "Dirigeant", 12, "“Je suis née pour le pouvoir et la majesté.”", "82 ans", "Duchesse d'Aquitaine");
@@ -78,7 +78,7 @@ public class DataInitializer implements CommandLineRunner {
         createPersonnage("Victor Hugo", "Homme", "France", "Europe", "Écrivain", 19, "“La liberté commence où l’ignorance finit.”", "83 ans", "Ecrivain et Poete");
         createPersonnage("Jeanne d'Arc", "Femme", "France", "Europe", "Militaire/Religieuse", 15, "“Allez de l’avant et Dieu sera avec vous.”", "19 ans", "Héroïne et sainte de France");
         createPersonnage("Charles De Gaulle", "Homme", "France", "Europe", "Dirigeant/Militaire", 20, "“La grandeur d’un pays ne se mesure pas à son territoire, mais à sa volonté.”", "79 ans", "Président de la France et Père de la Libération");
-        createPersonnage("Clovis", "Hommes", "France", "Europe", "Dirigeant", 6, "“Par ce signe, tu vaincras.”", "Inconnu", "Premier roi des Francs");
+        createPersonnage("Clovis", "Homme", "France", "Europe", "Dirigeant", 6, "“Par ce signe, tu vaincras.”", "Inconnu", "Premier roi des Francs");
         createPersonnage("Charlemagne", "Homme", "France", "Europe", "Dirigeant", 9, "“J'aimerais savoir lire.”", "Inconnu", "Empereur d'Occident");
         createPersonnage("Angela Merkel", "Femme", "Allemagne", "Europe", "Dirigeante", 21, "“Nous réussirons.”", "Vivante", "Chancelière Allemande");
         createPersonnage("Frida Kahlo", "Femme", "Mexique", "Amérique", "Artiste", 20, "“Je peins des fleurs pour qu'elles ne meurent pas.”", "47 ans", "Peintre Mexicaine");
@@ -102,8 +102,6 @@ public class DataInitializer implements CommandLineRunner {
         personnageRepository.save(personnage);
         indiceRepository.save(indice);
         indiceRepository.save(indice2);
-
-        
 
         logger.info("Personnage {} avec indice {} ajouté à la base de données", nom, indiceDescription,indiceDescription2);
     }
