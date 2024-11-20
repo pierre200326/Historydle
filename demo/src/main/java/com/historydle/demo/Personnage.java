@@ -1,14 +1,11 @@
 package com.historydle.demo;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.io.UnsupportedEncodingException;
 import jakarta.persistence.OneToMany;
-import java.net.URLEncoder;
 import java.util.*;
 
 @Entity
@@ -23,6 +20,7 @@ public class Personnage {
     private String continent;
     private String domaine;
     private int periode;
+    @SuppressWarnings("unused")
     private String imageUrl; // New attribute for storing image URL
     public String citation;
 

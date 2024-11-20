@@ -1,6 +1,5 @@
 package com.historydle.demo;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 
 
 @Entity
@@ -25,6 +24,6 @@ public class Indice {
     public void setPersonnage(Personnage personnage) { this.personnage=personnage;}
 
     public String getIndice(){ return indice;}
-    public void setIndice(String Indice){ this.indice=indice;}
+    public void setIndice(String Indice){ this.indice=Indice;}
     
 }
