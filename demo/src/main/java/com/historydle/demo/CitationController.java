@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Collections;
 
 @Controller
 public class CitationController {
@@ -24,12 +23,17 @@ public class CitationController {
     private ReponseCitationController reponseCitationController;
 
     private final List<Map<String, Object>> resultats = new ArrayList<>();
+    private int tourDeJeu = 0; // Initialiser le compteur de tours
+
 
     @GetMapping("/citation")
     public String citation(Model model) {
         model.addAttribute("resultats", resultats);
         // Obtenir la citation du personnage à deviner
         Personnage reponseDuJour = reponseCitationController.getReponseDuJour();
+        model.addAttribute("tourDeJeu", tourDeJeu);
+        model.addAttribute("ageDisponibleDans", Math.max(0, 3 - tourDeJeu)); // Limiter à 0 minimum
+        model.addAttribute("titreDisponibleDans", Math.max(0, 6 - tourDeJeu)); // Limiter à 0 minimum
         if (reponseDuJour != null) {
             model.addAttribute("citation", reponseDuJour.getCitation());
         } else {
@@ -41,7 +45,7 @@ public class CitationController {
     @GetMapping("/autocompleteCitation")
     @ResponseBody
     public List<String> autocompleteCitation(@RequestParam("query") String query) {
-        List<Personnage> personnages = personnageRepository.findByNomStartingWithIgnoreCase(query);
+        List<Personnage> personnages = personnageRepository.findByNomContainingIgnoreCase(query);
         List<String> suggestions = new ArrayList<>();
         for (Personnage personnage : personnages) {
             suggestions.add(personnage.getNom());
@@ -56,10 +60,13 @@ public class CitationController {
 
         // Récupérer la réponse du jour
         Personnage reponseDuJour = reponseCitationController.getReponseDuJour();
+        tourDeJeu++;
 
         // Créer une carte pour stocker les résultats
         Map<String, Object> resultat = new HashMap<>();
         boolean nomCorrect = false;
+        List<Indice> indices = reponseDuJour.getIndices(); // Récupérer les indices du personnage
+
 
         if (personnageUtilisateur != null) {
             // Récupérer les attributs du personnage de l'utilisateur
@@ -67,9 +74,13 @@ public class CitationController {
 
             // Comparer avec la réponse du jour
             nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
-
+            String indiceAge=indices.get(0).getIndice();
+            String indiceTitre=indices.get(1).getIndice();
+    
             resultat.put("nom", nomUtilisateur);
             resultat.put("nomCorrect", nomCorrect);
+            resultat.put("indiceAge", indiceAge);
+            resultat.put("indiceTitre", indiceTitre);
         } else {
             // Si le personnage n'est pas trouvé, gérer ce cas
             resultat.put("nom", reponseUtilisateur);

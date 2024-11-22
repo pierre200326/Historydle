@@ -4,27 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Devinez - Le portrait</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body class="bg-gray-100 bg-fixed bg-cover bg-center min-h-screen" style="background-image: url('/bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
     <div class="max-w-3xl mx-auto p-6">
+        <div class="mb-4" th:insert="fragments/menu :: menu"></div>
         <!-- Title -->
+        <div class="bg-amber-50 border-solid border-2 border-black shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Devinez le personnage historique</h2>
         <div class="flex justify-center mb-6">
             <img th:src="@{'/Portrait/' + ${portrait} + '.webp '}" alt="${portrait} + '.webp '" class="w-70 h-70 rounded-lg object-cover">
         </div>
+    </div>
 
         <!-- Search Form -->
-        <div id="searchForm" class="bg-white shadow-md rounded-lg p-6 mb-6 flex items-center">
+        <div id="searchForm" class="bg-amber-50 shadow-md rounded-lg p-6 mb-6 flex items-center">
             <!-- Champ de recherche et suggestions -->
             <div class="w-full">
                 <form action="#" th:action="@{/verifierReponsePortrait}" method="post">
                     <div class="relative mb-4">
                         <input type="text" id="searchInput" name="reponse" 
-                               class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                               placeholder="Tapez le nom d'un personnage..." autocomplete="off" required>
+                            class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                            placeholder="Tapez le nom d'un personnage..." autocomplete="off" required>
                         <div id="suggestions" 
-                             class="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 hidden">
+                            class="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 hidden">
                         </div>
                     </div>
                     <button type="submit" 
@@ -36,20 +40,27 @@
         </div>
 
         <!-- Results Table -->
-        <div class="bg-blue-100 shadow-md rounded-lg p-6">
-            <h3 class="text-xl font-semibold text-gray-700 mb-4">Vos pronos</h3>
+        <div class="bg-amber-50 shadow-md rounded-lg p-6">
+            <h3 class="text-xl text-center font-semibold text-gray-800 mb-4">Vos pronos</h3>
             <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+                <table class="w-full text-center border-collapse">
                     <thead>
                         <tr>
-                            <th class="p-3 border-b border-gray-300">Nom</th>
+                            <th class="p-3 text-center border-b border-gray-300">Photo</th>
+                            <th class="p-3 text-center border-b border-gray-300">Nom</th>
+                            
                         </tr>
                     </thead>
                     <tbody id="resultsTable">
                         <tr th:each="result : ${resultats}">
+                            <td class="w-24 h-24 border border-gray-300 text-center">
+                                <img th:src="${result.nom != 'Personnage non trouvé' ? '/Historydle/' + result.nom + '.webp' : ''}"
+                                alt="Image of ${result.nom}" class="w-full h-full object-cover mx-auto" />
+                            </td>
                             <td th:text="${result.nom}" 
-                                th:classappend="${result.nomCorrect ? 'text-green-500' : 'text-red-500'}" 
+                                th:classappend="${result.nomCorrect ? 'bg-green-500' : 'bg-red-500'}"
                                 class="p-3 border-b border-gray-300"></td>
+                            
                         </tr>
                     </tbody>
                 </table>

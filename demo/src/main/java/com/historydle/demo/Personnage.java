@@ -1,12 +1,11 @@
 package com.historydle.demo;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.io.UnsupportedEncodingException;
 import jakarta.persistence.OneToMany;
-import java.net.URLEncoder;
 import java.util.*;
 
 @Entity
@@ -20,16 +19,17 @@ public class Personnage {
     private String pays;
     private String continent;
     private String domaine;
-    private String periode;
+    private int periode;
+    @SuppressWarnings("unused")
     private String imageUrl; // New attribute for storing image URL
     public String citation;
 
-    @OneToMany(mappedBy = "personnage")
+    @OneToMany(mappedBy = "personnage",fetch = FetchType.EAGER)
     private List<Indice> indices = new ArrayList<>();
 
     public Personnage() {}
 
-        public Personnage(String nom, String genre, String pays, String continent, String domaine, String periode, String citation) {
+        public Personnage(String nom, String genre, String pays, String continent, String domaine, int periode, String citation) {
             this.nom = nom;
             this.genre = genre;
             this.pays = pays;
@@ -58,14 +58,15 @@ public class Personnage {
     public String getContinent() { return continent; }
     public void setContinent(String continent) { this.continent = continent; }
 
-    public String getPeriode() { return periode;}
-    public void setPeriode(String periode) {this.periode=periode;}
+    public int getPeriode() { return periode;}
+    public void setPeriode(int periode) {this.periode=periode;}
 
     public String getCitation() { return citation;}
     public void setCitation(String citation) {this.citation=citation;}
 
     // Getters and setters for indices
     public List<Indice> getIndices() { return indices; }
+
     public void setIndices(List<Indice> indices) { this.indices = indices; }
         public void addIndice(Indice indice) {
         this.indices.add(indice);

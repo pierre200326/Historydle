@@ -4,80 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jouer - Autocomplétion</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>    
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body class="bg-gray-100 bg-fixed bg-cover bg-center min-h-screen" style="background-image: url('/bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
-    <div class="max-w-5xl mx-auto p-6">
-        <!-- Title -->
+<div class="max-w-5xl mx-auto p-6">
+    <div class="mb-4" th:insert="fragments/menu :: menu"></div>
+
+    <!-- Title -->
+    <!-- Search Form -->
+    <div class="bg-amber-50 border-solid border-2 border-black shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Devinez le personnage historique</h2>
-
-        <!-- Search Form -->
-        <div id="searchForm" class="bg-white shadow-md rounded-lg p-6 mb-6">
-            <form action="#" th:action="@{/verifierReponse}" method="post">
-                <div class="relative mb-4">
-                    <input type="text" id="searchInput" name="reponse" 
-                           class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                           placeholder="Tapez le nom d'un personnage..." autocomplete="off" required>
-                    <div id="suggestions" 
-                         class="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 hidden">
-                    </div>
+        <div class="bg-amber-100 shadow-lg rounded-lg p-6 mb-4 flex flex-col gap-6">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-12 h-12 text-yellow-500" viewBox="0 0 50 50">
+                        <path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 25 11 A 3 3 0 0 0 22 14 A 3 3 0 0 0 25 17 A 3 3 0 0 0 28 14 A 3 3 0 0 0 25 11 z M 21 21 L 21 23 L 22 23 L 23 23 L 23 36 L 22 36 L 21 36 L 21 38 L 22 38 L 23 38 L 27 38 L 28 38 L 29 38 L 29 36 L 28 36 L 27 36 L 27 21 L 26 21 L 22 21 L 21 21 z"></path>
+                    </svg>
                 </div>
-                <button type="submit" 
-                        class="w-full bg-blue-500 text-white font-bold py-2 rounded-lg hover:bg-blue-600 transition duration-200">
-                    Valider
-                </button>
-            </form>
-        </div>
-
-        <!-- Results Table -->
-        <div class="bg-blue-100 shadow-md rounded-lg p-6">
-            <h3 class="text-xl font-semibold text-gray-700 mb-4">Vos pronos</h3>
-            <div class="overflow-x-auto">
-            <table class="w-full text-left border-separate" style="border-spacing: 0 1rem;"> 
-                    <thead>
-                        <tr class="text-center">
-                            <th class="p-3 border-b border-gray-300">Portrait</th>
-                            <th class="p-3 border-b border-gray-300">Nom</th>
-                            <th class="p-3 border-b border-gray-300">Genre</th>
-                            <th class="p-3 border-b border-gray-300">Pays</th>
-                            <th class="p-3 border-b border-gray-300">Continent</th>
-                            <th class="p-3 border-b border-gray-300">Domaine</th>
-                            <th class="p-3 border-b border-gray-300">Periode</th>
-                        </tr>
-                    </thead>
-                    <tbody id="resultsTable">
-                        <tr th:each="result : ${resultats}">
-                            <td class="w-24 h-26 border border-gray-300 text-center">
-                                <img th:src="${result.nom != 'Personnage non trouvé' ? '/Historydle/' + result.nom + '.webp' : ''}"
-                                alt="Image of ${result.nom}" class="w-full h-full object-cover mx-auto" />
-                            </td>
-                            <td th:text="${result.nom}"
-                                th:classappend="${result.nomCorrect ? 'bg-green-500' : 'bg-red-500'}"
-                                class="w-24 h-26 p-2 border border-gray-300 text-center text-white"></td>
-                            <td th:text="${result.genre}"
-                                th:classappend="${result.genreCorrect ? 'bg-green-500' : 'bg-red-500'}"
-                                class="w-24 h-26 p-2 border border-gray-300 text-center text-white"></td>
-                            <td th:text="${result.pays}"
-                            th:classappend="${result.paysCorrect ? 'bg-green-500' : (result.paysPartiellementVrai ? 'bg-yellow-500' : 'bg-red-500')}"
-                            class="w-24 h-26 p-2 border border-gray-300 text-center text-white"></td>
-                            <td th:text="${result.continent}"
-                                th:classappend="${result.continentCorrect ? 'bg-green-500' :(result.continentPartiellementVrai? 'bg-yellow-500' : 'bg-red-500')}"
-                                class="w-24 h-26 p-2 border border-gray-300 text-center text-white"></td>
-                            <td th:text="${result.domaine}"
-                                th:classappend="${result.domaineCorrect ? 'bg-green-500' :(result.domainePartiellementVrai? 'bg-yellow-500': 'bg-red-500')}"
-                                class="w-24 h-26 p-2 border border-gray-300 text-center text-white"></td>
-                            <td th:text="${result.periode}"
-                                th:classappend="${result.periodeCorrect ? 'bg-green-500' : 'bg-red-500'}"
-                                class="w-24 h-26 p-2 border border-gray-300 text-center text-white"></td>
-                        </tr>
-                    </tbody>                                      
-                </table>
+                <div class="ml-4">
+                    <h4 class="text-lg font-bold text-gray-800">Âge de mort :</h4>
+                    <p class="text-gray-600">
+                        <span th:text="${ageDisponibleDans == 0 ? resultats[0].indiceAge : 'Dans ' + ageDisponibleDans + ' tentatives'}"></span>
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-12 h-12 text-blue-500" viewBox="0 0 50 50">
+                        <path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 25 11 A 3 3 0 0 0 22 14 A 3 3 0 0 0 25 17 A 3 3 0 0 0 28 14 A 3 3 0 0 0 25 11 z M 21 21 L 21 23 L 22 23 L 23 23 L 23 36 L 22 36 L 21 36 L 21 38 L 22 38 L 23 38 L 27 38 L 28 38 L 29 38 L 29 36 L 28 36 L 27 36 L 27 21 L 26 21 L 22 21 L 21 21 z"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <h4 class="text-lg font-bold text-gray-800">Titre Honorifique :</h4>
+                    <p class="text-gray-600">
+                        <span th:text="${titreDisponibleDans == 0 ? resultats[0].indiceTitre : 'Dans ' + titreDisponibleDans + ' tentatives'}"></span>
+                    </p>
+                </div>
             </div>
         </div>
-        <div><img class="mx-auto p-6" src="Legende.png" alt=""></div>
     </div>
 
-    <script th:src="@{/jouer.js}"></script>
+    <div id="searchForm" class="bg-amber-50 shadow-md rounded-lg p-6 mb-6">
+        <form action="#" th:action="@{/verifierReponse}" method="post">
+            <div class="relative mb-4">
+                <input type="text" id="searchInput" name="reponse" 
+                    class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                    placeholder="Tapez le nom d'un personnage..." autocomplete="off" required>
+                <div id="suggestions" 
+                    class="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 hidden">
+                </div>
+            </div>
+            <button type="submit" 
+                    class="w-full bg-blue-500 text-white font-bold py-2 rounded-lg hover:bg-blue-600 transition duration-200">
+                Valider
+            </button>
+        </form>
+    </div>
+
+    <!-- Results Table -->
+    <div class="bg-amber-50 shadow-md rounded-lg p-6">
+        <div class="overflow-x-auto">
+        <table class="w-full text-left border-separate" style="border-spacing: 0 1rem;"> 
+                <thead>
+                    <tr class="text-center">
+                        <th class="p-3 border-b border-gray-300">Portrait</th>
+                        <th class="p-3 border-b border-gray-300">Nom</th>
+                        <th class="p-3 border-b border-gray-300">Genre</th>
+                        <th class="p-3 border-b border-gray-300">Pays</th>
+                        <th class="p-3 border-b border-gray-300">Continent</th>
+                        <th class="p-3 border-b border-gray-300">Domaine</th>
+                        <th class="p-3 border-b border-gray-300">Siècle</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsTable">
+                    <tr th:each="result : ${resultats}">
+                        <td class="w-24 h-26 border border-gray-300 text-center">
+                            <img th:src="${result.nom != 'Personnage non trouvé' ? '/Historydle/' + result.nom + '.webp' : ''}"
+                            alt="Image of ${result.nom}" class="w-full h-full object-cover mx-auto" />
+                        </td>
+                        <td th:text="${result.nom}"
+                            th:classappend="${result.nomCorrect ? 'bg-green-500' : 'bg-red-500'}"
+                            class="w-24 h-26 p-2 border border-gray-300 text-center text-white"></td>
+                        <td th:text="${result.genre}"
+                            th:classappend="${result.genreCorrect ? 'bg-green-500' : 'bg-red-500'}"
+                            class="w-24 h-26 p-2 border border-gray-300 text-center text-white"></td>
+                        <td th:text="${result.pays}"
+                        th:classappend="${result.paysCorrect ? 'bg-green-500' : (result.paysPartiellementVrai ? 'bg-yellow-500' : 'bg-red-500')}"
+                        class="w-24 h-26 p-2 border border-gray-300 text-center text-white"></td>
+                        <td th:text="${result.continent}"
+                            th:classappend="${result.continentCorrect ? 'bg-green-500' :(result.continentPartiellementVrai? 'bg-yellow-500' : 'bg-red-500')}"
+                            class="w-24 h-26 p-2 border border-gray-300 text-center text-white"></td>
+                        <td th:text="${result.domaine}"
+                            th:classappend="${result.domaineCorrect ? 'bg-green-500' :(result.domainePartiellementVrai? 'bg-yellow-500': 'bg-red-500')}"
+                            class="w-24 h-26 p-2 border border-gray-300 text-center text-white"></td>
+                            <td th:classappend="${result.periodeCorrect ? 'bg-green-500' : (result.periodePlusVieux ? 'bg-red-500' : (result.periodePlusJeune ? 'bg-red-500' : ''))}" 
+                            class="w-24 h-26 p-2 border border-gray-300 text-center text-white">
+                            
+                            <span th:text="${result.periode}" class="text-2xl"></span>
+                            <span th:if="${result.periodePlusJeune}" class="text-black text-2xl"> ↓</span>
+                            <span th:if="${result.periodePlusVieux}" class="text-black text-2xl"> ↑</span>
+                            
+                        </td>                             
+                    </tr>
+                </tbody>                                      
+            </table>
+        </div>
+    </div>
+    <div>
+        <img class="mx-auto p-6" src="Legende.png" alt="">
+    </div>
+</div>
+<script th:src="@{/jouer.js}"></script>
 </body>
 </html>

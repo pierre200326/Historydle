@@ -42,7 +42,7 @@ public class PortraitController {
     @GetMapping("/autocompletePortrait")
     @ResponseBody
     public List<String> autocompletePortrait(@RequestParam("query") String query) {
-        List<Personnage> personnages = personnageRepository.findByNomStartingWithIgnoreCase(query);
+        List<Personnage> personnages = personnageRepository.findByNomContainingIgnoreCase(query);
         List<String> suggestions = new ArrayList<>();
         for (Personnage personnage : personnages) {
             suggestions.add(personnage.getNom());
@@ -60,6 +60,7 @@ public class PortraitController {
 
     // Créer une carte pour stocker les résultats
     Map<String, Object> resultat = new HashMap<>();
+    boolean nomCorrect = false;
 
     if (personnageUtilisateur != null) {
         // Récupérer les attributs du personnage guess
@@ -67,7 +68,7 @@ public class PortraitController {
 
 
         // Comparer avec la réponse du jour
-        boolean nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
+        nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
 
         // Ajouter les résultats à la carte
         resultat.put("nom", nomUtilisateur);
@@ -84,7 +85,7 @@ public class PortraitController {
     resultats.add(0, resultat); 
     model.addAttribute("resultats", resultats);
 
-    return "redirect:/portrait";
+    return "redirect:/portrait?correct=" + nomCorrect;
 }
 
 }
