@@ -73,3 +73,32 @@ function lancerConfettis() {
         origin: { y: 0.6 }
     });
 }
+
+// Function to add bounce animation with staggered timing to the last row of the results table
+function addBounceAnimation() {
+    const resultsTable = document.getElementById('resultsTable');
+    if (resultsTable) {
+        const rows = resultsTable.querySelectorAll('tr');
+        if (rows.length > 0) {
+            const lastRow = rows[0];
+            const cells = lastRow.querySelectorAll('td');
+            
+            cells.forEach((cell, index) => {
+                setTimeout(() => {
+                    cell.classList.add('animate-bounce');
+
+                    setTimeout(() => {
+                        cell.classList.remove('animate-bounce');
+                    }, 1000); 
+                }, index * 100); 
+            });
+        }
+    }
+}
+
+// Call the function when needed, for example, after adding a new row
+document.addEventListener('DOMContentLoaded', () => {
+    // Example: Simulate adding a row and then call the function
+    addBounceAnimation();
+});
+
