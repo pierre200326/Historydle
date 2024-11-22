@@ -1,9 +1,15 @@
 package com.historydle.demo;
 
+import org.springframework.core.io.ClassPathResource;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -14,23 +20,29 @@ public class DataInitializer implements CommandLineRunner {
     private final ReponseCitationController reponseCitationController;
     private final ReponsePortraitController reponsePortraitController;
     private final IndiceRepository indiceRepository;
+    private final UtilisateurService utilisateurService;
 
-    public DataInitializer(PersonnageRepository personnageRepository, ReponseDevinetteController reponseDevinetteController, ReponseCitationController reponseCitationController,ReponsePortraitController reponsePortraitController,IndiceRepository indiceRepository) {
+    public DataInitializer(PersonnageRepository personnageRepository, ReponseDevinetteController reponseDevinetteController, ReponseCitationController reponseCitationController,ReponsePortraitController reponsePortraitController,IndiceRepository indiceRepository,UtilisateurService utilisateurService) {
         this.personnageRepository = personnageRepository;
         this.reponseDevinetteController = reponseDevinetteController;
         this.reponseCitationController=reponseCitationController;
         this.reponsePortraitController=reponsePortraitController;
         this.indiceRepository=indiceRepository;
+        this.utilisateurService=utilisateurService;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
         createPersonnage("Napoléon Bonaparte", "Homme", "France", "Europe", "Politicien", "18e-19e siècle","“Les hommes de génie sont des météores destinés à brûler pour éclairer leur siècle”","Empereur des Français");
-        createPersonnage("Leonard de Vinci", "Homme", "Italie", "Europe", "Artiste", "15e-16e siècle","“Nul conseil n'est plus loyal que celui qui se donne sur un navire en péril”","Maître de la Renaissance");
+        createPersonnage("Leonard De Vinci", "Homme", "Italie", "Europe", "Artiste", "15e-16e siècle","“Nul conseil n'est plus loyal que celui qui se donne sur un navire en péril”","Maître de la Renaissance");
         createPersonnage("Cléopâtre", "Femme", "Égypte", "Afrique", "Dirigeant", "1er siècle av. J.-C.","Je suis une personne qui ne possède pas citation connue","Reine d'Égypte");
         createPersonnage("Galilée", "Homme", "Italie", "Europe", "Scientifique", "16e-17e siècle","“On ne peut rien apprendre aux gens. On peut seulement les aider à découvrir qu’ils possèdent déjà en eux tout ce qui est à apprendre”","Père de la science Moderne");
         createPersonnage("Einstein", "Homme", "Allemagne", "Europe", "Scientifique", "19e-20e siècle","“Que chacun raisonne en son âme et conscience, qu'il se fasse une idée fondée sur ses propres lectures et non d'après les racontars des autres”","xFondateur de la relativité");
+
+        loadUsersFromCsv();
+
+
 
         // Add characters to the database if empty
         // if (personnageRepository.count() == 0) {
@@ -119,4 +131,34 @@ public class DataInitializer implements CommandLineRunner {
 
     logger.info("Personnage {} avec indice {} ajouté à la base de données", nom, indiceDescription);
     }
+
+    private void loadUsersFromCsv() {
+        // Chemin du fichier CSV dans le dossier externe "data"
+        String cheminFichier = "./data/utilisateurs.csv";
+
+        try (FileReader fileReader = new FileReader(cheminFichier)) {
+            // Lecture du fichier CSV avec Apache Commons CSV
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT
+                .withHeader("pseudo", "mdp")
+                .withSkipHeaderRecord()
+                .parse(fileReader);
+
+            // Parcours des enregistrements CSV
+            for (CSVRecord record : records) {
+                String pseudo = record.get("pseudo");
+                String mdp = record.get("mdp");
+
+                // Vérifie si l'utilisateur existe déjà via le service
+                if (!utilisateurService.existeParPseudo(pseudo)) {
+                    // Ajoute l'utilisateur via le service
+                    utilisateurService.inscrireUtilisateur(pseudo, mdp);
+                }
+            }
+
+            System.out.println("Utilisateurs chargés depuis le fichier CSV !");
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la lecture du fichier CSV : " + e.getMessage());
+        }
+    }
+
 }

@@ -67,6 +67,11 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>1.10.0</version> <!-- Ou la dernière version disponible -->
+		</dependency>
 	</dependencies>
 
 	<build>
