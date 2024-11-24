@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class PortraitController {
@@ -25,7 +26,15 @@ public class PortraitController {
     private final List<Map<String, Object>> resultats = new ArrayList<>();
 
      @GetMapping("/portrait")
-    public String portrait(Model model) {
+    public String portrait(Model model, HttpSession session) {
+
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            System.out.println("Aucun utilisateur n'est connecté");
+        }else{
+            System.out.println("Utilisateur connecté : " + username);
+        }
+
         model.addAttribute("resultats",resultats);
         Personnage reponseDuJour = reponsePortraitController.getReponseDuJour();
         if (reponseDuJour!= null){

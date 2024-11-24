@@ -12,6 +12,17 @@
         <h1 class="mb-6 transform transition duration-300 ease-in-out hover:scale-110">
             <img src="/images/HistorydleLogo.png" alt="Historydle" class="h-20 mx-auto">
         </h1>
+
+        <div class="absolute top-4 right-4">
+            <a th:if="${session.username == null}" th:href="@{/connexion}" class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition duration-300">
+              Connexion
+            </a>
+
+            <a th:if="${session.username != null}" th:href="@{/connexion}" class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition duration-300">
+                Déconnexion
+              </a>
+
+          </div>
         
         
         <div class="mt-4 flex justify-center">

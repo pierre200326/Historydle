@@ -39,7 +39,7 @@ public class InscriptionController {
                 String[] nouvelleLigne = {username, password};
                 ajouterLigneCsv("./data/utilisateurs.csv",nouvelleLigne);
                 utilisateurService.inscrireUtilisateur(username,password);
-                return "redirect:/";
+                return "redirect:/connexion";
             }
         }else{
             System.err.println("Mot de passe Incorect : " + password + "!=" + confirm_password);
