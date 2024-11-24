@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Random;
+import java.time.LocalDate;
 
 @Controller
 public class ReponseDevinetteController {
@@ -17,16 +18,21 @@ public class ReponseDevinetteController {
 
     public Personnage getReponseDuJour() {
         if (!isInitialized) {
-            genererReponseDuJour();
+            genererReponseDuJour("Historydle");
             isInitialized = true; // Marquer comme initialisé
         }
         return reponseDuJour;
     }
 
-    private void genererReponseDuJour() {
+    private void genererReponseDuJour(String seedDuJeu) {
         List<Personnage> personnages = personnageRepository.findAll();
         if (!personnages.isEmpty()) {
-            reponseDuJour = personnages.get(new Random().nextInt(personnages.size()));
+            LocalDate today = LocalDate.now(); // Date du jour
+            int seed = (today.toString() + seedDuJeu).hashCode(); 
+    
+            // Initialiser le Random avec la seed
+            Random random = new Random(seed);
+            reponseDuJour = personnages.get(random.nextInt(personnages.size()));
             System.out.println("La réponse du jour pour Devinette est : " + reponseDuJour.getNom() + ", Domaine: " + reponseDuJour.getDomaine());
         }
     }
