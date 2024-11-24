@@ -4,7 +4,7 @@
     <title>Suggestion de Personnage</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-fixed bg-gray-100 flex items-center justify-center min-h-screen" style="background-image: url('/bg.png');">
+<body class="bg-fixed bg-gray-100 flex items-center justify-center min-h-screen" style="background-image: url('images/bg.png');">
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h1 class="text-2xl font-bold mb-6 text-center">Proposer un personnage</h1>
 
@@ -39,8 +39,11 @@
 
             <div>
                 <label for="siecle" class="block font-medium">Siècle</label>
-                <input type="text" id="siecle" th:field="*{suggestionPeriode}" class="w-full p-2 border rounded" required>
-            </div>
+                <input type="number" id="siecle" th:field="*{suggestionPeriode}" 
+                       class="w-full p-2 border rounded" 
+                       step="1" 
+                       required>
+            </div>            
 
             <div>
                 <label for="citation" class="block font-medium">Citation</label>

@@ -4,15 +4,9 @@
     <title>Jeu Historique</title>
     <!-- Inclusion de Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>    
-    <!-- JS Du bouton d'info -->
-    <script>
-        function toggleInfo() {
-            const infoBox = document.getElementById("infoBox");
-            infoBox.classList.toggle("hidden");
-        }
-    </script>
+    
 </head>
-<body class="bg-fixed bg-cover bg-center min-h-screen" style="background-image: url('/civ6.jpg');">
+<body class="bg-fixed bg-cover bg-center min-h-screen" style="background-image: url('images/civ6.jpg');">
     <div class="container mx-auto text-center mt-16">
         <!-- Titre principal de la page d'accueil -->
         <h1 class="mb-6 transform transition duration-300 ease-in-out hover:scale-110">
@@ -51,7 +45,10 @@
         </div>
         
         <!-- bouton "Info" -->
+         <!-- JS Du bouton d'info -->
+        <script src="info.js"></script>
         <div class="mt-12 flex justify-center">
+            
             <button onclick="toggleInfo()" class="flex items-center justify-center w-16 h-16 rounded-full bg-white border-2 border-black text-black text-3xl font-bold shadow-md hover:scale-110 transform transition duration-300 ease-in-out">                
                 i
             </button>
