@@ -94,6 +94,7 @@ public class PortraitController {
     resultats.add(0, resultat); 
     model.addAttribute("resultats", resultats);
 
+
     return "redirect:/portrait?correct=" + nomCorrect;
 }
 

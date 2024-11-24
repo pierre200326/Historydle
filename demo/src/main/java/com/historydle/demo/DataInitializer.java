@@ -37,8 +37,8 @@ public class DataInitializer implements CommandLineRunner {
         loadUsersFromCsv();
 
         createPersonnage("Napoléon Bonaparte", "Homme", "France", "Europe", "Politicien", 19,"“Les hommes de génie sont des météores destinés à brûler pour éclairer leur siècle”","51 ans","Empereur des Français");
-        createPersonnage("Leonard de Vinci", "Homme", "Italie", "Europe", "Artiste", 16,"“Nul conseil n'est plus loyal que celui qui se donne sur un navire en péril”","67 ans","Maître de la Renaissance");
-        createPersonnage("Cléopâtre", "Femme", "Égypte", "Afrique", "Dirigeant", -1,"Je suis une personne qui ne possède pas citation connue","39 ans","Reine d'Égypte");
+        createPersonnage("Leonard De Vinci", "Homme", "Italie", "Europe", "Artiste", 16,"“Nul conseil n'est plus loyal que celui qui se donne sur un navire en péril”","67 ans","Maître de la Renaissance");
+        createPersonnage("Cléopâtre", "Femme", "Égypte", "Afrique", "Dirigeant", -1," Un homme qui n’a pas de fils est un homme qui n’a pas d’avenir. ","39 ans","Reine d'Égypte");
         createPersonnage("Galilée", "Homme", "Italie", "Europe", "Scientifique", 17,"“On ne peut rien apprendre aux gens. On peut seulement les aider à découvrir qu’ils possèdent déjà en eux tout ce qui est à apprendre”","77 ans","Père de la science Moderne");
         createPersonnage("Albert Einstein", "Homme", "Allemagne", "Europe", "Scientifique", 20,"“Que chacun raisonne en son âme et conscience, qu'il se fasse une idée fondée sur ses propres lectures et non d'après les racontars des autres”","71 ans","Fondateur de la relativité");
         createPersonnage("Abraham Lincoln", "Homme", "États-Unis", "Amérique", "Dirigeant", 19, "“Le gouvernement du peuple, par le peuple, pour le peuple, ne disparaîtra pas de la Terre.”", "56 ans", "Président des États-Unis");
