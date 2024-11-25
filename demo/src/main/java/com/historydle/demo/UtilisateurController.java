@@ -19,12 +19,5 @@ public class UtilisateurController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    
-    @GetMapping("/profilUser")
-    public String afficherProfilUser() {
-        // Retourne le fichier HTML "profilUser.html" situé dans src/main/resources/templates/
-        return "profilUser";
-    }
-
 
 }

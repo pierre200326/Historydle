@@ -7,13 +7,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-fixed bg-cover bg-center min-h-screen" style="background-image: url('images/civ6.jpg');">
+    <div class="mb-4" th:insert="fragments/menu :: menu"></div>
     <div class="max-w-4xl mx-auto p-4">
         <!-- Profil de l'utilisateur -->
         <div class="bg-white shadow rounded-lg p-6">
             <div class="flex items-center space-x-4">
-                <img src="/images/Historydle" alt="Image utilisateur" class="w-24 h-24 rounded-full">
+                <img src="/images/Historydle.png" alt="Image utilisateur" class="w-24 h-24 rounded-full">
                 <div>
-                    <h1 class="text-xl font-bold text-gray-800">PSEUDO</h1>
+                    <h1 class="text-xl font-bold text-gray-800"><p><span th:text="${utilisateur}"></span> :</p></h1>
                     <p class="text-gray-600">Streak : XX jours joués</p>
                 </div>
             </div>
@@ -23,11 +24,7 @@
         <div class="mt-6 bg-white shadow rounded-lg p-6">
             <h2 class="text-lg font-bold text-gray-800">Personnages Likés</h2>
             <ul class="space-y-2">
-                <!--
-                <li th:each="personnage : ${personnagesLikes}" class="flex items-center space-x-4">
-                    <img src="[[${personnage.image}]]" alt="Image personnage" class="w-12 h-12 rounded-full">
-                    <p class="text-gray-800">[[${personnage.nom}]]</p>
-                </li>-->
+               
             </ul>
         </div>
 
@@ -35,11 +32,7 @@
         <div class="mt-6 bg-white shadow rounded-lg p-6">
             <h2 class="text-lg font-bold text-gray-800">Historique des Parties</h2>
             <ul class="space-y-2">
-                <!--
-                <li th:each="partie : ${historiqueParties}" class="border-b pb-2">
-                    <p class="text-gray-800 font-medium">[[${partie.jeu}]]</p>
-                    <p class="text-gray-600 text-sm">Joué le [[${#dates.format(partie.datePartie, 'dd/MM/yyyy HH:mm')}]]</p>
-                </li>-->
+               
             </ul>
         </div>
     </div>
