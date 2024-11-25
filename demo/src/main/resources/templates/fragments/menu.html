@@ -13,8 +13,10 @@
 
         <a th:if="${session.username != null}" th:href="@{/connexion}" class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition duration-300">
             Déconnexion
-          </a>
-
+        </a>
+        <a th:if="${session.username != null}" th:href="@{/profilUser}" class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition duration-300">
+            Profil
+        </a>
     </div>
     <div class="flex justify-center gap-4 z-10 relative">
         <!-- Game 1: Historydle -->

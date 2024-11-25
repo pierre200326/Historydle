@@ -10423,3 +10423,9 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: /home/cytech/Des
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 66 more
+2024-11-25 14:35:49.518462+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "UTILISATEUR" not found (this database is empty); SQL statement:
+select u1_0.id,u1_0.mdp,u1_0.pseudo from utilisateur u1_0 where u1_0.pseudo=? [42104-224]
+2024-11-25 14:36:25.272794+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "UTILISATEUR" not found (this database is empty); SQL statement:
+select u1_0.id,u1_0.mdp,u1_0.pseudo from utilisateur u1_0 where u1_0.pseudo=? [42104-224]
