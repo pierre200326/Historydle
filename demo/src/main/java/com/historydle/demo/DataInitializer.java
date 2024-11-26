@@ -98,7 +98,7 @@ public class DataInitializer implements CommandLineRunner {
         createPersonnage("Simone De Beauvoir", "Femme", "France", "Europe", "Philosophe", 20, "“On ne naît pas femme, on le devient.”", "78 ans", "Écrivaine et philosophe féministe");
         createPersonnage("Hannah Arendt", "Femme", "Allemagne", "Europe", "Philosophe", 20, "“La triste vérité est que la plupart des actes mauvais sont commis par des personnes qui n’ont jamais décidé d’être bonnes ou mauvaises.”", "69 ans", "Philosophe et théoricienne politique");
 
-        personnageRepository.findAll().forEach(p -> System.out.println("Personnage : " + p.getNom()));
+        personnageRepository.findAll().forEach(p -> System.out.println("Personnage : " + p.getNom() + p.getImage()));
 
         //Afficher les réponses du jour
         Personnage reponseDevinette = reponseDevinetteController.getReponseDuJour();
