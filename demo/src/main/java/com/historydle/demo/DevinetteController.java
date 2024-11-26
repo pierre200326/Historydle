@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 public class DevinetteController {
@@ -26,7 +28,15 @@ public class DevinetteController {
     private int tourDeJeu = 0; // Initialiser le compteur de tours
     
     @GetMapping("/jouer")
-    public String jouer(Model model) {
+    public String jouer(Model model, HttpSession session) {
+
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            System.out.println("Aucun utilisateur n'est connecté");
+        }else{
+            System.out.println("Utilisateur connecté : " + username);
+        }
+
     model.addAttribute("resultats", resultats);
     model.addAttribute("tourDeJeu", tourDeJeu);
     model.addAttribute("ageDisponibleDans", Math.max(0, 3 - tourDeJeu)); // Limiter à 0 minimum

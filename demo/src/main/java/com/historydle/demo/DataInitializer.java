@@ -37,8 +37,8 @@ public class DataInitializer implements CommandLineRunner {
         loadUsersFromCsv();
 
         createPersonnage("Napoléon Bonaparte", "Homme", "France", "Europe", "Politicien", 19,"“Les hommes de génie sont des météores destinés à brûler pour éclairer leur siècle”","51 ans","Empereur des Français");
-        createPersonnage("Leonard de Vinci", "Homme", "Italie", "Europe", "Artiste", 16,"“Nul conseil n'est plus loyal que celui qui se donne sur un navire en péril”","67 ans","Maître de la Renaissance");
-        createPersonnage("Cléopâtre", "Femme", "Égypte", "Afrique", "Dirigeant", -1,"Je suis une personne qui ne possède pas citation connue","39 ans","Reine d'Égypte");
+        createPersonnage("Leonard De Vinci", "Homme", "Italie", "Europe", "Artiste", 16,"“Nul conseil n'est plus loyal que celui qui se donne sur un navire en péril”","67 ans","Maître de la Renaissance");
+        createPersonnage("Cléopâtre", "Femme", "Égypte", "Afrique", "Dirigeant", -1," Un homme qui n’a pas de fils est un homme qui n’a pas d’avenir. ","39 ans","Reine d'Égypte");
         createPersonnage("Galilée", "Homme", "Italie", "Europe", "Scientifique", 17,"“On ne peut rien apprendre aux gens. On peut seulement les aider à découvrir qu’ils possèdent déjà en eux tout ce qui est à apprendre”","77 ans","Père de la science Moderne");
         createPersonnage("Albert Einstein", "Homme", "Allemagne", "Europe", "Scientifique", 20,"“Que chacun raisonne en son âme et conscience, qu'il se fasse une idée fondée sur ses propres lectures et non d'après les racontars des autres”","71 ans","Fondateur de la relativité");
         createPersonnage("Abraham Lincoln", "Homme", "États-Unis", "Amérique", "Dirigeant", 19, "“Le gouvernement du peuple, par le peuple, pour le peuple, ne disparaîtra pas de la Terre.”", "56 ans", "Président des États-Unis");
@@ -90,9 +90,15 @@ public class DataInitializer implements CommandLineRunner {
         createPersonnage("Charles De Gaulle", "Homme", "France", "Europe", "Dirigeant/Militaire", 20, "“La grandeur d’un pays ne se mesure pas à son territoire, mais à sa volonté.”", "79 ans", "Président de la France et Père de la Libération");
         createPersonnage("Clovis", "Homme", "France", "Europe", "Dirigeant", 6, "“Par ce signe, tu vaincras.”", "Inconnu", "Premier roi des Francs");
         createPersonnage("Charlemagne", "Homme", "France", "Europe", "Dirigeant", 9, "“J'aimerais savoir lire.”", "Inconnu", "Empereur d'Occident");
-        createPersonnage("Angela Merkel", "Femme", "Allemagne", "Europe", "Dirigeante", 21, "“Nous réussirons.”", "Vivante", "Chancelière Allemande");
+        createPersonnage("Angela Merkel", "Femme", "Allemagne", "Europe", "Dirigeant", 21, "“Nous réussirons.”", "Vivante", "Chancelière Allemande");
         createPersonnage("Frida Kahlo", "Femme", "Mexique", "Amérique", "Artiste", 20, "“Je peins des fleurs pour qu'elles ne meurent pas.”", "47 ans", "Peintre Mexicaine");
-        personnageRepository.findAll().forEach(p -> System.out.println("Personnage : " + p.getNom()));
+        createPersonnage("Anne Frank", "Femme", "Pays-Bas", "Europe", "Artiste", 20, "“Quelle merveille que personne n’ait besoin d’attendre un seul instant avant de commencer à améliorer le monde.”", "16 ans", "Auteure de la seconde guerre mondiale");
+        createPersonnage("Simone Veil", "Femme", "France", "Europe", "Politique", 21, "“Je n’ai jamais eu peur des mots ni des actes. Et pourtant, si j’ai appris une chose dans ma vie, c’est que rien n’est jamais acquis pour toujours.”", "89 ans", "Ministre française et figure de la lutte pour les droits des femmes");
+        createPersonnage("Rosa Parks", "Femme", "États-Unis", "Amérique", "Activiste", 21, "“J’aimerais qu’on se souvienne de moi comme d’une personne qui voulait être libre... pour que d’autres le soient aussi.”", "92 ans", "Icône du mouvement des droits civiques américains");
+        createPersonnage("Simone De Beauvoir", "Femme", "France", "Europe", "Philosophe", 20, "“On ne naît pas femme, on le devient.”", "78 ans", "Écrivaine et philosophe féministe");
+        createPersonnage("Hannah Arendt", "Femme", "Allemagne", "Europe", "Philosophe", 20, "“La triste vérité est que la plupart des actes mauvais sont commis par des personnes qui n’ont jamais décidé d’être bonnes ou mauvaises.”", "69 ans", "Philosophe et théoricienne politique");
+
+        personnageRepository.findAll().forEach(p -> System.out.println("Personnage : " + p.getNom() + p.getImage()));
 
         //Afficher les réponses du jour
         Personnage reponseDevinette = reponseDevinetteController.getReponseDuJour();

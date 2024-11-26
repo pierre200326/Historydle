@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +28,15 @@ public class CitationController {
 
 
     @GetMapping("/citation")
-    public String citation(Model model) {
+    public String citation(Model model,HttpSession session) {
+
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            System.out.println("Aucun utilisateur n'est connecté");
+        }else{
+            System.out.println("Utilisateur connecté : " + username);
+        }
+
         model.addAttribute("resultats", resultats);
         // Obtenir la citation du personnage à deviner
         Personnage reponseDuJour = reponseCitationController.getReponseDuJour();
