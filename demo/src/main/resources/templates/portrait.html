@@ -19,7 +19,8 @@
     </div>
 
         <!-- Search Form -->
-        <div id="searchForm" class="bg-amber-50 shadow-md rounded-lg p-6 mb-6 flex items-center">
+        <div id="searchForm" class="bg-amber-50 shadow-md rounded-lg p-6 mb-6 flex items-center"
+            th:if="${hasCorrectName == false}">
             <!-- Champ de recherche et suggestions -->
             <div class="w-full">
                 <form action="#" th:action="@{/verifierReponsePortrait}" method="post">
@@ -68,6 +69,6 @@
         </div>
     </div>
 
-    <script th:src="@{/portrait.js}"></script>
+    <script th:src="@{/portrait.js}" defer></script>
 </body>
 </html>

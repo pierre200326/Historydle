@@ -43,6 +43,8 @@ public class PortraitController {
         else{
             model.addAttribute("portrait", "Pas de portrait disponible pour aujourd'hui");
         }
+        model.addAttribute("hasCorrectName", resultats.stream().anyMatch(resultat -> Boolean.TRUE.equals(resultat.get("nomCorrect"))));
+
 
         return "portrait";
     }
@@ -93,9 +95,9 @@ public class PortraitController {
     // Ajouter le résultat à la liste
     resultats.add(0, resultat); 
     model.addAttribute("resultats", resultats);
+    model.addAttribute("hasCorrectName", nomCorrect);
 
-
-    return "redirect:/portrait?correct=" + nomCorrect;
+    return "redirect:/portrait";
 }
 
 }

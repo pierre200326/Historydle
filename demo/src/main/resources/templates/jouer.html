@@ -45,7 +45,8 @@
         </div>
     </div>
 
-    <div id="searchForm" class="bg-amber-50 shadow-md rounded-lg p-6 mb-6">
+    <div id="searchForm" class="bg-amber-50 shadow-md rounded-lg p-6 mb-6"
+        th:if="${hasCorrectName == false}">
         <form action="#" th:action="@{/verifierReponse}" method="post">
             <div class="relative mb-4">
                 <input type="text" id="searchInput" name="reponse" 
@@ -115,6 +116,6 @@
         <img class="mx-auto p-6" src="images/Legende.png" alt="">
     </div>
 </div>
-<script th:src="@{/jouer.js}"></script>
+<script th:src="@{/jouer.js}" defer></script>
 </body>
 </html>
