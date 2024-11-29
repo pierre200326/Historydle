@@ -1,6 +1,6 @@
 package com.historydle.demo;
 
-public class SuggestionDto {
+public class Suggestion {
     private String suggestionNom;
     private String suggestionGenre; // "Homme" ou "Femme"
     private String suggestionPays;

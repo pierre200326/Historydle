@@ -1,4 +1,4 @@
-package com.historydle.demo;
+package com.historydle.demo.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

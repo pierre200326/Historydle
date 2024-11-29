@@ -1,10 +1,20 @@
-package com.historydle.demo;
+package com.historydle.demo.Application;
 
 import org.springframework.core.io.ClassPathResource;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import com.historydle.demo.UtilisateurService;
+import com.historydle.demo.Controller.ReponseCitationController;
+import com.historydle.demo.Controller.ReponseDevinetteController;
+import com.historydle.demo.Controller.ReponsePortraitController;
+import com.historydle.demo.Identity.Indice;
+import com.historydle.demo.Identity.Personnage;
+import com.historydle.demo.Repository.IndiceRepository;
+import com.historydle.demo.Repository.PersonnageRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.FileReader;

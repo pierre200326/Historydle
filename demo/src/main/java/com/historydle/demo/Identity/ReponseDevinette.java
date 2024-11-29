@@ -1,10 +1,10 @@
-package com.historydle.demo;
+package com.historydle.demo.Identity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class ReponsePortrait{
+public class ReponseDevinette {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +18,9 @@ public class ReponsePortrait{
     private LocalDate dateDuJour;
 
     // Constructeur par défaut requis par JPA
-    public ReponsePortrait() {}
+    public ReponseDevinette() {}
 
-    public ReponsePortrait(Personnage personnage, LocalDate dateDuJour) {
+    public ReponseDevinette(Personnage personnage, LocalDate dateDuJour) {
         this.personnage = personnage;
         this.dateDuJour = dateDuJour;
     }

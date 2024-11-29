@@ -1,4 +1,4 @@
-package com.historydle.demo;
+package com.historydle.demo.Identity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -22,6 +22,8 @@ public class Utilisateur {
     private Long id;
     private String pseudo;
     private String mdp;
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Partie> parties = new ArrayList<>(); 
 
     public Utilisateur() {}
 
@@ -38,6 +40,9 @@ public class Utilisateur {
 
     public String getMdp() { return mdp; }
     public void setMdp(String mdp) { this.mdp = mdp; }
+
+    public List<Partie> getParties() { return parties; }
+    public void setParties(List<Partie> parties) { this.parties = parties; }
 
 }
 

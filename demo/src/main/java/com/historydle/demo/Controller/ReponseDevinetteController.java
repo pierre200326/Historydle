@@ -1,14 +1,17 @@
-package com.historydle.demo;
+package com.historydle.demo.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.time.LocalDate;
+import com.historydle.demo.Identity.Personnage;
+import com.historydle.demo.Repository.PersonnageRepository;
+
 import java.util.List;
 import java.util.Random;
+import java.time.LocalDate;
 
 @Controller
-public class ReponseCitationController {
+public class ReponseDevinetteController {
 
     @Autowired
     private PersonnageRepository personnageRepository;
@@ -16,9 +19,9 @@ public class ReponseCitationController {
     private static Personnage reponseDuJour; // Changer à static
     private static boolean isInitialized = false; // Flag pour éviter les réinitalisations
 
-     public Personnage getReponseDuJour() {
+    public Personnage getReponseDuJour() {
         if (!isInitialized) {
-            genererReponseDuJour("Citation");
+            genererReponseDuJour("Historydle");
             isInitialized = true; // Marquer comme initialisé
         }
         return reponseDuJour;
@@ -33,7 +36,7 @@ public class ReponseCitationController {
             // Initialiser le Random avec la seed
             Random random = new Random(seed);
             reponseDuJour = personnages.get(random.nextInt(personnages.size()));
-            System.out.println("La réponse du jour pour Citation est : " + reponseDuJour.getNom());
+            System.out.println("La réponse du jour pour Devinette est : " + reponseDuJour.getNom() + ", Domaine: " + reponseDuJour.getDomaine());
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.historydle.demo;
+package com.historydle.demo.Identity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

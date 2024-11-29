@@ -32,7 +32,10 @@
         <div class="mt-6 bg-white shadow rounded-lg p-6">
             <h2 class="text-lg font-bold text-gray-800">Historique des Parties</h2>
             <ul class="space-y-2">
-               
+                <li th:each="partie : ${parties}" class="p-2 bg-gray-100 rounded-lg">
+                    <span th:text="${partie.jeu}"></span> - 
+                    <span th:text="${partie.personnageTrouve}"></span>
+                </li>
             </ul>
         </div>
     </div>

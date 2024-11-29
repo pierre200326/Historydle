@@ -1,4 +1,4 @@
-package com.historydle.demo;
+package com.historydle.demo.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,6 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.historydle.demo.Identity.Partie;
+import com.historydle.demo.Identity.Personnage;
+import com.historydle.demo.Identity.Utilisateur;
+import com.historydle.demo.Repository.PartieRepository;
+import com.historydle.demo.Repository.PersonnageRepository;
+import com.historydle.demo.Repository.UtilisateurRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +30,14 @@ public class PortraitController {
     @Autowired
     private ReponsePortraitController reponsePortraitController;
 
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
+
+    @Autowired
+    private PartieRepository partieRepository;
+
     private final List<Map<String, Object>> resultats = new ArrayList<>();
+
 
      @GetMapping("/portrait")
     public String portrait(Model model, HttpSession session) {
@@ -62,7 +76,14 @@ public class PortraitController {
     }
 
     @PostMapping("/verifierReponsePortrait")
-    public String verifierReponsePortrait(@RequestParam("reponse") String reponseUtilisateur, Model model) {
+    public String verifierReponsePortrait(@RequestParam("reponse") String reponseUtilisateur, Model model,HttpSession session) {
+    String pseudoUtilisateurConnecte = (String) session.getAttribute("username");
+    if (pseudoUtilisateurConnecte == null) {
+        return "redirect:/login";
+    }
+
+    Utilisateur utilisateur = utilisateurRepository.findByPseudo(pseudoUtilisateurConnecte)
+                                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
     // Récupérer le personnage correspondant au nom saisi par l'utilisateur
     Personnage personnageUtilisateur = personnageRepository.findByNomIgnoreCase(reponseUtilisateur);
 
@@ -90,6 +111,13 @@ public class PortraitController {
         // Si le personnage n'est pas trouvé, gérer ce cas
         resultat.put("nom", reponseUtilisateur);
         resultat.put("nomCorrect", false);
+    }
+    if (personnageUtilisateur != null && personnageUtilisateur.getNom().equalsIgnoreCase(reponseDuJour.getNom())) {
+        nomCorrect = true;
+
+        // Enregistrer la partie
+        Partie nouvellePartie = new Partie("Portrait", personnageUtilisateur.getNom(), utilisateur);
+        partieRepository.save(nouvellePartie);
     }
 
     // Ajouter le résultat à la liste
