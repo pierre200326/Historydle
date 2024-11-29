@@ -22,12 +22,14 @@ public class Utilisateur {
     private Long id;
     private String pseudo;
     private String mdp;
+    private String statut;
 
     public Utilisateur() {}
 
-        public Utilisateur(String pseudo, String mdp) {
+        public Utilisateur(String pseudo, String mdp, String statut) {
             this.pseudo = pseudo;
             this.mdp = mdp;
+            this.statut = statut;
         }
 
     public Long getId() { return id; }
@@ -38,6 +40,9 @@ public class Utilisateur {
 
     public String getMdp() { return mdp; }
     public void setMdp(String mdp) { this.mdp = mdp; }
+
+    public String getStatut() { return statut; }
+    public void setStatut(String statut) { this.statut = statut; }
 
 }
 

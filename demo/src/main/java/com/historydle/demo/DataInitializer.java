@@ -129,7 +129,7 @@ public class DataInitializer implements CommandLineRunner {
         try (FileReader fileReader = new FileReader(cheminFichier)) {
             // Lecture du fichier CSV avec Apache Commons CSV
             Iterable<CSVRecord> records = CSVFormat.DEFAULT
-                .withHeader("pseudo", "mdp")
+                .withHeader("pseudo", "mdp","statut")
                 .withSkipHeaderRecord()
                 .parse(fileReader);
 
@@ -137,11 +137,12 @@ public class DataInitializer implements CommandLineRunner {
             for (CSVRecord record : records) {
                 String pseudo = record.get("pseudo");
                 String mdp = record.get("mdp");
+                String statut = record.get("statut");
 
                 // Vérifie si l'utilisateur existe déjà via le service
                 if (!utilisateurService.existeParPseudo(pseudo)) {
                     // Ajoute l'utilisateur via le service
-                    utilisateurService.inscrireUtilisateur(pseudo, mdp);
+                    utilisateurService.inscrireUtilisateur(pseudo, mdp, statut);
                 }
             }
 
