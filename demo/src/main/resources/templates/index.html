@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Jeu Historique</title>
+    <title>Historydle - Découvrez des personnages Historiques</title>
     <!-- Inclusion de Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>    
-    <!-- JS Du bouton d'info -->
-    <script>
-        function toggleInfo() {
-            const infoBox = document.getElementById("infoBox");
-            infoBox.classList.toggle("hidden");
-        }
-    </script>
+    
 </head>
-<body class="bg-fixed bg-cover bg-center min-h-screen" style="background-image: url('/civ6.jpg');">
+<body class="bg-fixed bg-cover bg-center min-h-screen" style="background-image: url('images/civ6.jpg');">
     <div class="container mx-auto text-center mt-16">
-        <!-- Titre principal de la page d'accueil -->
-        <h1 class="text-6xl font-extrabold text-gray-900 mb-6 transform transition duration-300 ease-in-out hover:scale-110 [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">
-            <span class="text-gray-900">History</span>
-            <span class="text-blue-600">dle</span>
+        <!-- Logo -->
+        <h1 class="mb-6 transform transition duration-300 ease-in-out hover:scale-110">
+            <a th:href="@{/}">
+            <img src="/images/HistorydleLogo.png" alt="Historydle" class="h-20 mx-auto">
+            </a>
         </h1>
-
+        <!-- Connexion -->
         <div class="absolute top-4 right-4">
             <a th:if="${session.username == null}" th:href="@{/connexion}" class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition duration-300">
               Connexion
@@ -29,7 +24,7 @@
                 Déconnexion
               </a>
 
-          </div>
+        </div>
         
         
         <div class="mt-4 flex justify-center">
@@ -55,15 +50,29 @@
             <img th:src="@{/images/bouttonPortrait.png}" alt="Bouton-citation" class="size-full transform transition duration-300 ease-in-out hover:scale-110" />
             </a>
         </div>
-        
+
+        <div class="mt-5 flex justify-center">
+            <a th:href="@{/suggestion}" class="bg-white text-black font-semibold py-2 px-4 border border-gray-300 rounded-md shadow hover:bg-gray-100 transform transition duration-300 ease-in-out hover:scale-110">
+                <h2>Suggestion</h2>
+            </a>
+        </div>
+
+        <div class="mt-5 flex justify-center">
+            <a th:href="@{/personnages}" class="bg-white text-black font-semibold py-2 px-4 border border-gray-300 rounded-md shadow hover:bg-gray-100 transform transition duration-300 ease-in-out hover:scale-110">
+                <h2>Liste de Personnages</h2>
+            </a>
+        </div>        
         <!-- bouton "Info" -->
+         <!-- JS Du bouton d'info -->
+        <script src="info.js"></script>
         <div class="mt-12 flex justify-center">
+            
             <button onclick="toggleInfo()" class="flex items-center justify-center w-16 h-16 rounded-full bg-white border-2 border-black text-black text-3xl font-bold shadow-md hover:scale-110 transform transition duration-300 ease-in-out">                
                 i
             </button>
         </div>
 
-        <!-- Boîte d'informations -->
+        <!-- Infos sur le jeu -->
         <div id="infoBox" class="hidden bg-blue-800 text-white p-6 mt-6 rounded-lg shadow-lg max-w-lg mx-auto">
             <h2 class="text-xl font-bold mb-2">À propos de Historydle</h2>
             <p class="text-sm">

@@ -36,9 +36,9 @@ public class InscriptionController {
                 model.addAttribute("error", "Pseudo Indisponible");
                 return "redirect:/inscription";
             }else{
-                String[] nouvelleLigne = {username, password};
+                String[] nouvelleLigne = {username, password, "user"};
                 ajouterLigneCsv("./data/utilisateurs.csv",nouvelleLigne);
-                utilisateurService.inscrireUtilisateur(username,password);
+                utilisateurService.inscrireUtilisateur(username,password,"user");
                 return "redirect:/connexion";
             }
         }else{

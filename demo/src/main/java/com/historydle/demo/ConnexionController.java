@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.historydle.demo.*;
 import jakarta.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Controller
 public class ConnexionController {
 
     @GetMapping("/connexion")
-    public String accueil() {
+    public String accueil(HttpSession session) {
+        session.invalidate();
         return "connexion";
     }
 
@@ -30,13 +32,19 @@ public class ConnexionController {
                         HttpSession session) {
         // Vérifie si l'utilisateur peut être authentifié
         boolean isAuthenticated = utilisateurService.authenticate(username, password);
+        Optional<Utilisateur> optionalUtilisateur = utilisateurService.findByPseudo(username);
         
         if (isAuthenticated) {
             // Si authentifié, redirige vers la page d'accueil ou tableau de bord
             System.out.println("connexion");
-            // Ajouter une information dans la session
-            session.setAttribute("username", username);
-            return "redirect:/";
+            Utilisateur utilisateur = optionalUtilisateur.get();
+            String statut = utilisateur.getStatut();
+            if(statut.equals("admin")){
+                return "redirect:/admin";
+            }else{
+                session.setAttribute("username", username);
+                return "redirect:/";
+            }
         } else {
             // Si l'authentification échoue, afficher un message d'erreur
             model.addAttribute("error", "Identifiants incorrects");

@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>    
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
-<body class="bg-fixed bg-gray-100 bg-cover bg-center min-h-screen"style="background-image: url('/bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
+<body class="bg-fixed bg-gray-100 bg-cover bg-center min-h-screen"style="background-image: url('images/bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
     <div class="max-w-3xl mx-auto p-6">
         <div class="mb-4" th:insert="fragments/menu :: menu"></div>
         
@@ -46,7 +46,8 @@
         
 
         <!-- Search Form -->
-        <div id="searchForm" class="bg-amber-50 shadow-md rounded-lg p-6 mb-6 flex items-center">
+        <div id="searchForm" class="bg-amber-50 shadow-md rounded-lg p-6 mb-6 flex items-center"
+            th:if="${hasCorrectName == false}">
             <!-- Champ de recherche et suggestions -->
             <div class="w-full">
                 <form action="#" th:action="@{/verifierReponseCitation}" method="post">
@@ -95,6 +96,6 @@
         </div>
     </div>
 
-    <script th:src="@{/citation.js}"></script>
+    <script th:src="@{/citation.js}" defer></script>
 </body>
 </html>

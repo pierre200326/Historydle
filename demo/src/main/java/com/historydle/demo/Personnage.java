@@ -20,7 +20,6 @@ public class Personnage {
     private String continent;
     private String domaine;
     private int periode;
-    @SuppressWarnings("unused")
     private String imageUrl; // New attribute for storing image URL
     public String citation;
 
@@ -54,6 +53,9 @@ public class Personnage {
 
     public String getPays() { return pays; }
     public void setPays(String pays) { this.pays = pays; }
+
+    public String getImage() { return imageUrl; }
+
 
     public String getContinent() { return continent; }
     public void setContinent(String continent) { this.continent = continent; }

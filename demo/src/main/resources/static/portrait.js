@@ -2,17 +2,17 @@ const searchInput = document.getElementById('searchInput');
 const suggestionsBox = document.getElementById('suggestions');
 const validateButton = document.querySelector('button[type="submit"]');
 const characterImage = document.getElementById('characterImage');
+const searchForm = document.getElementById('searchForm');
 let currentSuggestions = [];
 
-// Désactive le bouton "Valider" par défaut
-validateButton.disabled = true;
-
-// Vérifie si l'URL contient le paramètre 'correct=true'
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get('correct') === 'true') {
+if (searchForm===null){
     lancerConfettis();
-    searchForm.style.display = 'none'; // Cache la div entière contenant le formulaire
 }
+else{
+    // Désactive le bouton "Valider" par défaut
+    validateButton.disabled = true;
+}
+
 
 
 searchInput.addEventListener('input', function() {

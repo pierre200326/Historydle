@@ -41,6 +41,7 @@ public class DevinetteController {
     model.addAttribute("tourDeJeu", tourDeJeu);
     model.addAttribute("ageDisponibleDans", Math.max(0, 3 - tourDeJeu)); // Limiter à 0 minimum
     model.addAttribute("titreDisponibleDans", Math.max(0, 6 - tourDeJeu)); // Limiter à 0 minimum
+    model.addAttribute("hasCorrectName", resultats.stream().anyMatch(resultat -> Boolean.TRUE.equals(resultat.get("nomCorrect"))));
     return "jouer";
 }
 
@@ -135,8 +136,9 @@ public class DevinetteController {
     
     // Ajouter la liste des résultats au modèle
     model.addAttribute("resultats", resultats);
+    model.addAttribute("hasCorrectName", nomCorrect);
 
-    return "redirect:/jouer?correct=" + nomCorrect;
+    return "redirect:/jouer";
 }
 
 }

@@ -4,14 +4,12 @@ const validateButton = document.querySelector('button[type="submit"]');
 const searchForm = document.getElementById('searchForm');
 let currentSuggestions = [];
 
-// Désactive le bouton "Valider" par défaut
-validateButton.disabled = true;
-
-// Vérifie si l'URL contient le paramètre 'correct=true'
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get('correct') === 'true') {
-    searchForm.style.display = 'none'; // Cache la div entière contenant le formulaire
+if (searchForm===null){
     lancerConfettis();
+}
+else{
+    // Désactive le bouton "Valider" par défaut
+    validateButton.disabled = true;
 }
 
 searchInput.addEventListener('input', function() {

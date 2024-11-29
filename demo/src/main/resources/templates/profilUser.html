@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre Profil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-fixed bg-cover bg-center min-h-screen" style="background-image: url('images/civ6.jpg');">
+    <div class="mb-4" th:insert="fragments/menu :: menu"></div>
+    <div class="max-w-4xl mx-auto p-4">
+        <!-- Profil de l'utilisateur -->
+        <div class="bg-white shadow rounded-lg p-6">
+            <div class="flex items-center space-x-4">
+                <img src="/images/Historydle.png" alt="Image utilisateur" class="w-24 h-24 rounded-full">
+                <div>
+                    <h1 class="text-xl font-bold text-gray-800"><p><span th:text="${utilisateur}"></span> :</p></h1>
+                    <p class="text-gray-600">Streak : XX jours joués</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personnages likés -->
+        <div class="mt-6 bg-white shadow rounded-lg p-6">
+            <h2 class="text-lg font-bold text-gray-800">Personnages Likés</h2>
+            <ul class="space-y-2">
+               
+            </ul>
+        </div>
+
+        <!-- Historique des parties -->
+        <div class="mt-6 bg-white shadow rounded-lg p-6">
+            <h2 class="text-lg font-bold text-gray-800">Historique des Parties</h2>
+            <ul class="space-y-2">
+               
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

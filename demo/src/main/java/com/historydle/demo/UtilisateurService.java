@@ -14,14 +14,14 @@ public class UtilisateurService {
         this.utilisateurRepository = utilisateurRepository;
     }
 
-    public Utilisateur inscrireUtilisateur(String pseudo, String mdp) {
+    public Utilisateur inscrireUtilisateur(String pseudo, String mdp, String statut) {
         // Vérifiez si le pseudo existe déjà
         if (utilisateurRepository.findByPseudo(pseudo).isPresent()) {
             throw new IllegalArgumentException("Le pseudo est déjà utilisé !");
         }
 
         // Créez un nouveau utilisateur
-        Utilisateur utilisateur = new Utilisateur(pseudo, mdp);
+        Utilisateur utilisateur = new Utilisateur(pseudo, mdp, statut);
         return utilisateurRepository.save(utilisateur);
     }
 
@@ -44,6 +44,10 @@ public class UtilisateurService {
 
     public boolean existeParPseudo(String pseudo) {
         return utilisateurRepository.findByPseudo(pseudo).isPresent();
+    }
+
+    public Optional<Utilisateur> findByPseudo(String pseudo) {
+        return utilisateurRepository.findByPseudo(pseudo);
     }
 
 }

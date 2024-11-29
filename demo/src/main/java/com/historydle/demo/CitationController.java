@@ -43,6 +43,7 @@ public class CitationController {
         model.addAttribute("tourDeJeu", tourDeJeu);
         model.addAttribute("ageDisponibleDans", Math.max(0, 3 - tourDeJeu)); // Limiter à 0 minimum
         model.addAttribute("titreDisponibleDans", Math.max(0, 6 - tourDeJeu)); // Limiter à 0 minimum
+        model.addAttribute("hasCorrectName", resultats.stream().anyMatch(resultat -> Boolean.TRUE.equals(resultat.get("nomCorrect"))));
         if (reponseDuJour != null) {
             model.addAttribute("citation", reponseDuJour.getCitation());
         } else {
@@ -99,8 +100,9 @@ public class CitationController {
         // Ajouter le résultat à la liste
         resultats.add(0, resultat); 
         model.addAttribute("resultats", resultats);
+        model.addAttribute("hasCorrectName", nomCorrect);
 
-        return "redirect:/citation?correct=" + nomCorrect;
+        return "redirect:/citation";
     }
 
 }
