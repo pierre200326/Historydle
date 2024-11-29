@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.historydle.demo.UtilisateurService;
-import com.historydle.demo.Identity.Utilisateur;
+import com.historydle.demo.Entity.Utilisateur;
 
 @RestController
 @RequestMapping("/api/utilisateur")

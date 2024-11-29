@@ -1,6 +1,6 @@
 package com.historydle.demo.Controller;
 
-import com.historydle.demo.Identity.PersonnageSuggestion;
+import com.historydle.demo.Entity.PersonnageSuggestion;
 import com.historydle.demo.Repository.PersonnageSuggestionRepository;
 
 import java.io.FileWriter;

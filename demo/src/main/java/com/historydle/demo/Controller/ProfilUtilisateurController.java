@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.historydle.demo.Identity.Partie;
-import com.historydle.demo.Identity.Utilisateur;
+import com.historydle.demo.Entity.Partie;
+import com.historydle.demo.Entity.Utilisateur;
 import com.historydle.demo.Repository.PartieRepository;
 import com.historydle.demo.Repository.UtilisateurRepository;
 
