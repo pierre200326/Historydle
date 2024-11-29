@@ -9,9 +9,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.historydle.demo.Identity.Indice;
+import com.historydle.demo.Identity.Partie;
 import com.historydle.demo.Identity.Personnage;
+import com.historydle.demo.Identity.Utilisateur;
+import com.historydle.demo.Repository.PartieRepository;
 import com.historydle.demo.Repository.PersonnageRepository;
+import com.historydle.demo.Repository.UtilisateurRepository;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +33,12 @@ public class DevinetteController {
 
     @Autowired
     private ReponseDevinetteController reponseDevinetteController;
+
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
+
+    @Autowired
+    private PartieRepository partieRepository;
 
     private final List<Map<String, Object>> resultats = new ArrayList<>();
     private int tourDeJeu = 0; // Initialiser le compteur de tours
@@ -63,7 +75,13 @@ public class DevinetteController {
     }
 
     @PostMapping("/verifierReponse")
-    public String verifierReponse(@RequestParam("reponse") String reponseUtilisateur, Model model) {
+    public String verifierReponse(@RequestParam("reponse") String reponseUtilisateur, Model model, HttpSession session) {
+     String pseudoUtilisateurConnecte = (String) session.getAttribute("username");
+        Utilisateur utilisateur = null;
+        if (pseudoUtilisateurConnecte != null) {
+            utilisateur = utilisateurRepository.findByPseudo(pseudoUtilisateurConnecte)
+                            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+        }
     // Récupérer le personnage correspondant au nom saisi par l'utilisateur
     Personnage personnageUtilisateur = personnageRepository.findByNomIgnoreCase(reponseUtilisateur);
     tourDeJeu++;
@@ -133,6 +151,26 @@ public class DevinetteController {
         resultat.put("periodeCorrect", false);
         resultat.put("periodePlusVieux", false);
         resultat.put("periodePlusJeune", false);
+    }
+
+     if (nomCorrect && utilisateur != null) {
+        // Si le joueur est connecté et a deviné correctement, enregistrer la partie
+        Partie nouvellePartie = new Partie("Historydle", personnageUtilisateur.getNom(), utilisateur);
+        partieRepository.save(nouvellePartie);
+
+        // Enregistrer dans un fichier CSV
+        try (FileWriter csvWriter = new FileWriter("historique.csv", true)) {
+            csvWriter.append(utilisateur.getPseudo());
+            csvWriter.append(",");
+            csvWriter.append(personnageUtilisateur.getNom());
+            csvWriter.append(",");
+            csvWriter.append("Historydle");
+            csvWriter.append(",");
+            csvWriter.append(java.time.LocalDate.now().toString()); // Date de l'enregistrement
+            csvWriter.append("\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Ajouter le résultat a la fin de la liste pour avoir un affichage inversé

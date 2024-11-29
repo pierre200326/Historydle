@@ -14,8 +14,7 @@
             <div class="flex items-center space-x-4">
                 <img src="/images/Historydle.png" alt="Image utilisateur" class="w-24 h-24 rounded-full">
                 <div>
-                    <h1 class="text-xl font-bold text-gray-800"><p><span th:text="${utilisateur}"></span> :</p></h1>
-                    <p class="text-gray-600">Streak : XX jours joués</p>
+                    <h1 class="text-xl font-bold text-gray-800"><p><span th:text="${utilisateur}"></span></p></h1>
                 </div>
             </div>
         </div>
@@ -28,16 +27,29 @@
             </ul>
         </div>
 
-        <!-- Historique des parties -->
+    <!-- Historique des parties -->
         <div class="mt-6 bg-white shadow rounded-lg p-6">
-            <h2 class="text-lg font-bold text-gray-800">Historique des Parties</h2>
-            <ul class="space-y-2">
-                <li th:each="partie : ${parties}" class="p-2 bg-gray-100 rounded-lg">
-                    <span th:text="${partie.jeu}"></span> - 
-                    <span th:text="${partie.personnageTrouve}"></span>
-                </li>
-            </ul>
+            <h2 class="text-lg font-bold text-gray-800 mb-4">Historique des parties</h2>
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full border-collapse border border-gray-200">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border border-gray-300 px-4 py-2 text-left text-gray-700 font-semibold">Personnage</th>
+                            <th class="border border-gray-300 px-4 py-2 text-left text-gray-700 font-semibold">Jeu</th>
+                            <th class="border border-gray-300 px-4 py-2 text-left text-gray-700 font-semibold">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="ligne : ${historique}" class="odd:bg-white even:bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-2 text-gray-800" th:text="${ligne[1]}"></td>
+                            <td class="border border-gray-300 px-4 py-2 text-gray-800" th:text="${ligne[2]}"></td>
+                            <td class="border border-gray-300 px-4 py-2 text-gray-800" th:text="${ligne[3]}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </div>
 </body>
 </html>

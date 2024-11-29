@@ -9,11 +9,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.historydle.demo.Identity.Indice;
+import com.historydle.demo.Identity.Partie;
 import com.historydle.demo.Identity.Personnage;
+import com.historydle.demo.Identity.Utilisateur;
+import com.historydle.demo.Repository.PartieRepository;
 import com.historydle.demo.Repository.PersonnageRepository;
+import com.historydle.demo.Repository.UtilisateurRepository;
 
 import jakarta.servlet.http.HttpSession;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +33,12 @@ public class CitationController {
 
     @Autowired
     private ReponseCitationController reponseCitationController;
+
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
+
+    @Autowired
+    private PartieRepository partieRepository;
 
     private final List<Map<String, Object>> resultats = new ArrayList<>();
     private int tourDeJeu = 0; // Initialiser le compteur de tours
@@ -70,7 +82,14 @@ public class CitationController {
 
 
     @PostMapping("/verifierReponseCitation")
-    public String verifierReponseCitation(@RequestParam("reponse") String reponseUtilisateur, Model model) {
+    public String verifierReponseCitation(@RequestParam("reponse") String reponseUtilisateur, Model model, HttpSession session) {
+        String pseudoUtilisateurConnecte = (String) session.getAttribute("username");
+        Utilisateur utilisateur = null;
+        if (pseudoUtilisateurConnecte != null) {
+            utilisateur = utilisateurRepository.findByPseudo(pseudoUtilisateurConnecte)
+                            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+        }
+
         Personnage personnageUtilisateur = personnageRepository.findByNomIgnoreCase(reponseUtilisateur);
 
         // Récupérer la réponse du jour
@@ -100,6 +119,26 @@ public class CitationController {
             // Si le personnage n'est pas trouvé, gérer ce cas
             resultat.put("nom", reponseUtilisateur);
             resultat.put("nomCorrect", false);  // par défaut faux si pas trouvé
+        }
+
+        if (nomCorrect && utilisateur != null) {
+        // Si le joueur est connecté et a deviné correctement, enregistrer la partie
+        Partie nouvellePartie = new Partie("Citation", personnageUtilisateur.getNom(), utilisateur);
+        partieRepository.save(nouvellePartie);
+
+        // Enregistrer dans un fichier CSV
+        try (FileWriter csvWriter = new FileWriter("historique.csv", true)) {
+            csvWriter.append(utilisateur.getPseudo());
+            csvWriter.append(",");
+            csvWriter.append(personnageUtilisateur.getNom());
+            csvWriter.append(",");
+            csvWriter.append("Citation");
+            csvWriter.append(",");
+            csvWriter.append(java.time.LocalDate.now().toString()); // Date de l'enregistrement
+            csvWriter.append("\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         }
 
         // Ajouter le résultat à la liste
