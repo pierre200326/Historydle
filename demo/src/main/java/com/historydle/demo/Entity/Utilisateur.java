@@ -1,4 +1,4 @@
-package com.historydle.demo.Identity;
+package com.historydle.demo.Entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

@@ -10,8 +10,8 @@ import com.historydle.demo.UtilisateurService;
 import com.historydle.demo.Controller.ReponseCitationController;
 import com.historydle.demo.Controller.ReponseDevinetteController;
 import com.historydle.demo.Controller.ReponsePortraitController;
-import com.historydle.demo.Identity.Indice;
-import com.historydle.demo.Identity.Personnage;
+import com.historydle.demo.Entity.Indice;
+import com.historydle.demo.Entity.Personnage;
 import com.historydle.demo.Repository.IndiceRepository;
 import com.historydle.demo.Repository.PersonnageRepository;
 

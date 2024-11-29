@@ -3,7 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import com.historydle.demo.*;
-import com.historydle.demo.Identity.Utilisateur;
+import com.historydle.demo.Entity.Utilisateur;
 import com.historydle.demo.Repository.UtilisateurRepository;
 
 @Service

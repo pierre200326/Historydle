@@ -3,7 +3,7 @@ package com.historydle.demo.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.historydle.demo.Identity.Personnage;
+import com.historydle.demo.Entity.Personnage;
 import com.historydle.demo.Repository.PersonnageRepository;
 
 import java.time.LocalDate;

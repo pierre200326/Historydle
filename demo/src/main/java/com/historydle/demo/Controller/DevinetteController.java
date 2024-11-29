@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.historydle.demo.Identity.Indice;
-import com.historydle.demo.Identity.Partie;
-import com.historydle.demo.Identity.Personnage;
-import com.historydle.demo.Identity.Utilisateur;
+import com.historydle.demo.Entity.Indice;
+import com.historydle.demo.Entity.Partie;
+import com.historydle.demo.Entity.Personnage;
+import com.historydle.demo.Entity.Utilisateur;
 import com.historydle.demo.Repository.PartieRepository;
 import com.historydle.demo.Repository.PersonnageRepository;
 import com.historydle.demo.Repository.UtilisateurRepository;

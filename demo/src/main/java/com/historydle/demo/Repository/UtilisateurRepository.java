@@ -2,7 +2,7 @@ package com.historydle.demo.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.historydle.demo.Identity.Utilisateur;
+import com.historydle.demo.Entity.Utilisateur;
 
 import java.util.Optional;
 
