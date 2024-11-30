@@ -6,6 +6,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.historydle.demo.SuggestionService;
 import com.historydle.demo.UtilisateurService;
 import com.historydle.demo.Controller.ReponseCitationController;
 import com.historydle.demo.Controller.ReponseDevinetteController;
@@ -32,14 +33,16 @@ public class DataInitializer implements CommandLineRunner {
     private final ReponsePortraitController reponsePortraitController;
     private final IndiceRepository indiceRepository;
     private final UtilisateurService utilisateurService;
+    private final SuggestionService suggestionService;
 
-    public DataInitializer(PersonnageRepository personnageRepository, ReponseDevinetteController reponseDevinetteController, ReponseCitationController reponseCitationController,ReponsePortraitController reponsePortraitController,IndiceRepository indiceRepository,UtilisateurService utilisateurService) {
+    public DataInitializer(PersonnageRepository personnageRepository, ReponseDevinetteController reponseDevinetteController, ReponseCitationController reponseCitationController,ReponsePortraitController reponsePortraitController,IndiceRepository indiceRepository,UtilisateurService utilisateurService,SuggestionService suggestionService) {
         this.personnageRepository = personnageRepository;
         this.reponseDevinetteController = reponseDevinetteController;
         this.reponseCitationController=reponseCitationController;
         this.reponsePortraitController=reponsePortraitController;
         this.indiceRepository=indiceRepository;
         this.utilisateurService=utilisateurService;
+        this.suggestionService=suggestionService;
     }
 
     @Override
@@ -108,7 +111,7 @@ public class DataInitializer implements CommandLineRunner {
         createPersonnage("Simone De Beauvoir", "Femme", "France", "Europe", "Philosophe", 20, "“On ne naît pas femme, on le devient.”", "78 ans", "Écrivaine et philosophe féministe");
         createPersonnage("Hannah Arendt", "Femme", "Allemagne", "Europe", "Philosophe", 20, "“La triste vérité est que la plupart des actes mauvais sont commis par des personnes qui n’ont jamais décidé d’être bonnes ou mauvaises.”", "69 ans", "Philosophe et théoricienne politique");
 
-        personnageRepository.findAll().forEach(p -> System.out.println("Personnage : " + p.getNom() + p.getImage()));
+        // personnageRepository.findAll().forEach(p -> System.out.println("Personnage : " + p.getNom() + p.getImage()));
 
         //Afficher les réponses du jour
         Personnage reponseDevinette = reponseDevinetteController.getReponseDuJour();
@@ -135,7 +138,7 @@ public class DataInitializer implements CommandLineRunner {
     private void loadUsersFromCsv() {
         // Chemin du fichier CSV dans le dossier externe "data"
         String cheminFichier = "./data/utilisateurs.csv";
-
+        String cheminFichierSuggestion ="./data/suggestion.csv";
         try (FileReader fileReader = new FileReader(cheminFichier)) {
             // Lecture du fichier CSV avec Apache Commons CSV
             Iterable<CSVRecord> records = CSVFormat.DEFAULT
@@ -154,7 +157,31 @@ public class DataInitializer implements CommandLineRunner {
                     utilisateurService.inscrireUtilisateur(pseudo, mdp);
                 }
             }
+            System.out.println("Utilisateurs chargés depuis le fichier CSV !");
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la lecture du fichier CSV : " + e.getMessage());
+        }
 
+        try (FileReader fileReader2 = new FileReader(cheminFichierSuggestion)) {
+            // Lecture du fichier CSV avec Apache Commons CSV
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT
+                .withHeader("pseudo", "nom","genre","pays","continent","domaine","siecle","citation")
+                .withSkipHeaderRecord()
+                .parse(fileReader2);
+
+            // Parcours des enregistrements CSV
+            for (CSVRecord record : records) {
+                String pseudo = record.get("pseudo");
+                String nom = record.get("nom");
+                String genre = record.get("genre");
+                String pays = record.get("pays");
+                String continent = record.get("continent");
+                String domaine = record.get("domaine");
+                String siecle = record.get("siecle");
+                String citation = record.get("citation");
+                int siecle_int = Integer.parseInt(siecle); // Convert to int
+                suggestionService.inscrirePersonnage(nom,genre,pays,continent,domaine,siecle_int,citation,pseudo);
+            }
             System.out.println("Utilisateurs chargés depuis le fichier CSV !");
         } catch (IOException e) {
             System.err.println("Erreur lors de la lecture du fichier CSV : " + e.getMessage());
