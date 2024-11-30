@@ -22,6 +22,9 @@ public class Personnage {
     @OneToMany(mappedBy = "personnage",fetch = FetchType.EAGER)
     private List<Indice> indices = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "personnagesLikes",fetch = FetchType.EAGER)
+    private List<Utilisateur> utilisateursQuiOntLike = new ArrayList<>();
+
     public Personnage() {}
 
         public Personnage(String nom, String genre, String pays, String continent, String domaine, int periode, String citation) {
@@ -64,11 +67,13 @@ public class Personnage {
 
     // Getters and setters for indices
     public List<Indice> getIndices() { return indices; }
-
     public void setIndices(List<Indice> indices) { this.indices = indices; }
         public void addIndice(Indice indice) {
         this.indices.add(indice);
         indice.setPersonnage(this);  // Assurez-vous que l'indice fait référence à ce personnage
         }
+    public List<Utilisateur> getUtilisateursQuiOntLike() { return utilisateursQuiOntLike; }
+    public void setUtilisateursQuiOntLike(List<Utilisateur> utilisateursQuiOntLike) { this.utilisateursQuiOntLike = utilisateursQuiOntLike; }
 }
+
 

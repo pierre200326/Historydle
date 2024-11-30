@@ -60,7 +60,7 @@ public String afficherProfilUser(HttpSession session, Model model) {
     model.addAttribute("utilisateur", pseudoUtilisateurConnecte);
     model.addAttribute("historique", historiqueUtilisateur);
     model.addAttribute("parties", parties);
-
+    model.addAttribute("personnagesLikes", utilisateur.getPersonnagesLikes());
     return "profilUser";
 }
 

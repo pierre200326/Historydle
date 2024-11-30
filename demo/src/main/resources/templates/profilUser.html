@@ -23,7 +23,11 @@
         <div class="mt-6 bg-white shadow rounded-lg p-6">
             <h2 class="text-lg font-bold text-gray-800">Personnages Likés</h2>
             <ul class="space-y-2">
-               
+                 <!-- Affichage des personnages likés -->
+        <li th:each="personnage : ${personnagesLikes}" class="flex items-center space-x-4">
+            <img th:src="@{'/Historydle/' + ${personnage.nom} + '.webp'}" alt="Image de [[${personnage.nom}]]" class="w-12 h-12 object-cover rounded-md">
+            <span th:text="${personnage.nom}" class="text-gray-700 font-medium"></span>
+        </li>
             </ul>
         </div>
 

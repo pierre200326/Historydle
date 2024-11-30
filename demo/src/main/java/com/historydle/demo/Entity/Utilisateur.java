@@ -24,6 +24,13 @@ public class Utilisateur {
     private String mdp;
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Partie> parties = new ArrayList<>(); 
+    @ManyToMany
+    @JoinTable(
+        name = "utilisateur_personnage_like",
+        joinColumns = @JoinColumn(name = "utilisateur_id"),
+        inverseJoinColumns = @JoinColumn(name = "personnage_id")
+    )
+    private List<Personnage> personnagesLikes = new ArrayList<>();
 
     public Utilisateur() {}
 
@@ -44,5 +51,15 @@ public class Utilisateur {
     public List<Partie> getParties() { return parties; }
     public void setParties(List<Partie> parties) { this.parties = parties; }
 
+    public boolean ajouterLike(Personnage personnage) {
+        if (personnagesLikes.size() < 3) {
+            personnagesLikes.add(personnage);
+            personnage.getUtilisateursQuiOntLike().add(this);
+            return true;
+        }
+        return false; // Refus d'ajouter un like si déjà 3 likes
+    }
+    public List<Personnage> getPersonnagesLikes() { return personnagesLikes; }
+    public void setPersonnagesLikes(List<Personnage> personnagesLikes) { this.personnagesLikes = personnagesLikes; }
 }
 
