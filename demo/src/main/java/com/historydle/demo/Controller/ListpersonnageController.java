@@ -14,7 +14,16 @@ import com.historydle.demo.Repository.UtilisateurRepository;
 
 import jakarta.servlet.http.HttpSession;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ListpersonnageController {
@@ -65,10 +74,54 @@ public class ListpersonnageController {
         if (utilisateur.getPersonnagesLikes().size() < 3) {
             utilisateur.getPersonnagesLikes().add(personnage);
             utilisateurRepository.save(utilisateur); // Sauvegarde l'utilisateur avec le personnage liké
+            mettreAJourLigneCsv("./data/likes.csv", username, personnage.getNom());
         }
 
         return "redirect:/personnages"; // Redirige vers la page du jeu
     }
+    
+    public static void mettreAJourLigneCsv(String cheminFichier, String pseudo, String personnageNom) {
+        List<String> lignes = new ArrayList<>();
+        boolean utilisateurTrouve = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(cheminFichier))) {
+            String ligne;
+
+            while ((ligne = reader.readLine()) != null) {
+                // Séparer la ligne en fonction des virgules
+                String[] data = ligne.split(",");
+
+                // Vérifier si la ligne correspond à l'utilisateur
+                if (data[0].equalsIgnoreCase(pseudo)) {
+                    utilisateurTrouve = true;
+
+                    // Ajouter le personnage à la liste s'il n'est pas déjà présent
+                    String nouvelleLigne = ligne + "," + personnageNom;
+                    lignes.add(nouvelleLigne);
+                } else {
+                    lignes.add(ligne);
+                }
+            }
+
+            // Si aucune ligne n'a été trouvée pour l'utilisateur, ajouter une nouvelle ligne
+            if (!utilisateurTrouve) {
+                lignes.add(pseudo + "," + personnageNom);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Réécriture du fichier avec les nouvelles données
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(cheminFichier))) {
+            for (String l : lignes) {
+                writer.write(l);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     
 }
 

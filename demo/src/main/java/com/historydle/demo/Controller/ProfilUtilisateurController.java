@@ -1,7 +1,9 @@
 package com.historydle.demo.Controller;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,15 +75,57 @@ public String afficherProfilUser(HttpSession session, Model model) {
 public String dislikePersonnage(@PathVariable Long id, HttpSession session) {
     String username = (String) session.getAttribute("username");
     if (username != null) {
-        Utilisateur utilisateur = utilisateurRepository.findByPseudo(username) .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));;
-        Personnage personnage = personnageRepository.findById(id).orElseThrow(() -> new RuntimeException("Personnage non trouvé"));
+        Utilisateur utilisateur = utilisateurRepository.findByPseudo(username)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+        Personnage personnage = personnageRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Personnage non trouvé"));
 
-        if (utilisateur != null && personnage != null) {
-            utilisateur.getPersonnagesLikes().remove(personnage);
+        if (utilisateur.getPersonnagesLikes().remove(personnage)) {
             utilisateurRepository.save(utilisateur);
+            supprimerPersonnageCsv("data/likes.csv", username, personnage.getNom());
         }
     }
-    return "redirect:/profilUser"; // Redirige vers la page du profil après le dislike
+    return "redirect:/profilUser";
+}
+
+public void supprimerPersonnageCsv(String cheminFichier, String pseudo, String personnageNom) {
+    List<String> lignesModifiees = new ArrayList<>();
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(cheminFichier))) {
+        String ligne;
+        while ((ligne = reader.readLine()) != null) {
+            String[] data = ligne.split(",");
+
+            // Si la ligne correspond à l'utilisateur, on filtre les personnages
+            if (data[0].equalsIgnoreCase(pseudo)) {
+                StringBuilder nouvelleLigne = new StringBuilder(data[0]);
+                for (int i = 1; i < data.length; i++) {
+                    if (!data[i].trim().equalsIgnoreCase(personnageNom.trim())) {
+                        nouvelleLigne.append(",").append(data[i]);
+                    }
+                }
+
+                // Ajouter la ligne mise à jour si elle contient encore des personnages
+                if (nouvelleLigne.toString().contains(",")) {
+                    lignesModifiees.add(nouvelleLigne.toString());
+                }
+            } else {
+                lignesModifiees.add(ligne); // Conserver les lignes des autres utilisateurs
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    // Réécrire le fichier avec les lignes modifiées
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(cheminFichier))) {
+        for (String ligne : lignesModifiees) {
+            writer.write(ligne);
+            writer.newLine();
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
 }
 
 }
