@@ -69,6 +69,7 @@ public class ListpersonnageController {
 
         return "redirect:/personnages"; // Redirige vers la page du jeu
     }
+    
 }
 
 
