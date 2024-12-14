@@ -1,13 +1,13 @@
 package com.historydle.demo;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.historydle.demo.*;
+
 import jakarta.servlet.http.HttpSession;
-import java.util.Optional;
 
 @Controller
 public class ConnexionController {
@@ -40,6 +40,7 @@ public class ConnexionController {
             Utilisateur utilisateur = optionalUtilisateur.get();
             String statut = utilisateur.getStatut();
             if(statut.equals("admin")){
+                session.setAttribute("admin", "admin");
                 return "redirect:/admin";
             }else{
                 session.setAttribute("username", username);

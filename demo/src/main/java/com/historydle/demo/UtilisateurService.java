@@ -1,9 +1,11 @@
 package com.historydle.demo;
-import com.historydle.demo.UtilisateurRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
-import com.historydle.demo.*;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class UtilisateurService {
@@ -48,6 +50,42 @@ public class UtilisateurService {
 
     public Optional<Utilisateur> findByPseudo(String pseudo) {
         return utilisateurRepository.findByPseudo(pseudo);
+    }
+
+    public List<Utilisateur> findAllUtilisateurs() {
+        return utilisateurRepository.findAll();
+    }
+
+    public boolean supprimerUtilisateur(String pseudo) {
+        return utilisateurRepository.findByPseudo(pseudo).map(utilisateur -> {
+            utilisateurRepository.delete(utilisateur);
+            return true;
+        }).orElse(false);
+    }
+
+    public void modifierUtilisateur(Long id, String nouveauPseudo, String nouveauMotDePasse) {
+        utilisateurRepository.findById(id).ifPresent(utilisateur -> {
+            utilisateur.setPseudo(nouveauPseudo);
+            utilisateur.setMdp(nouveauMotDePasse);
+            utilisateurRepository.save(utilisateur);
+        });
+    }
+
+    public void ecrireUtilisateursCsv() {
+        List<Utilisateur> utilisateurs = findAllUtilisateurs();
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("./data/utilisateurs.csv"))) {
+            // Écrire l'en-tête CSV
+            writer.write("pseudo,mdp,statut\n");
+
+            // Écrire les données des utilisateurs
+            for (Utilisateur utilisateur : utilisateurs) {
+                writer.write(utilisateur.getPseudo() + "," + utilisateur.getMdp() + "," + utilisateur.getStatut() + "\n");
+            }
+
+        } catch (IOException e) {
+            System.err.println("Erreur d'écriture du fichier CSV : " + e.getMessage());
+        }
     }
 
 }
