@@ -57,6 +57,7 @@ public String afficherProfilUser(HttpSession session, Model model) {
     } catch (IOException e) {
         e.printStackTrace();
     }
+    List<Personnage> personnagesLikes = obtenirPersonnagesLikes(pseudoUtilisateurConnecte);
 
     Utilisateur utilisateur = utilisateurRepository.findByPseudo(pseudoUtilisateurConnecte)
                                 .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
@@ -67,7 +68,7 @@ public String afficherProfilUser(HttpSession session, Model model) {
     model.addAttribute("utilisateur", pseudoUtilisateurConnecte);
     model.addAttribute("historique", historiqueUtilisateur);
     model.addAttribute("parties", parties);
-    model.addAttribute("personnagesLikes", utilisateur.getPersonnagesLikes());
+    model.addAttribute("personnagesLikes", personnagesLikes);
     return "profilUser";
 }
 
@@ -128,4 +129,27 @@ public void supprimerPersonnageCsv(String cheminFichier, String pseudo, String p
     }
 }
 
+private List<Personnage> obtenirPersonnagesLikes(String pseudo) {
+    List<Personnage> personnagesLikes = new ArrayList<>();
+    try (BufferedReader csvReader = new BufferedReader(new FileReader("data/likes.csv"))) {
+        String ligne;
+        while ((ligne = csvReader.readLine()) != null) {
+            String[] data = ligne.split(",");
+
+            if (data[0].trim().equalsIgnoreCase(pseudo.trim())) {
+                for (int i = 1; i < data.length; i++) {
+                    String nomPersonnage = data[i].trim();
+                    List<Personnage> personnagesTrouves = personnageRepository.findByNomContainingIgnoreCase(nomPersonnage);
+                    if (!personnagesTrouves.isEmpty()) {
+                        personnagesLikes.add(personnagesTrouves.get(0));
+                    }
+                }
+                break; // Ligne correspondante trouvée, pas besoin de continuer
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return personnagesLikes;
+}
 }

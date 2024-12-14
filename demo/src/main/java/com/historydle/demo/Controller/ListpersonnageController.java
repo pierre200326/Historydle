@@ -44,7 +44,7 @@ public class ListpersonnageController {
             System.out.println("Utilisateur connecté : " + username);
         }
 
-        List<Personnage> personnages = personnageRepository.findAll(); // Récupère tous les personnages
+        List<Personnage> personnages = personnageRepository.findOnlyPersonnage();
         model.addAttribute("personnages", personnages); // Ajoute à la vue
         return "personnages";
     }
