@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Personnages Historiques</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-fixed bg-cover bg-center min-h-screen" style="background-image: url('images/civ6.jpg');">
+    <div class="container mx-auto mt-10 max-w-4xl">
+        <div class="mb-4" th:insert="~{fragments/menu :: menu}"></div>
+        <div class="overflow-hidden shadow-md rounded-lg">
+            <table class="min-w-full bg-white">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="py-3 px-6 text-center text-sm font-medium uppercase tracking-wider">Image</th>
+                        <th class="py-3 px-6 text-center text-sm font-medium uppercase tracking-wider">Nom</th>
+                        <th class="py-3 px-6 text-center text-sm font-medium uppercase tracking-wider"></th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <tr th:each="personnage : ${personnages}" class="hover:bg-gray-100">
+                        <!-- Image -->
+                        <td class="py-4 px-6 text-center">
+                            <img th:src="${personnage.nom != 'Personnage non trouvé' ? '/Historydle/' + personnage.nom + '.webp' : ''}" 
+                                alt="Image de [[${personnage.nom}]]" 
+                                class="h-16 w-16 object-cover rounded-md mx-auto">
+                        </td>
+                        <!-- Nom -->
+                        <td class="py-4 px-6 text-center text-gray-700 font-medium" th:text="${personnage.nom}">Nom du personnage</td>
+                        <!-- Bouton Like -->
+                        <td class="py-4 px-6 text-center">
+                            <form th:action="@{/like/{personnageId}(personnageId=${personnage.id})}" method="post">
+                                <button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md shadow hover:bg-blue-400 transform transition duration-300 ease-in-out hover:scale-105">
+                                    ❤️ Like
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

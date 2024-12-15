@@ -1,0 +1,44 @@
+<!-- fragments/menu.html -->
+<div th:fragment="menu">
+    <h1 class="mb-6 transform transition duration-300 ease-in-out hover:scale-110">
+        <!-- Logo Historydle avec Redirect main-->
+        <a th:href="@{/}">
+        <img src="/images/HistorydleLogo.png" alt="Historydle" class="h-20 mx-auto">
+        </a>
+    </h1>
+    <div class="absolute top-4 right-4">
+        <a th:if="${session.username == null}" th:href="@{/connexion}" class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition duration-300">
+          Connexion
+        </a>
+
+        <a th:if="${session.username != null}" th:href="@{/connexion}" class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition duration-300">
+            Déconnexion
+        </a>
+        <a th:if="${session.username != null}" th:href="@{/profilUser}" class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition duration-300">
+            Profil
+        </a>
+    </div>
+    <div class="flex justify-center gap-4 z-10 relative">
+        <!-- Game 1: Historydle -->
+        <div class="game-wrapper relative group">
+            <a th:href="@{/jouer}">
+                <img th:src="@{/images/Historydle.png}" alt="Historydle" class="main-image w-24 h-24 object-cover rounded-lg transform transition duration-300 ease-in-out hover:scale-110">
+                <img th:src="@{/images/Historydle-complete.png}" alt="Historydle-complete" class="main-image w-24 h-24 object-cover rounded-lg hidden ">
+            </a>
+        </div>
+        <!-- Game 2: Citation -->
+        <div class="game-wrapper relative group">
+            <a th:href="@{/citation}">
+                <img th:src="@{/images/Citation.png}" alt="Citation" class="main-image w-24 h-24 object-cover rounded-lg transform transition duration-300 ease-in-out hover:scale-110">
+                <img th:src="@{/images/Citation-complete.png}" alt="Citation-complete" class="main-image w-24 h-24 object-cover rounded-lg hidden ">
+            </a>
+        </div>
+        <!-- Game 3: Portrait -->
+        <div class="game-wrapper relative group">
+            <a th:href="@{/portrait}">
+                <img th:src="@{/images/Portrait.png}" alt="Portrait" class="main-image w-24 h-24 object-cover rounded-lg transform transition duration-300 ease-in-out hover:scale-110">
+                <img th:src="@{/images/Portrait-complete.png}" alt="Portrait-complete" class="main-image w-24 h-24 object-cover rounded-lg hidden ">
+            </a>
+        </div>
+    </div>
+</div>

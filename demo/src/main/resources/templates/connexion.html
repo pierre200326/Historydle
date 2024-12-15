@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Jeu Historique</title>
+    <!-- Inclusion de Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<!--<body class="bg-fixed bg-cover bg-center min-h-screen" style="background-image: url('/civ6.jpg');"> -->
+    <body class="bg-fixed bg-gray-100 flex items-center justify-center min-h-screen" style="background-image: url('images/civ6.jpg');">
+      <div class="absolute top-4 right-4">
+      <a  th:href="@{/}" class="px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition duration-300">
+        Retour
+    </a>
+  </div>
+        <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-sm">
+          <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Connexion</h2>
+          <form action="/login" method="POST">
+            <!-- pseudo -->
+            <div class="mb-4">
+              <label for="pseudo" class="block text-sm font-medium text-gray-700 mb-1">Pseudo</label>
+              <input type="text" id="pseudo" name="pseudo" required 
+                     class="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+      
+            <!-- Mot de passe -->
+            <div class="mb-6">
+              <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Mot de passe</label>
+              <input type="password" id="password" name="password" required 
+                     class="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+      
+            <!-- Bouton de connexion -->
+            <button type="submit" 
+                    class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300">
+              Se connecter
+            </button>
+          </form>
+      
+          <!-- Lien vers inscription -->
+          <p class="mt-4 text-sm text-gray-600 text-center">
+            Pas encore de compte ? 
+            <a th:href="@{/inscription}" class="text-blue-500 hover:underline">S'inscrire</a>
+          </p>
+        </div>
+
+</body>
+</html>
