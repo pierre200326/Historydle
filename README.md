@@ -30,6 +30,17 @@ server.port=8080
 ``` 
 - **Attention : Il est impératif d'être connecté à internet pour profiter du site à 100%. Sans cela, il pourrait notamment manquer une partie du CSS et du JS.**
 
+Les comptes disponible au lancement sont :
+
+Compte Utilisateur : 
+ - pseudo : jane_smithtest / mdp : mypassword
+ - pseudo : Antonin / mdp : 1234
+ - pseudo : alice_wonderland / mdp : securepassword
+ - pseudo : toto / mdp : toto
+
+Compte Admin :
+ - pseudo : pierre200326 / mdp : test
+
 ## Auto-Evaluation
 
 #### Fonctionnalités
