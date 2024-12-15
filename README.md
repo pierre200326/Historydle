@@ -3,14 +3,13 @@
 
 
 
-Historydle est un site de jeu historique où l'utilisateur peut tenter de trouver un personnage historique chaque jour selon
-différents jeux :
+Historydle est un site de jeu sur lequel l'utilisateur devra tenter de trouver un personnage historique chaque jour pour différents jeux :
 
 - **Historydle :** Devinez un personnage à partir de ses attributs spécfiques.
 - **Citation :** Trouvez qui a dit une citation célèbre.
 - **Portrait :** Identifiez un personnage à partir de son portrait. 
 
-Pour ces 3 jeux, un personnage aléatoire est généré **chaque jour**  à vous de le trouver !. 
+Pour ces 3 jeux, un personnage aléatoire est généré **chaque jour**. A vous de le trouver !. 
 
 ## Lancement
 
@@ -32,10 +31,20 @@ server.port=8080
 - **Attention : Il est impératif d'être connecté à internet pour profiter du site à 100%. Sans cela, il pourrait notamment manquer une partie du CSS et du JS.**
 
 ## Auto-Evaluation
+
+#### Fonctionnalités
+1 . L'application permet d'insérer une entité dans la BDD avec l'utilisation de la méthode `save` qui permet de sauvegarder un compte d'un utilisateur dans la BDD (fichier CSV). Cette méthode est disponible grâce à `Spring Data JPA`.
+
+2 . L'application d'insérer, mettre à jour et supprimer un utilisateur dans la bdd, chercher une entité personnage dans la BDD
+
+3 & 4 . L'application permet de lier 2 entités en BDD (User et partie, User et personnage likés par exemple)
+
 #### Qualité 
-Ce projet a été réalisé à l'aide d'un framework CSS : tailwind.
+1 . Ce projet a été réalisé à l'aide d'un framework CSS : tailwind.
 Bien que la prise en main fut un petit peu déconcertante au début,l'utilisation de ce framework nous a permis de gagner beaucoup de temps dans la
-réalisation du css que l'on trouve efficace et agréable. De plus afin de rendre le travail de groupe plus pratique nous avons utilisé github dés le début du projet.
+réalisation du css que l'on trouve efficace et agréable. 
+
+2 & 3 . Afin de rendre le travail de groupe plus pratique nous avons utilisé github dés le début du projet.
 Cela nous a permis de pouvoir nous organiser correctement et efficacement malgré les multiples commit et merge. Nous avons fait le choix de travailler chacun sur une branche différente.
 Tout ces éléments ont permis à chacun d'mplémenter et de tester des fonctionnalités différentes afin d'avancer le plus rapidement possible.
 
@@ -48,12 +57,9 @@ Afin d'implementer celui-ci nous avons séparé chaque fonctionnalités sous tro
 - **Vue** : Regroupe toutes les pages HTML. A noter que l'on a utilisé l'outils Thymeleaf.
 - **Contrôleur** : Gère les requêtes utilisateur et transfère les données entre le modèle et la vue. Nous avons un Controller pour toutes les vues et fonctionnalités existantes sur le site. 
 
-2 . Le projet utilise les méthodes HTTP appropriées pour chaque type d'opération. On a notamment utilisé, la méthode GET lorsque l'on souhaite récupérer tous les personnages. La méthode POST a pu être utilisé pour récupérer la réponse de l'utilisateur, la comparer, enregistrer la réponse et rénvoyer vers la nouvelle page actualiser. Enfin les méthodes PUT et DELETE ont pu être utilisé **A rajouter**
+2 . Le projet utilise toutes les méthodes HTTP demandées (GET,POST,PUT,DELETE). Nous avons notamment utilisé, la méthode GET lorsque l'on souhaite récupérer tous les personnages. La méthode POST a pu être utilisé pour récupérer la réponse de l'utilisateur, la comparer, enregistrer la réponse et renvoyer vers la nouvelle page actualiser. Enfin les méthodes PUT et DELETE sont utilisées dans l'admin pour modifier ou supprimer un utilisateur.
 
-Il est important de noter que toutes les vues manipules des données transmises par son controlleur tels que la réponse de l'utilisateur ou encore l'affichage de personnage à trouver.
-
-#### fonctionnalité
-L'application permet d'insérer une entité dans la BDD avec l'utilisation de la méthode `save` qui permet de sauvegarder un compte d'un utilisateur dans la BDD (fichier CSV). Cette méthode est disponible grâce à `Spring Data JPA`. Pour la modification **A rajouter**
+3 . Chaque que toutes les vues manipulent des données transmises par leur contrôleur tels que la réponse de l'utilisateur ou encore l'affichage du personnage à trouver.
 
 #### Détails des Entités
 
