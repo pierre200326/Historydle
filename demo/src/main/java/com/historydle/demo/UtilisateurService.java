@@ -7,6 +7,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.historydle.demo.Entity.Utilisateur;
+import com.historydle.demo.Repository.UtilisateurRepository;
+
 @Service
 public class UtilisateurService {
 
