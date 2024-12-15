@@ -35,7 +35,9 @@ server.port=8080
 #### Qualité 
 Ce projet a été réalisé à l'aide d'un framework CSS : tailwind.
 Bien que la prise en main fut un petit peu déconcertante au début,l'utilisation de ce framework nous a permis de gagner beaucoup de temps dans la
-réalisation du css que l'on trouve efficace et agréable. De plus afin de rendre le travail de groupe plus pratique nous avons utilisé github dés le début du projet. Cela nous a permis de pouvoir nous organiser correctement et efficacement malgré les multiples commit et merge. Nous avons fait le choix de travailler chacun sur une branche différente. Tout ceci pour permettre à chacun d'mplémenter et de tester des fonctionnalités différentes afin d'avancer le plus rapidement possible.
+réalisation du css que l'on trouve efficace et agréable. De plus afin de rendre le travail de groupe plus pratique nous avons utilisé github dés le début du projet.
+Cela nous a permis de pouvoir nous organiser correctement et efficacement malgré les multiples commit et merge. Nous avons fait le choix de travailler chacun sur une branche différente.
+Tout ces éléments ont permis à chacun d'mplémenter et de tester des fonctionnalités différentes afin d'avancer le plus rapidement possible.
 
 #### Technique
 
@@ -83,7 +85,8 @@ L'application permet d'insérer une entité dans la BDD avec l'utilisation de la
      - N-1 avec "Personnage" (chaque indice appartient à un personnage)
 
 #### Futur de Historydle
-Après avoir réalisé ce projet, nous envisageons de déployer ce site. En effet, nous pensons que cela peut être plaisant de proposer à tout le monde la possibilité de tester notre site et de tester ses connaissances quotidiennement.
+Après avoir réalisé ce projet, nous envisageons de déployer ce site, afin de donner à tout le monde la possibilité de tester notre site et de tester ses connaissances quotidiennement.
+Nous pourrions rajouter des fonctionnalités supplémentaires comme un top des joueurs du jour (classement du plus faible nombre d'essais par exemple), un classement des joueurs les plus réguliers, de nouveaux modes de jeux etc.
 
 ## Authors 👩‍💻
 
