@@ -41,36 +41,45 @@ public class CitationController {
     @Autowired
     private PartieRepository partieRepository;  // Permet de gérer les données des parties jouées
 
-    private final List<Map<String, Object>> resultats = new ArrayList<>();  // Liste pour stocker les résultats des réponses des joueurs
+    private List<Map<String, Object>> resultats = new ArrayList<>();  // Liste pour stocker les résultats des réponses des joueurs
     private int tourDeJeu = 0;  // Compteur pour suivre le nombre de tours joués dans le jeu
 
-    // Méthode pour afficher la page de jeu
-    @GetMapping("/citation")
-    public String citation(Model model, HttpSession session) {
+    // Ajoutez un attribut à votre session pour suivre si un utilisateur est connecté
+@GetMapping("/citation")
+public String citation(Model model, HttpSession session) {
+    // Vérifie si un utilisateur est connecté
+    String username = (String) session.getAttribute("username");
 
-        // Récupère l'utilisateur connecté à partir de la session
-        String username = (String) session.getAttribute("username");
-        if (username == null) {
-            System.out.println("Aucun utilisateur n'est connecté");  // Si aucun utilisateur n'est connecté, affiche ce message
-        } else {
-            System.out.println("Utilisateur connecté : " + username);  // Affiche le nom de l'utilisateur connecté
-        }
-
-        // Ajoute les attributs nécessaires au modèle pour afficher les résultats
-        model.addAttribute("resultats", resultats);
-        // Récupère la citation du personnage à deviner du jour via le contrôleur ReponseCitationController
-        Personnage reponseDuJour = reponseCitationController.getReponseDuJour();
-        model.addAttribute("tourDeJeu", tourDeJeu);  // Ajoute le nombre de tours au modèle
-        model.addAttribute("ageDisponibleDans", Math.max(0, 3 - tourDeJeu));  // Limite l'affichage des indices en fonction des tours
-        model.addAttribute("titreDisponibleDans", Math.max(0, 6 - tourDeJeu));  // Limite l'affichage des indices en fonction des tours
-        model.addAttribute("hasCorrectName", resultats.stream().anyMatch(resultat -> Boolean.TRUE.equals(resultat.get("nomCorrect"))));  // Vérifie si un nom correct a été trouvé
-        if (reponseDuJour != null) {
-            model.addAttribute("citation", reponseDuJour.getCitation());  // Affiche la citation du personnage à deviner
-        } else {
-            model.addAttribute("citation", "Pas de citation disponible pour aujourd'hui.");  // Si aucune citation n'est disponible, affiche ce message
-        }
-        return "citation";  // Retourne la vue "citation" qui contient le jeu
+    if (username == null) {
+        System.out.println("Aucun utilisateur n'est connecté");
+    } else {
+        System.out.println("Utilisateur connecté : " + username);
     }
+
+    // Si un nouvel utilisateur se connecte, réinitialiser les données du jeu
+    if (username != null && session.getAttribute("newUser1") == null) {
+        // Initialiser ou réinitialiser les données de jeu
+        resultats.clear();
+        tourDeJeu = 0;
+        session.setAttribute("newUser1", "true");
+    }
+
+    model.addAttribute("resultats", resultats);
+    Personnage reponseDuJour = reponseCitationController.getReponseDuJour();
+    model.addAttribute("tourDeJeu", tourDeJeu);
+    model.addAttribute("ageDisponibleDans", Math.max(0, 3 - tourDeJeu));
+    model.addAttribute("titreDisponibleDans", Math.max(0, 6 - tourDeJeu));
+    model.addAttribute("hasCorrectName", resultats.stream().anyMatch(resultat -> Boolean.TRUE.equals(resultat.get("nomCorrect"))));
+
+    if (reponseDuJour != null) {
+        model.addAttribute("citation", reponseDuJour.getCitation());
+    } else {
+        model.addAttribute("citation", "Pas de citation disponible pour aujourd'hui.");
+    }
+
+    return "citation";
+}
+
 
     // Méthode pour gérer l'autocomplétion des noms de personnages
     @GetMapping("/autocompleteCitation")

@@ -54,6 +54,14 @@ public class DevinetteController {
             System.out.println("Utilisateur connecté : " + username);
         }
 
+        // Si un nouvel utilisateur se connecte, réinitialiser les données du jeu
+        if (username != null && session.getAttribute("newUser2") == null) {
+        // Initialiser ou réinitialiser les données de jeu
+        resultats.clear();
+        tourDeJeu = 0;
+        session.setAttribute("newUser2", "true");
+        }
+
         // Ajoute les attributs nécessaires au modèle pour afficher les résultats
         model.addAttribute("resultats", resultats);
         model.addAttribute("tourDeJeu", tourDeJeu);
