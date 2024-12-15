@@ -10,7 +10,7 @@ différents jeux :
 - **Citation :** Trouvez qui a dit une citation célèbre.
 - **Portrait :** Identifiez un personnage à partir de son portrait. 
 
-Chaque jeu possède **chaque jour** un nouveau personnage à trouver. 
+Pour ces 3 jeux, un personnage aléatoire est généré **chaque jour**  à vous de le trouver !. 
 
 ## Lancement
 
@@ -33,18 +33,18 @@ server.port=8080
 
 ## Auto-Evaluation
 #### Qualité 
-Ce projet a été réalisé à l'aide d'un framework CSS. Nous avons utilisé tailwind CSS pour ce faire. 
+Ce projet a été réalisé à l'aide d'un framework CSS : tailwind.
 Bien que la prise en main fut un petit peu déconcertante au début,l'utilisation de ce framework nous a permis de gagner beaucoup de temps dans la
-réalisation du css que l'on trouve efficace et agréable. De plus afin de rendre le travail de groupe plus pratique nous avons utilisé github dés le début du projet. Cela nous a permis de pouvoir nous organiser correctement avec de nombreux commit et merge. Nous avons fait le choix de travailler chacun sur une branche différente. Tout ceci dans le but que chacun implémente une fonctionnalité différente afin d'avancer le plus rapidement possible.
+réalisation du css que l'on trouve efficace et agréable. De plus afin de rendre le travail de groupe plus pratique nous avons utilisé github dés le début du projet. Cela nous a permis de pouvoir nous organiser correctement et efficacement malgré les multiples commit et merge. Nous avons fait le choix de travailler chacun sur une branche différente. Tout ceci pour permettre à chacun d'mplémenter et de tester des fonctionnalités différentes afin d'avancer le plus rapidement possible.
 
 #### Technique
 
 1 . Pour toutes nos fonctionnalités, nous avons utilisé le design pattern MVC tout au long de notre projet. 
 Afin d'implementer celui-ci nous avons séparé chaque fonctionnalités sous trois composantes distinctes :
 
-- **Le model** : Regroupe tout ce qui concerne la gestion des données et leur logique métier. Dans notre application web, ceci représente les entités et repositories qui collaborent pour gérer les interactions avec la base de données et les règles définies 
-- **La vue** : Regroupe toutes les pages HTML. A noter que l'on a utilisé l'outils Thymeleaf.
-- **Le Controller** : Gère les requêtes utilisateur et transfère les données entre le modèle et la vue. Nous avons un Controller pour toutes les vues et fonctionnalités existantes sur le site. 
+- **Modèle** : Regroupe tout ce qui concerne la gestion des données et leur logique métier. Dans notre application web, ceci représente les entités et repositories qui collaborent pour gérer les interactions avec la base de données et les règles définies 
+- **Vue** : Regroupe toutes les pages HTML. A noter que l'on a utilisé l'outils Thymeleaf.
+- **Contrôleur** : Gère les requêtes utilisateur et transfère les données entre le modèle et la vue. Nous avons un Controller pour toutes les vues et fonctionnalités existantes sur le site. 
 
 2 . Le projet utilise les méthodes HTTP appropriées pour chaque type d'opération. On a notamment utilisé, la méthode GET lorsque l'on souhaite récupérer tous les personnages. La méthode POST a pu être utilisé pour récupérer la réponse de l'utilisateur, la comparer, enregistrer la réponse et rénvoyer vers la nouvelle page actualiser. Enfin les méthodes PUT et DELETE ont pu être utilisé **A rajouter**
 
@@ -56,35 +56,35 @@ L'application permet d'insérer une entité dans la BDD avec l'utilisation de la
 #### Détails des Entités
 
 1 . **Utilisateur**
-   - **Champs :** id, nom, email, motDePasse.
+   - **Champs :** id, pseudo, mdp, statut, liste de parties, liste de personnages likés.
    - **Relations :**
-     - 1-N avec "Partie" (un utilisateur peut avoir plusieurs parties enregistrées).
-     - N-N avec "Personnage" (un utilisateur peut aimer plusieurs personnages et un personnage peut être aimé par plusieurs utilisateurs.).
+     - 1-N avec "Partie" (L'utilisateur possède un historique de parties)
+     - N-N avec "Personnage" (un utilisateur peut liker plusieurs personnages, un personnage peut être liké par plusieurs utilisateurs)
 
 2 . **Personnage**
-   - **Champs :** id, nom, description, portraitURL, citations.
+   - **Champs :** id, nom, genre,pays,continent, domaine, periode imageURL, citation, liste d'indices, liste d'utilisateurs qui ont likés.
    - **Relations :**
-     - 1-N avec "Citation" (un personnage peut avoir plusieurs citations).
-     - N-N avec "Utilisateur" (un personnage peut être aimé par plusieurs utilisateurs et un utilisateur peut aimer plusieurs personnages.
+     - 1-N avec "Indice" (un personnage peut avoir plusieurs indices, en l'occurence on lui en donne 2 dans les différents jeux actuellement).
+     - N-N avec "Utilisateur" (un personnage peut être liké par plusieurs utilisateurs et un utilisateur peut liker plusieurs personnages)
 
-3 . **Citation**
-   - **Champs :** id, texte, personnageId.
+3,4,5 . **ReponseCitation, ReponseDevinette, ReponsePortrait**
+   - **Champs :** personnage, date.
    - **Relations :**
-     - N-1 avec "Personnage" (chaque citation appartient à un personnage).
+     - 1-1 avec "Personnage" (chaque citation/devinette/portrait du jour est associé à un personnage)
 
-4 . **Partie**
-   - **Champs :** id, date, utilisateurId, resultat.
+6 . **Partie**
+   - **Champs :** id, jeu, personnageTrouvé,utilisateur.
    - **Relations :**
-     - N-1 avec "Utilisateur".
-     - N-1 avec "Personnage" (chaque partie est associée à un personnage).
+     - N-1 avec "Utilisateur" (L'utilisateur possède un historique de parties)
 
-5 . **Proposition**
-   - **Champs :** id, textePropose, estCorrect, partieId.
+7 . **Indice**
+   - **Champs :** id, personnage, indice.
    - **Relations :**
-     - N-1 avec "Partie" (chaque proposition appartient à une partie)
+     - N-1 avec "Personnage" (chaque indice appartient à un personnage)
 
-#### Pour le Futur
-Finalement, après avoir réalisé ce projet, nous avons envie de déployer ce site. En effet, nous pensons que cela peut être plaisant de proposer à tout le monde la possibilité de tester notre site et de pourquoi pas l'utiliser de manière quotidienne.
+#### Futur de Historydle
+Après avoir réalisé ce projet, nous envisageons de déployer ce site. En effet, nous pensons que cela peut être plaisant de proposer à tout le monde la possibilité de tester notre site et de tester ses connaissances quotidiennement.
+
 ## Authors 👩‍💻
 
 - [@Pierre NICHELE](https://github.com/pierre200326)
