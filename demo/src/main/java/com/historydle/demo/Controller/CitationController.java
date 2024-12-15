@@ -1,5 +1,4 @@
 package com.historydle.demo.Controller;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
