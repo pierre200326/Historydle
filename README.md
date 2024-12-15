@@ -13,9 +13,9 @@ Pour ces 3 jeux, un personnage aléatoire est généré **chaque jour**. A vous 
 
 ## Lancement
 
-Afin de lancer le projet comme il se doit veuillez suivre les indications suivantes : 
+Afin de lancer le projet comme il se doit, veuillez suivre les indications suivantes : 
 
-- Exporter le projet github sur une IDE
+- Importer le projet github sur une IDE
 - Une fois le projet lancé, déplacez vous dans le dossier démo depuis un terminal à l' aide de : 
 ```bash
 cd demo
@@ -33,9 +33,6 @@ server.port=8080
 Les comptes disponible au lancement sont :
 
 Compte Utilisateur : 
- - pseudo : jane_smithtest / mdp : mypassword
- - pseudo : Antonin / mdp : 1234
- - pseudo : alice_wonderland / mdp : securepassword
  - pseudo : toto / mdp : toto
 
 Compte Admin :
