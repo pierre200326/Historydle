@@ -51,6 +51,13 @@ public class PortraitController {
             System.out.println("Utilisateur connecté : " + username);
         }
 
+        // Si un nouvel utilisateur se connecte, réinitialiser les données du jeu
+        if (username != null && session.getAttribute("newUser3") == null) {
+        // Initialiser ou réinitialiser les données de jeu
+        resultats.clear();
+        session.setAttribute("newUser3", "true");
+        }
+
         model.addAttribute("resultats",resultats);
         Personnage reponseDuJour = reponsePortraitController.getReponseDuJour();
         if (reponseDuJour!= null){

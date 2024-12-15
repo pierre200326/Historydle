@@ -24,131 +24,141 @@ import com.historydle.demo.Repository.UtilisateurRepository;
 
 import jakarta.servlet.http.HttpSession;
 
+// Controller pour gérer le jeu "Citation"
 @Controller
 public class CitationController {
 
     @Autowired
-    private PersonnageRepository personnageRepository;
+    private PersonnageRepository personnageRepository;  // Permet l'accès aux données des personnages
 
     @Autowired
-    private ReponseCitationController reponseCitationController;
+    private ReponseCitationController reponseCitationController;  // Permet de récupérer la réponse du jour pour le jeu
 
     @Autowired
-    private UtilisateurRepository utilisateurRepository;
+    private UtilisateurRepository utilisateurRepository;  // Permet de récupérer les données des utilisateurs
 
     @Autowired
-    private PartieRepository partieRepository;
+    private PartieRepository partieRepository;  // Permet de gérer les données des parties jouées
 
-    private final List<Map<String, Object>> resultats = new ArrayList<>();
-    private int tourDeJeu = 0; // Initialiser le compteur de tours
+    private List<Map<String, Object>> resultats = new ArrayList<>();  // Liste pour stocker les résultats des réponses des joueurs
+    private int tourDeJeu = 0;  // Compteur pour suivre le nombre de tours joués dans le jeu
 
-    //La méthode renvoie la vue citation.
-    @GetMapping("/citation")
-    public String citation(Model model,HttpSession session) {
+    // Ajoutez un attribut à votre session pour suivre si un utilisateur est connecté
+@GetMapping("/citation")
+public String citation(Model model, HttpSession session) {
+    // Vérifie si un utilisateur est connecté
+    String username = (String) session.getAttribute("username");
 
-        // Vérifie si un utilisateur est connecté via la session et affiche un message approprié dans la console
-        String username = (String) session.getAttribute("username");
-        if (username == null) {
-            System.out.println("Aucun utilisateur n'est connecté");
-        }else{
-            System.out.println("Utilisateur connecté : " + username);
-        }
-
-        model.addAttribute("resultats", resultats);
-        // Obtenir la citation du personnage à deviner
-        Personnage reponseDuJour = reponseCitationController.getReponseDuJour();
-        model.addAttribute("tourDeJeu", tourDeJeu);
-        model.addAttribute("ageDisponibleDans", Math.max(0, 3 - tourDeJeu)); // Limiter à 0 minimum
-        model.addAttribute("titreDisponibleDans", Math.max(0, 6 - tourDeJeu)); // Limiter à 0 minimum
-        // Cherche si dans la map de résultat, il existe déja la bonne réponse
-        model.addAttribute("hasCorrectName", resultats.stream().anyMatch(resultat -> Boolean.TRUE.equals(resultat.get("nomCorrect"))));
-        if (reponseDuJour != null) {
-            model.addAttribute("citation", reponseDuJour.getCitation());
-        } else {
-            model.addAttribute("citation", "Pas de citation disponible pour aujourd'hui.");
-        }
-        return "citation";
+    if (username == null) {
+        System.out.println("Aucun utilisateur n'est connecté");
+    } else {
+        System.out.println("Utilisateur connecté : " + username);
     }
 
-    // Gère le système de suggestion automatique. Cherche dans la table si les noms de personnages qui contiennent la chaine de caractère reçu de manière insensible à la casse
+    // Si un nouvel utilisateur se connecte, réinitialiser les données du jeu
+    if (username != null && session.getAttribute("newUser1") == null) {
+        // Initialiser ou réinitialiser les données de jeu
+        resultats.clear();
+        tourDeJeu = 0;
+        session.setAttribute("newUser1", "true");
+    }
+
+    model.addAttribute("resultats", resultats);
+    Personnage reponseDuJour = reponseCitationController.getReponseDuJour();
+    model.addAttribute("tourDeJeu", tourDeJeu);
+    model.addAttribute("ageDisponibleDans", Math.max(0, 3 - tourDeJeu));
+    model.addAttribute("titreDisponibleDans", Math.max(0, 6 - tourDeJeu));
+    model.addAttribute("hasCorrectName", resultats.stream().anyMatch(resultat -> Boolean.TRUE.equals(resultat.get("nomCorrect"))));
+
+    if (reponseDuJour != null) {
+        model.addAttribute("citation", reponseDuJour.getCitation());
+    } else {
+        model.addAttribute("citation", "Pas de citation disponible pour aujourd'hui.");
+    }
+
+    return "citation";
+}
+
+
+    // Méthode pour gérer l'autocomplétion des noms de personnages
     @GetMapping("/autocompleteCitation")
     @ResponseBody
     public List<String> autocompleteCitation(@RequestParam("query") String query) {
+        // Recherche des personnages dont le nom contient la chaîne "query" (insensible à la casse)
         List<Personnage> personnages = personnageRepository.findByNomContainingIgnoreCase(query);
         List<String> suggestions = new ArrayList<>();
         for (Personnage personnage : personnages) {
-            suggestions.add(personnage.getNom());
+            suggestions.add(personnage.getNom());  // Ajoute les noms correspondants à la liste des suggestions
         }
-        return suggestions;
+        return suggestions;  // Retourne les suggestions en réponse
     }
 
-    //Cette méthode gère la vérification de la réponse de l'utilisateur.
+    // Méthode pour vérifier si la réponse de l'utilisateur est correcte
     @PostMapping("/verifierReponseCitation")
     public String verifierReponseCitation(@RequestParam("reponse") String reponseUtilisateur, Model model, HttpSession session) {
+        // Récupère l'utilisateur connecté à partir de la session
         String pseudoUtilisateurConnecte = (String) session.getAttribute("username");
         Utilisateur utilisateur = null;
         if (pseudoUtilisateurConnecte != null) {
             utilisateur = utilisateurRepository.findByPseudo(pseudoUtilisateurConnecte)
-                            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+                            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));  // Trouve l'utilisateur en fonction de son pseudo
         }
 
+        // Récupère le personnage correspondant au nom saisi par l'utilisateur
         Personnage personnageUtilisateur = personnageRepository.findByNomIgnoreCase(reponseUtilisateur);
 
-        // Récupérer la réponse du jour
+        // Récupère la réponse du jour
         Personnage reponseDuJour = reponseCitationController.getReponseDuJour();
-        tourDeJeu++;
-
-        // Créer une carte pour stocker les résultats
+        tourDeJeu++;  // Incrémente le compteur de tours
+        // Crée une carte pour stocker les résultats de la réponse de l'utilisateur
         Map<String, Object> resultat = new HashMap<>();
-        boolean nomCorrect = false;
-        List<Indice> indices = reponseDuJour.getIndices(); // Récupérer les indices du personnage
-
+        boolean nomCorrect = false;  // Indique si le nom de l'utilisateur est correct
+        List<Indice> indices = reponseDuJour.getIndices();  // Récupère les indices du personnage du jour
 
         if (personnageUtilisateur != null) {
-            // Récupérer les attributs du personnage de l'utilisateur
+            // Récupère les attributs du personnage de l'utilisateur
             String nomUtilisateur = personnageUtilisateur.getNom();
 
-            // Comparer avec la réponse du jour
+            // Compare le nom de l'utilisateur avec le nom du personnage du jour
             nomCorrect = reponseDuJour.getNom().equalsIgnoreCase(nomUtilisateur);
-            String indiceAge=indices.get(0).getIndice();
-            String indiceTitre=indices.get(1).getIndice();
-    
-            // On rentre les résultats de l'utilisateur dans la table résultat
+            String indiceAge = indices.get(0).getIndice();  // Récupère le premier indice (l'âge)
+            String indiceTitre = indices.get(1).getIndice();  // Récupère le deuxième indice (le titre)
+
+            // Ajoute les résultats à la carte
             resultat.put("nom", nomUtilisateur);
             resultat.put("nomCorrect", nomCorrect);
             resultat.put("indiceAge", indiceAge);
             resultat.put("indiceTitre", indiceTitre);
         } else {
-            // Si le personnage n'est pas trouvé, gérer ce cas
+            // Si le personnage n'est pas trouvé, gère ce cas
             resultat.put("nom", reponseUtilisateur);
-            resultat.put("nomCorrect", false);  // par défaut faux si pas trouvé
+            resultat.put("nomCorrect", false);  // Par défaut, le nom est incorrect si le personnage n'est pas trouvé
         }
 
+        // Si l'utilisateur a deviné correctement et est connecté, enregistre la partie
         if (nomCorrect && utilisateur != null) {
-        // Si le joueur est connecté et a deviné correctement, enregistrer la partie
-        Partie nouvellePartie = new Partie("Citation", personnageUtilisateur.getNom(), utilisateur);
-        partieRepository.save(nouvellePartie);
+            Partie nouvellePartie = new Partie("Citation", personnageUtilisateur.getNom(), utilisateur);
+            partieRepository.save(nouvellePartie);  // Sauvegarde la partie dans la base de données
 
-        // Enregistrer dans un fichier CSV
-        try (FileWriter csvWriter = new FileWriter("historique.csv", true)) {
-            csvWriter.append(utilisateur.getPseudo());
-            csvWriter.append(",");
-            csvWriter.append(personnageUtilisateur.getNom());
-            csvWriter.append(",");
-            csvWriter.append("Citation");
-            csvWriter.append(",");
-            csvWriter.append(java.time.LocalDate.now().toString()); // Date de l'enregistrement
-            csvWriter.append("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            // Enregistre l'historique dans un fichier CSV
+            try (FileWriter csvWriter = new FileWriter("historique.csv", true)) {
+                csvWriter.append(utilisateur.getPseudo());
+                csvWriter.append(",");
+                csvWriter.append(personnageUtilisateur.getNom());
+                csvWriter.append(",");
+                csvWriter.append("Citation");
+                csvWriter.append(",");
+                csvWriter.append(java.time.LocalDate.now().toString());  // Ajoute la date actuelle
+                csvWriter.append("\n");
+            } catch (IOException e) {
+                e.printStackTrace();  // Si une erreur se produit lors de l'écriture dans le fichier, affiche l'erreur
+            }
         }
 
-        // Ajouter le résultat à la liste
-        resultats.add(0, resultat); 
-        model.addAttribute("resultats", resultats);
-        model.addAttribute("hasCorrectName", nomCorrect);
-        return "redirect:/citation";
+        // Ajoute le résultat à la liste des résultats
+        resultats.add(0, resultat);
+        model.addAttribute("resultats", resultats);  // Met à jour le modèle avec les résultats
+        model.addAttribute("hasCorrectName", nomCorrect);  // Indique si le nom était correct
+        return "redirect:/citation";  
     }
-
 }
