@@ -15,7 +15,7 @@ public class UtilisateurController {
 
     @Autowired
     private UtilisateurService utilisateurService;
-
+    // Inscrit un utilisateur
     @PostMapping("/inscription")
     public ResponseEntity<String> inscrireUtilisateur(@RequestBody Utilisateur utilisateur) {
         try {

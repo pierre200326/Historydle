@@ -20,12 +20,12 @@ import com.historydle.demo.UtilisateurService;
 public class SupprimerController {
 
     private final UtilisateurService utilisateurService;
-
+    // Initialisation des fonctions de Utilisateurs
     public SupprimerController(UtilisateurService utilisateurService) {
         this.utilisateurService = utilisateurService;
     }
 
-
+    // Affiche la page admin supprimer tout en envoyant la liste des utilisateurs
     @GetMapping("/supprimer")
     public String accueil(Model model) {
         // Récupère tous les utilisateurs
@@ -34,7 +34,7 @@ public class SupprimerController {
         model.addAttribute("utilisateurs", utilisateurs);
         return "supprimer";
     }
-
+    // Supprime l'utilisateur qui a le pseudo correspondant
     @PostMapping("/supprimer-utilisateur")
     public String supprimerUtilisateur(@RequestParam("pseudo") String pseudo) {
         boolean success = utilisateurService.supprimerUtilisateur(pseudo);
@@ -49,7 +49,7 @@ public class SupprimerController {
 
         return "redirect:/supprimer"; // Redirection vers une page d'administration
     }
-
+    //Supprime la ligne du pseudo correspondant dans le csv
     public static void supprimerLigneCsv(String cheminFichier, String pseudo) {
         File fichierCsv = new File(cheminFichier);
         File fichierTemp = new File(fichierCsv.getParent(), "temp.csv");

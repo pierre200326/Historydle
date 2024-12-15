@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ConnexionController {
-
+    //Affiche la page Connexion
     @GetMapping("/connexion")
     public String accueil(HttpSession session, Model model) {
         session.invalidate();
@@ -23,7 +23,7 @@ public class ConnexionController {
 
 
     private final UtilisateurService utilisateurService;
-
+    //Initialisation des fonctions de Utilisateurs
     public ConnexionController(UtilisateurService utilisateurService) {
         this.utilisateurService = utilisateurService;
     }
@@ -41,6 +41,7 @@ public class ConnexionController {
             System.out.println("connexion");
             Utilisateur utilisateur = optionalUtilisateur.get();
             String statut = utilisateur.getStatut();
+            // Si c'est un admin qui se connecte alors on renvoie sur la page admin sinon sur l'index
             if(statut.equals("admin")){
                 session.setAttribute("admin", "admin");
                 return "redirect:/admin";

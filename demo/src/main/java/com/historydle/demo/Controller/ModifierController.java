@@ -15,12 +15,12 @@ import com.historydle.demo.UtilisateurService;
 @Controller
 public class ModifierController {
     private final UtilisateurService utilisateurService;
-
+    // Initialisation des fonctions de Utilisateurs
     @Autowired
     public ModifierController(UtilisateurService utilisateurService) {
         this.utilisateurService = utilisateurService;
     }
-
+    // Affiche la page admin modifier tout en envoyant la liste des utilisateurs
     @GetMapping("/modifier")
     public String accueil(Model model) {
         // Récupère tous les utilisateurs
@@ -29,7 +29,7 @@ public class ModifierController {
         model.addAttribute("utilisateurs", utilisateurs);
         return "modifier";
     }
-
+    // Modifie les pseudo et mot de passe entré
     @PostMapping("/modifier-utilisateur")
     public String modifierUtilisateur(@RequestParam("id") Long id,
                                        @RequestParam("pseudo") String pseudo,

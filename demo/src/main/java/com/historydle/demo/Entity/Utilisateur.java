@@ -33,13 +33,13 @@ public class Utilisateur {
     private List<Personnage> personnagesLikes = new ArrayList<>();
 
     public Utilisateur() {}
-
+        //Constructeur de Utilisateur
         public Utilisateur(String pseudo, String mdp, String statut) {
             this.pseudo = pseudo;
             this.mdp = mdp;
             this.statut = statut;
         }
-
+    //Getter et Setter
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

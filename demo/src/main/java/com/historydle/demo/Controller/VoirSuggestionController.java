@@ -15,7 +15,7 @@ public class VoirSuggestionController {
     public VoirSuggestionController(SuggestionService suggestionService) {
         this.suggestionService = suggestionService;
     }
-
+    // Affiche la page admin voirSuggestion tout en envoyant la liste des utilisateurs
     @GetMapping("/voirSuggestion")
     public String accueil(Model model) {
         // Récupère tous les utilisateurs

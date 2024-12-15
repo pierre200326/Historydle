@@ -14,11 +14,11 @@ import com.historydle.demo.Repository.UtilisateurRepository;
 public class UtilisateurService {
 
     private final UtilisateurRepository utilisateurRepository;
-
+    // Initialisation de la classe
     public UtilisateurService(UtilisateurRepository utilisateurRepository) {
         this.utilisateurRepository = utilisateurRepository;
     }
-
+    //Inscrit un utilisateur
     public Utilisateur inscrireUtilisateur(String pseudo, String mdp, String statut) {
         // Vérifiez si le pseudo existe déjà
         if (utilisateurRepository.findByPseudo(pseudo).isPresent()) {
@@ -46,26 +46,26 @@ public class UtilisateurService {
         // Si l'utilisateur n'est pas trouvé, l'authentification échoue
         return false;
     }
-
+    //Cherche si un pseudo existe
     public boolean existeParPseudo(String pseudo) {
         return utilisateurRepository.findByPseudo(pseudo).isPresent();
     }
-
+    //Cherche un utilisateur avec son pseudo
     public Optional<Utilisateur> findByPseudo(String pseudo) {
         return utilisateurRepository.findByPseudo(pseudo);
     }
-
+    // Renvoi la liste de tous les utilisateurs
     public List<Utilisateur> findAllUtilisateurs() {
         return utilisateurRepository.findAll();
     }
-
+    // Supprime un utilisateur grâce à son pseudo
     public boolean supprimerUtilisateur(String pseudo) {
         return utilisateurRepository.findByPseudo(pseudo).map(utilisateur -> {
             utilisateurRepository.delete(utilisateur);
             return true;
         }).orElse(false);
     }
-
+    // Modifie un utilisateur
     public void modifierUtilisateur(Long id, String nouveauPseudo, String nouveauMotDePasse) {
         utilisateurRepository.findById(id).ifPresent(utilisateur -> {
             utilisateur.setPseudo(nouveauPseudo);
@@ -73,7 +73,7 @@ public class UtilisateurService {
             utilisateurRepository.save(utilisateur);
         });
     }
-
+    // Rempli le csv utilisateur
     public void ecrireUtilisateursCsv() {
         List<Utilisateur> utilisateurs = findAllUtilisateurs();
 

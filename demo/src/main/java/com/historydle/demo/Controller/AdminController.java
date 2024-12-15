@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AdminController {
+    //Affiche la page Admin si la variable session admin est crée sinon renvoi sur connexion
     @GetMapping("/admin")
     public String accueil(HttpSession session) {
         String admin = (String) session.getAttribute("admin");

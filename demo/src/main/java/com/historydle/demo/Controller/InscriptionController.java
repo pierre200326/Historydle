@@ -19,7 +19,7 @@ public class InscriptionController {
     }
 
     private final UtilisateurService utilisateurService;
-
+    //Initialisation des fonctions de Utilisateurs
     public InscriptionController(UtilisateurService utilisateurService) {
         this.utilisateurService = utilisateurService;
     }
@@ -29,7 +29,7 @@ public class InscriptionController {
                         @RequestParam("password") String password, 
                         @RequestParam("confirm-password") String confirm_password,
                         Model model) {
-
+        // On regarde si le mot de passe et le même que le mot de passe confirmé
         if(password.equals(confirm_password)){
             boolean pseudoIndisponible = utilisateurService.existeParPseudo(username);
             if(pseudoIndisponible){
@@ -48,7 +48,7 @@ public class InscriptionController {
         }
 
     }
-
+    // Méthode pour ajouter l'inscription au csv
     public static void ajouterLigneCsv(String cheminFichier, String[] nouvelleLigne) {
         try (FileWriter writer = new FileWriter(cheminFichier, true)) {
             // Construire la ligne CSV
