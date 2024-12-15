@@ -20,7 +20,6 @@ import com.historydle.demo.Repository.PersonnageRepository;
 import com.historydle.demo.SuggestionService;
 import com.historydle.demo.UtilisateurService;
 
-
 @Component
 public class DataInitializer implements CommandLineRunner {
 
