@@ -10,15 +10,17 @@ import org.springframework.stereotype.Controller;
 import com.historydle.demo.Entity.Personnage;
 import com.historydle.demo.Repository.PersonnageRepository;
 
+//Cette classe gère la logique pour sélectionner un personnage comme réponse du jour pour le jeu des citations.
 @Controller
 public class ReponseCitationController {
 
     @Autowired
     private PersonnageRepository personnageRepository;
 
-    private static Personnage reponseDuJour; // Changer à static
+    private static Personnage reponseDuJour; 
     private static boolean isInitialized = false; // Flag pour éviter les réinitalisations
 
+    // Retourne le personnage sélectionné comme réponse du jour.
      public Personnage getReponseDuJour() {
         if (!isInitialized) {
             genererReponseDuJour("Citation");
@@ -27,6 +29,7 @@ public class ReponseCitationController {
         return reponseDuJour;
     }
 
+    // Génère aléatoirement un personnage comme réponse du jour en fonction d'une graine déterministe.
     private void genererReponseDuJour(String seedDuJeu) {
         List<Personnage> personnages = personnageRepository.findOnlyPersonnage();
         if (!personnages.isEmpty()) {

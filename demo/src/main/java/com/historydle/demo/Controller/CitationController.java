@@ -43,10 +43,11 @@ public class CitationController {
     private final List<Map<String, Object>> resultats = new ArrayList<>();
     private int tourDeJeu = 0; // Initialiser le compteur de tours
 
-
+    //La méthode renvoie la vue citation.
     @GetMapping("/citation")
     public String citation(Model model,HttpSession session) {
 
+        // Vérifie si un utilisateur est connecté via la session et affiche un message approprié dans la console
         String username = (String) session.getAttribute("username");
         if (username == null) {
             System.out.println("Aucun utilisateur n'est connecté");
@@ -60,6 +61,7 @@ public class CitationController {
         model.addAttribute("tourDeJeu", tourDeJeu);
         model.addAttribute("ageDisponibleDans", Math.max(0, 3 - tourDeJeu)); // Limiter à 0 minimum
         model.addAttribute("titreDisponibleDans", Math.max(0, 6 - tourDeJeu)); // Limiter à 0 minimum
+        // Cherche si dans la map de résultat, il existe déja la bonne réponse
         model.addAttribute("hasCorrectName", resultats.stream().anyMatch(resultat -> Boolean.TRUE.equals(resultat.get("nomCorrect"))));
         if (reponseDuJour != null) {
             model.addAttribute("citation", reponseDuJour.getCitation());
@@ -69,6 +71,7 @@ public class CitationController {
         return "citation";
     }
 
+    // Gère le système de suggestion automatique. Cherche dans la table si les noms de personnages qui contiennent la chaine de caractère reçu de manière insensible à la casse
     @GetMapping("/autocompleteCitation")
     @ResponseBody
     public List<String> autocompleteCitation(@RequestParam("query") String query) {
@@ -80,7 +83,7 @@ public class CitationController {
         return suggestions;
     }
 
-
+    //Cette méthode gère la vérification de la réponse de l'utilisateur.
     @PostMapping("/verifierReponseCitation")
     public String verifierReponseCitation(@RequestParam("reponse") String reponseUtilisateur, Model model, HttpSession session) {
         String pseudoUtilisateurConnecte = (String) session.getAttribute("username");
@@ -111,6 +114,7 @@ public class CitationController {
             String indiceAge=indices.get(0).getIndice();
             String indiceTitre=indices.get(1).getIndice();
     
+            // On rentre les résultats de l'utilisateur dans la table résultat
             resultat.put("nom", nomUtilisateur);
             resultat.put("nomCorrect", nomCorrect);
             resultat.put("indiceAge", indiceAge);
