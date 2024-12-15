@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
 public class ConnexionController {
 
     @GetMapping("/connexion")
-    public String accueil(HttpSession session) {
+    public String accueil(HttpSession session, Model model) {
         session.invalidate();
         return "connexion";
     }
@@ -36,7 +36,6 @@ public class ConnexionController {
         // Vérifie si l'utilisateur peut être authentifié
         boolean isAuthenticated = utilisateurService.authenticate(username, password);
         Optional<Utilisateur> optionalUtilisateur = utilisateurService.findByPseudo(username);
-        
         if (isAuthenticated) {
             // Si authentifié, redirige vers la page d'accueil ou tableau de bord
             System.out.println("connexion");

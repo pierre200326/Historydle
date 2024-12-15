@@ -1,5 +1,12 @@
 package com.historydle.demo.Controller;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +24,6 @@ import com.historydle.demo.Repository.PersonnageRepository;
 import com.historydle.demo.Repository.UtilisateurRepository;
 
 import jakarta.servlet.http.HttpSession;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class CitationController {
@@ -145,7 +145,6 @@ public class CitationController {
         resultats.add(0, resultat); 
         model.addAttribute("resultats", resultats);
         model.addAttribute("hasCorrectName", nomCorrect);
-
         return "redirect:/citation";
     }
 

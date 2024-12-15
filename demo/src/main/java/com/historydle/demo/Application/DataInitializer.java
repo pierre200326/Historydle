@@ -1,13 +1,15 @@
 package com.historydle.demo.Application;
 
-import org.springframework.core.io.ClassPathResource;
+import java.io.FileReader;
+import java.io.IOException;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.historydle.demo.SuggestionService;
-import com.historydle.demo.UtilisateurService;
 import com.historydle.demo.Controller.ReponseCitationController;
 import com.historydle.demo.Controller.ReponseDevinetteController;
 import com.historydle.demo.Controller.ReponsePortraitController;
@@ -15,12 +17,8 @@ import com.historydle.demo.Entity.Indice;
 import com.historydle.demo.Entity.Personnage;
 import com.historydle.demo.Repository.IndiceRepository;
 import com.historydle.demo.Repository.PersonnageRepository;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Iterator;
+import com.historydle.demo.SuggestionService;
+import com.historydle.demo.UtilisateurService;
 
 
 @Component
@@ -47,7 +45,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        loadUsersFromCsv();
+        /*loadUsersFromCsv();
 
         createPersonnage("Napoléon Bonaparte", "Homme", "France", "Europe", "Dirigeant/Militaire", 19,"“Les hommes de génie sont des météores destinés à brûler pour éclairer leur siècle”","51 ans","Empereur des Français");
         createPersonnage("Leonard De Vinci", "Homme", "Italie", "Europe", "Artiste", 16,"“Nul conseil n'est plus loyal que celui qui se donne sur un navire en péril”","67 ans","Maître de la Renaissance");
@@ -110,7 +108,7 @@ public class DataInitializer implements CommandLineRunner {
         createPersonnage("Rosa Parks", "Femme", "États-Unis", "Amérique", "Activiste", 21, "“J’aimerais qu’on se souvienne de moi comme d’une personne qui voulait être libre... pour que d’autres le soient aussi.”", "92 ans", "Icône du mouvement des droits civiques américains");
         createPersonnage("Simone De Beauvoir", "Femme", "France", "Europe", "Philosophe", 20, "“On ne naît pas femme, on le devient.”", "78 ans", "Écrivaine et philosophe féministe");
         createPersonnage("Hannah Arendt", "Femme", "Allemagne", "Europe", "Philosophe", 20, "“La triste vérité est que la plupart des actes mauvais sont commis par des personnes qui n’ont jamais décidé d’être bonnes ou mauvaises.”", "69 ans", "Philosophe et théoricienne politique");
-
+*/
         // personnageRepository.findAll().forEach(p -> System.out.println("Personnage : " + p.getNom() + p.getImage()));
 
         //Afficher les réponses du jour

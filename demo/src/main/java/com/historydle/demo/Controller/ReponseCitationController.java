@@ -1,14 +1,14 @@
 package com.historydle.demo.Controller;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.historydle.demo.Entity.Personnage;
 import com.historydle.demo.Repository.PersonnageRepository;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Random;
 
 @Controller
 public class ReponseCitationController {
@@ -28,7 +28,7 @@ public class ReponseCitationController {
     }
 
     private void genererReponseDuJour(String seedDuJeu) {
-        List<Personnage> personnages = personnageRepository.findAll();
+        List<Personnage> personnages = personnageRepository.findOnlyPersonnage();
         if (!personnages.isEmpty()) {
             LocalDate today = LocalDate.now(); // Date du jour
             int seed = (today.toString() + seedDuJeu).hashCode(); 
