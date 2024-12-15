@@ -57,9 +57,9 @@ Afin d'implementer celui-ci nous avons séparé chaque fonctionnalités sous tro
 - **Vue** : Regroupe toutes les pages HTML. A noter que l'on a utilisé l'outils Thymeleaf.
 - **Contrôleur** : Gère les requêtes utilisateur et transfère les données entre le modèle et la vue. Nous avons un Controller pour toutes les vues et fonctionnalités existantes sur le site. 
 
-2 . Le projet utilise toutes les méthodes HTTP demandées (GET,POST,PUT,DELETE). Nous avons notamment utilisé, la méthode GET lorsque l'on souhaite récupérer tous les personnages. La méthode POST a pu être utilisé pour récupérer la réponse de l'utilisateur, la comparer, enregistrer la réponse et renvoyer vers la nouvelle page actualiser. Enfin les méthodes PUT et DELETE sont utilisées dans l'admin pour modifier ou supprimer un utilisateur.
+2  Nous avons notamment utilisé, la méthode GET lorsque l'on souhaite récupérer tous les personnages ou lors des GetMapping. La méthode POST a pu être utilisé pour récupérer la réponse de l'utilisateur, la comparer, enregistrer la réponse et renvoyer vers la nouvelle page actualiser. Enfin du côté admin, il est possible de modifier et de supprimer des utilisateurs. Néanmoins nous n'avons pas utilisé directement les méthodes put et delete mais nous sommes passés par des méthodes get, post ou des méthodes des méthodes équivalentes.
 
-3 . Chaque que toutes les vues manipulent des données transmises par leur contrôleur tels que la réponse de l'utilisateur ou encore l'affichage du personnage à trouver.
+3 . Chaque vues manipulent des données transmises par leur contrôleur tels que la réponse de l'utilisateur ou encore l'affichage du personnage à trouver.
 
 #### Détails des Entités
 
@@ -91,6 +91,7 @@ Afin d'implementer celui-ci nous avons séparé chaque fonctionnalités sous tro
      - N-1 avec "Personnage" (chaque indice appartient à un personnage)
 
 #### Futur de Historydle
+Notre utilisation des csv s'est avérée moins utile que nous ne le pensions et nous aimerions les enlever totalement. Néanmoins nous avons réalisé cela un peu tardivement et nous avons préféré nous concentrer sur des fonctionnalités et des consignes plus importantes.
 Après avoir réalisé ce projet, nous envisageons de déployer ce site, afin de donner à tout le monde la possibilité de tester notre site et de tester ses connaissances quotidiennement.
 Nous pourrions rajouter des fonctionnalités supplémentaires comme un top des joueurs du jour (classement du plus faible nombre d'essais par exemple), un classement des joueurs les plus réguliers, de nouveaux modes de jeux etc.
 
