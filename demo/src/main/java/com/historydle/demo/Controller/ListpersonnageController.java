@@ -1,5 +1,13 @@
 package com.historydle.demo.Controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +21,6 @@ import com.historydle.demo.Repository.PersonnageRepository;
 import com.historydle.demo.Repository.UtilisateurRepository;
 
 import jakarta.servlet.http.HttpSession;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 // Controller pour gérer la page de la liste des personnages
 @Controller
