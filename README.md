@@ -94,7 +94,7 @@ Afin d'implementer celui-ci nous avons séparé chaque fonctionnalités sous tro
 Après avoir réalisé ce projet, nous envisageons de déployer ce site, afin de donner à tout le monde la possibilité de tester notre site et de tester ses connaissances quotidiennement.
 Nous pourrions rajouter des fonctionnalités supplémentaires comme un top des joueurs du jour (classement du plus faible nombre d'essais par exemple), un classement des joueurs les plus réguliers, de nouveaux modes de jeux etc.
 
-## Authors 👩‍💻
+## Auteurs 👩‍💻
 
 - [@Pierre NICHELE](https://github.com/pierre200326)
 - [@Antonin CUYALA](https://github.com/AntoCu)
