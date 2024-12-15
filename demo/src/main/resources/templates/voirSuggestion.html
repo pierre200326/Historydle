@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Inclusion de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>   
+    
+</head>
+<body>
+    <div class="absolute top-4 right-4">
+        <a th:href="@{/admin}" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold text-lg rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105">
+            Retour
+        </a>
+    </div>
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Liste des Suggestion</h1>
+        <table class="table-auto border-collapse border border-gray-300 w-full">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 px-4 py-2 text-left">Nom</th>
+                    <th class="border border-gray-300 px-4 py-2 text-left">Genre</th>
+                    <th class="border border-gray-300 px-4 py-2 text-left">Pays</th>
+                    <th class="border border-gray-300 px-4 py-2 text-left">Continent</th>
+                    <th class="border border-gray-300 px-4 py-2 text-left">Domaine</th>
+                    <th class="border border-gray-300 px-4 py-2 text-left">Periode</th>
+                    <th class="border border-gray-300 px-4 py-2 text-left">Citation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Boucle sur la liste des utilisateurs -->
+                <tr th:each="suggestion : ${suggestion}">
+                    <td class="border border-gray-300 px-4 py-2" th:text="${suggestion.nom}"></td>
+                    <td class="border border-gray-300 px-4 py-2" th:text="${suggestion.genre}"></td>
+                    <td class="border border-gray-300 px-4 py-2" th:text="${suggestion.pays}"></td>
+                    <td class="border border-gray-300 px-4 py-2" th:text="${suggestion.continent}"></td>
+                    <td class="border border-gray-300 px-4 py-2" th:text="${suggestion.domaine}"></td>
+                    <td class="border border-gray-300 px-4 py-2" th:text="${suggestion.periode}"></td>
+                    <td class="border border-gray-300 px-4 py-2" th:text="${suggestion.citation}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
