@@ -4,6 +4,7 @@ const validateButton = document.querySelector('button[type="submit"]');
 const searchForm = document.getElementById('searchForm');
 let currentSuggestions = [];
 
+// Si le formulaire de recherche n'existe pas (victoire atteinte), lance l'animation des confettis
 if (searchForm===null){
     lancerConfettis();
 }
@@ -12,6 +13,7 @@ else{
     validateButton.disabled = true;
 }
 
+// Écoute les changements dans le champ de recherche pour réagir en temps réel
 searchInput.addEventListener('input', function() {
     const query = this.value;
     suggestionsBox.innerHTML = '';

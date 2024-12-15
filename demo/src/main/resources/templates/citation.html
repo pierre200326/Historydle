@@ -11,6 +11,7 @@
     <div class="max-w-3xl mx-auto p-6">
         <div class="mb-4" th:insert="~{fragments/menu :: menu}"></div>
         
+        <!-- Bloc principal contenant la citation et les indices -->
         <div class="bg-amber-50 border-solid border-2 border-black shadow-md rounded-lg p-6 mb-6">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Quel personnage historique a prononcé ces mots ?</h2>
             <p class="text-3xl mb-4 italic text-center text-gray-700" th:text="${citation}">La citation à deviner</p>
@@ -45,9 +46,9 @@
         </div>
         
 
-        <!-- Search Form -->
+        <!-- Forme de recherche -->
         <div id="searchForm" class="bg-amber-50 shadow-md rounded-lg p-6 mb-6 flex items-center"
-            th:if="${hasCorrectName == false}">
+            th:if="${hasCorrectName == false}"> <!-- Si la réponse est trouvé on affiche pas la div -->
             <!-- Champ de recherche et suggestions -->
             <div class="w-full">
                 <form action="#" th:action="@{/verifierReponseCitation}" method="post">
@@ -67,7 +68,7 @@
             </div>
         </div>
 
-        <!-- Results Table -->
+        <!-- Table des résultats -->
         <div class="bg-amber-50 shadow-md rounded-lg p-6">
             <h3 class="text-xl text-center font-semibold text-gray-800 mb-4">Vos pronos</h3>
             <div class="overflow-x-auto">
